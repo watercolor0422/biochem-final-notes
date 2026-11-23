@@ -1,0 +1,838 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="icon" href="img/tomato.png"><title>기출문제공장</title><meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+/* 레이아웃: 기말 노트 허브와 같은 흰 머리띠·베이지 바탕. 시험지처럼 한 줄 기둥에 문항 카드, 위쪽 고정 막대에서 보기 방식 전환 */
+:root{
+--bg:#FAF7F1;--card:#FFFFFF;--ink:#2B2622;--muted:#766E66;--line:#E8E0D3;--soft:#F4EEE4;
+--head:#FFFFFF;--head-fg:#2B2622;--head-dim:#766E66;
+--coral:#D8432C;--coral-ink:#A8301E;--butter:#FFD36B;--butter-soft:#FFF6DD;--teal:#2F6B3A;--blue:#2A5FAF;
+--ok:#2E7A4A;--ok-soft:#E1F1E5;--bad:#C0281C;--bad-soft:#FCE4DF;--hold:#7A3FA8;--hold-soft:#F3EAFA;--sel:#2A5FAF;--sel-soft:#E6ECF8;--star:#D9890B;
+--sans:'Nanum Gothic','NanumGothic','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--bg:#1A1816;--card:#24211E;--ink:#EEE8E0;--muted:#A9A095;--line:#3A3530;--soft:#2C2824;
+--head:#201D1A;--head-fg:#EEE8E0;--head-dim:#A9A095;
+--coral:#FF7A61;--coral-ink:#FF9C88;--butter:#F2C55E;--butter-soft:#2E2614;--teal:#84C38A;--blue:#8DB4F0;
+--ok:#66C98E;--ok-soft:#16301F;--bad:#FF8A7A;--bad-soft:#3A1C18;--hold:#C7B2F5;--hold-soft:#271E36;--sel:#8DB4F0;--sel-soft:#1C2A40;--star:#F2B640;color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#1A1816;--card:#24211E;--ink:#EEE8E0;--muted:#A9A095;--line:#3A3530;--soft:#2C2824;
+--head:#201D1A;--head-fg:#EEE8E0;--head-dim:#A9A095;
+--coral:#FF7A61;--coral-ink:#FF9C88;--butter:#F2C55E;--butter-soft:#2E2614;--teal:#84C38A;--blue:#8DB4F0;
+--ok:#66C98E;--ok-soft:#16301F;--bad:#FF8A7A;--bad-soft:#3A1C18;--hold:#C7B2F5;--hold-soft:#271E36;--sel:#8DB4F0;--sel-soft:#1C2A40;--star:#F2B640;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 130px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--head)}
+button,textarea{font:inherit;color:inherit}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+img{max-width:100%;height:auto}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.in{max-width:820px;margin:0 auto}
+.snav{background:var(--head);color:var(--head-fg);font-size:13.5px;padding-block:8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.snav a{color:inherit;text-decoration:none;font-weight:800}
+header.hero{background:var(--head);color:var(--head-fg);padding-block:22px 26px}
+.k{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--butter);font-weight:800}
+h1{font-size:clamp(1.8rem,6vw,2.5rem);line-height:1.2;margin:.15em 0 .3em;text-wrap:balance}
+.credit{display:inline-block;margin-left:.6em;font-size:.36em;font-weight:400;opacity:.45;white-space:nowrap;vertical-align:middle}
+.lede{margin:0;opacity:.88;max-width:62ch}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.stats span{border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:2px 11px;font-size:13px;font-variant-numeric:tabular-nums}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.bar .in{display:flex;flex-direction:column;gap:7px;padding-block:9px}
+.row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:1px}
+.row::-webkit-scrollbar{display:none}
+.tab{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--muted);font-weight:800;font-size:13.5px;padding:5px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.tab[aria-pressed="true"]{background:var(--head);border-color:var(--head);color:var(--head-fg)}
+:root[data-theme="dark"] .tab[aria-pressed="true"]{background:var(--butter);border-color:var(--butter);color:#2b2410}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tab[aria-pressed="true"]{background:var(--butter);border-color:var(--butter);color:#2b2410}}
+.tab .n{font-weight:400;opacity:.7;margin-left:4px;font-variant-numeric:tabular-nums}
+.sub .tab{font-size:12.5px;padding:3px 10px;border-width:1px}
+.score{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.score b{color:var(--ink)}
+.score button{border:1px solid var(--line);background:transparent;border-radius:7px;padding:1px 8px;font-size:12px;cursor:pointer;color:var(--muted)}
+main{padding-block:16px 60px}
+.intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:14px;font-size:14.5px}
+.intro h2{font-size:1.1rem;margin:0 0 4px}
+.intro ul{margin:4px 0 0;padding-left:1.2em}.intro li{margin:2px 0}
+.intro.warn{background:var(--butter-soft);border-color:var(--butter)}
+.grp{font-size:13px;font-weight:800;color:var(--muted);letter-spacing:.04em;margin:22px 0 8px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.grp b{color:var(--ink);font-size:1.05rem;letter-spacing:0}
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px}
+.q.starred{border-color:var(--star)}
+.qh{display:flex;align-items:flex-start;gap:8px}
+.chips{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:12px}
+.yr{background:var(--head);color:var(--head-fg);font-weight:800;border-radius:6px;padding:0 7px;line-height:1.75}
+:root[data-theme="dark"] .yr{background:var(--teal);color:#0b1412}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .yr{background:var(--teal);color:#0b1412}}
+.yr.no{background:var(--coral);color:#fff}
+.ch{font-weight:800;color:var(--teal);border:1.5px solid currentColor;border-radius:6px;padding:0 6px;line-height:1.6}
+.kd{color:var(--muted)}
+.tb{color:var(--coral-ink);font-weight:800;border:1.5px solid currentColor;border-radius:6px;padding:0 6px;line-height:1.6}
+.tchip{border:0;background:var(--hold-soft);color:var(--hold);font-weight:800;font-size:12px;border-radius:6px;padding:1px 7px;cursor:pointer}
+.starbtn{flex:none;border:0;background:transparent;cursor:pointer;color:var(--muted);padding:2px;margin:-4px -6px 0 0;line-height:0;border-radius:8px}
+.starbtn[aria-pressed="true"]{color:var(--star)}
+.starbtn svg{width:24px;height:24px}
+.qt{margin:8px 0 0;font-size:16px;line-height:1.75}
+.fig{margin:10px 0 0;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center}
+.fig img{display:block;margin:0 auto;max-height:460px;width:auto}
+.opts{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;border:1.5px solid var(--line);background:var(--card);border-radius:10px;padding:8px 10px;cursor:pointer;line-height:1.6}
+.opt:hover{border-color:var(--sel)}
+.opt .lb{flex:none;min-width:24px;height:24px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:12.5px;border:1.5px solid var(--line);color:var(--muted);padding:0 4px}
+.opt .tx{flex:1;min-width:0}
+.opt .ko{display:block;color:var(--muted);font-size:13.5px}
+.opt.sel{border-color:var(--sel);background:var(--sel-soft)}
+.opt.sel .lb{background:var(--sel);border-color:var(--sel);color:var(--card)}
+.opt.ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.ok .lb{background:var(--ok);border-color:var(--ok);color:var(--card)}
+.opt.ng{border-color:var(--bad);background:var(--bad-soft)}
+.opt.ng .lb{background:var(--bad);border-color:var(--bad);color:var(--card)}
+.opt.na{border-style:dashed}
+.opt .ex{display:block;font-size:13.5px;color:var(--ink);margin-top:3px;padding-top:3px;border-top:1px dashed var(--line)}
+.opt .mk{flex:none;font-size:11.5px;font-weight:800;padding-top:3px}
+.opt.ok .mk{color:var(--ok)}.opt.ng .mk{color:var(--bad)}.opt.na .mk{color:var(--hold)}
+.opts.done .opt{cursor:default}
+.acts{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.btn{border:1.5px solid var(--head);background:var(--head);color:var(--head-fg);font-weight:800;font-size:14px;border-radius:9px;padding:6px 14px;cursor:pointer}
+:root[data-theme="dark"] .btn{background:var(--butter);border-color:var(--butter);color:#2b2410}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{background:var(--butter);border-color:var(--butter);color:#2b2410}}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.verdict{margin-top:8px;font-weight:800;font-size:14.5px}
+.verdict.good{color:var(--ok)}.verdict.bad{color:var(--bad)}
+textarea{width:100%;min-height:76px;margin-top:10px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--bg);resize:vertical;font-size:15px}
+.box{margin-top:10px;border-radius:10px;padding:9px 13px;font-size:14.5px;line-height:1.75}
+.box .lab{display:block;font-size:12px;font-weight:800;letter-spacing:.04em}
+.box p{margin:4px 0}
+.model{background:var(--ok-soft)}.model .lab{color:var(--ok)}
+.basic{background:var(--soft)}.basic .lab{color:var(--teal)}
+.memo{margin-top:8px;font-size:13px;color:var(--muted);border-left:3px solid var(--butter);padding-left:9px}
+.links{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px}
+.type{background:var(--card);border:2px solid var(--hold-soft);border-radius:16px;padding:14px 16px;margin-bottom:14px}
+.type h3{margin:0;font-size:1.1rem;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.type .cnt{font-size:12px;font-weight:800;color:var(--hold);background:var(--hold-soft);border-radius:6px;padding:0 7px}
+.type .core{margin:6px 0 8px;font-size:14.5px}
+.tblw{overflow-x:auto}
+.type table{border-collapse:collapse;width:100%;font-size:13.5px}
+.type td{border-top:1px solid var(--line);padding:4px 6px;vertical-align:top}
+.type td:first-child{white-space:nowrap;font-weight:800;color:var(--muted);width:1%}
+.type details{margin-top:8px}
+.type summary{cursor:pointer;font-weight:800;font-size:13.5px;color:var(--hold)}
+.type .q{border-color:var(--line);margin-top:10px}
+.empty{text-align:center;color:var(--muted);padding:40px 16px;border:1.5px dashed var(--line);border-radius:14px}
+.foot{text-align:center;font-size:12px;opacity:.5;padding-block:10px 40px}
+.flash{animation:fl 1.6s}
+@keyframes fl{0%,40%{box-shadow:0 0 0 3px var(--coral)}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.flash{animation:none}}
+</style>
+<nav class="snav gut"><div class="in" style="display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center"><a href="index.html">← 의약생화학 기말 노트</a><a class="core-link" href="exam-core.html" style="margin-left:auto;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 10px">기출 핵심 요약 →</a></div></nav>
+<header class="hero gut"><div class="in"><img class="vine" src="img/vine.png" alt="" width="239" height="581">
+<div class="k">Medicinal Biochemistry · Final · 기출</div>
+<h1>기출문제공장<span class="credit">민서정리 @ms_offixe_</span></h1>
+<p class="lede">2015~2025 기말·퀴즈 복기에서 나온 문제를 직접 풀고 채점해요. 보기마다 왜 맞고 틀린지 해설이 붙고, 두 해 이상 나온 주제는 「반복 유형」에서 해마다 바뀐 보기를 한눈에 비교할 수 있어요.</p>
+<div class="stats" id="stats"></div>
+</div></header>
+<div class="bar gut"><div class="in">
+<div class="row" id="views" role="toolbar" aria-label="보기 방식"></div>
+<div class="row sub" id="subs" role="toolbar" aria-label="세부 선택"></div>
+<div class="score" id="score"></div>
+</div></div>
+<main class="gut"><div class="in" id="list"></div></main>
+<div class="foot gut">면역반 민서정리 @water_.color_</div>
+<script>
+const Q=[]; const P=o=>Q.push(o);
+/* 반복 출제 유형 — 두 해 이상 나온 주제. core = 매번 묻는 핵심, diff = 해마다 바뀐 보기 */
+const TYPES = [
+{id:'katp',ch:'23',t:'β세포 K_ATP·설포닐유레아',core:'Kir6.2 = <b>ATP<\/b>(닫힘)·PIP₂ / SUR1 = ADP·<b>diazoxide(열림)<\/b>·tolbutamide(닫힘) · 팔량체 SUR1×4 + Kir6.2×4 · 1세대 tolbutamide, 2세대 glyburide · 설포닐유레아는 <b>2형만<\/b>',
+diff:[['2023','Kir6.2-GTP·SUR-GDP(X) / diazoxide가 민감성↑(X)'],['2021','분비가 올라가는 과정 순서'],['2019','1·2형 모두 치료(X)'],['2017Q','diazoxide 2세대(X)'],['2016','1·2형 모두 치료(X)']]},
+{id:'liver',ch:'23',t:'간 대사',core:'GLUT2 = [포도당]혈액 ≈ 간세포 · 글루코키네이스 Km↑, <b>G6P에 억제 X<\/b> · G6P = 환승역 · 간 연료 = 지방산 · TAG는 <b>VLDL<\/b> · 케톤체 연료는 2종(아세톤 X)',
+diff:[['2025','HK IV가 G6P에 억제(X) / 케톤체 3종(X) / 글리코겐 주 저장원(?)'],['2023','TAG가 LDL로(X)'],['2017Q','GLUT4(X) / FA가 문맥으로(X) / 아미노산 저장(X)'],['2016','2017과 같은 보기']]},
+{id:'mtor',ch:'23',t:'mTORC1',core:'<b>Ser/Thr 키네이스<\/b> — "티로신" 보기가 매번 정답 · 영양·성장인자로 활성 → PPP, PGC-1α, HIF-1α, SREBP·PPARγ',
+diff:[['2025','tyrosine kinase(X)'],['2022','같은 유형'],['2019','downstream 티로신 인산화(X)'],['2016','2019와 같음']]},
+{id:'muscle',ch:'23',t:'근육·PCr',core:'속근 = 미토콘드리아 <b>적음<\/b>, 근육 글리코겐 → 젖산 · 휴식 = 지방산·케톤체 · PCr = ATP의 <b>3~5배<\/b>, 확산 · mCK·cCK · 크레아티닌 → 신장',
+diff:[['2025','미토콘드리아 많음(X) / 수송체(X) / 10배(X)'],['2023','미토콘드리아 적음(O) / 에너지원 포도당·케톤체(X)'],['2017Q','PCr이 항상 ATP보다 높음(?)']]},
+{id:'ppar',ch:'23',t:'PPAR',core:'RXR 이형이량체 · α = 간·근육 지방산 산화·기아 반응(피브레이트 <b>작용제<\/b>) · γ = 지방 저장·인슐린 감수성(TZD <b>작용제<\/b>) · δ <b>활성<\/b> = 비만 치료 표적',
+diff:[['2025','피브레이트·TZD "억제"(X) / δ 억제(X)'],['2023','같은 유형'],['2016','그림 23-42 빈칸 α·γ·δ']]},
+{id:'leptin',ch:'23',t:'렙틴',core:'렙틴 = <b>OB<\/b>, 수용체 = <b>DB<\/b> · 수용체는 시상하부(막, JAK-STAT) · NPY↓ α-MSH↑ · 렙틴 주입 효과 = ob/ob만 · 비만은 렙틴 저항성 · 공통 기질 IRS-2',
+diff:[['2023','DB가 렙틴(X) / 핵 수용체(X) / IRS-1(X)'],['2017Q','뇌하수체(X) / db/db 주입(X)'],['2016','2017과 같음']]},
+{id:'glucagon',ch:'23',t:'글루카곤 표적',core:'억제: PK·ACC·PFK-1(F2,6BP↓)·글리코겐 합성효소 / 활성: 포스포릴레이스·PEPCK·FBPase-2·HSL · 페릴리핀은 <b>인산화<\/b>',
+diff:[['2019','활성화되지 않는 효소'],['2017Q','같은 유형'],['2016','perilipin 탈인산화(X)']]},
+{id:'ant',ch:'23',t:'뇌하수체 전엽',core:'전엽 = tropin(ACTH·TSH·GH·FSH·LH·프로락틴) · <b>somatostatin은 아님<\/b> · 후엽 = 옥시토신·바소프레신',
+diff:[['2023','somatostatin 함정'],['2017Q','FSH만 전엽'],['2016','후엽/전엽 관련 없는 것']]},
+{id:'hormix',ch:'23',t:'호르몬 종합',core:'C 펩타이드 = 지표 · PLA₂ → 아라키돈산 · 티로글로불린 → T₄ → T₃ · 활성 비타민 D = <b>칼시트리올<\/b> · 기형 = 레티노이드 · NO → <b>cGMP<\/b>',
+diff:[['2023','모두 O'],['2022','혈당↑ → S–S 생성(X)'],['2019','칼시페롤(X) / 비타민 E(X) / cAMP(X)']]},
+{id:'ampk',ch:'23',t:'AMPK',core:'⊗ ACC·HSL·HMGR·mTORC1·GPAT / ↑ GLUT1·4·PFK-2 · 말로닐-CoA↓ → CAT I 풀림 → β산화↑ · <b>지방분해는 억제<\/b>',
+diff:[['2023','영향 받는 것'],['2016','지방분해 증가(X)']]},
+{id:'ketone',ch:'23',t:'케톤체',core:'OAA 부족·NADH/NAD⁺ <b>높을 때<\/b> · 아세톤 = 날숨 · 공복 시 <b>β-HB<\/b>가 가장 크게 상승',
+diff:[['2023','β-HB 최대'],['2016','NADH 부족(X)']]},
+{id:'insulin',ch:'23',t:'인슐린 구조·분비',core:'신호서열 N말단 · S–S는 접힘 때 형성 · C 펩타이드 = 지표 · RIA = 표지 <b>호르몬<\/b>',
+diff:[['2017Q','항체에 동위원소(X)'],['2016','혈당↑ → S–S 생성(X)']]},
+{id:'eico',ch:'23',t:'에이코사노이드',core:'C20 아라키돈산 · <b>PLA₂<\/b> · 저장 X · GPCR · 예 = 트롬복산',
+diff:[['2017Q','PLD(X) / 미리 합성(X)'],['2016','예 고르기 → 트롬복산']]},
+{id:'hypo',ch:'23',t:'시상하부',core:'방출인자 · 문맥 → 전엽 · 코르티솔 = 부신 <b>피질<\/b>',diff:[['2023','옥시토신·바소프레신 후엽 분비'],['2022','adrenal medulla(X)']]},
+{id:'appetite',ch:'23',t:'식욕 호르몬',core:'촉진 = <b>그렐린<\/b> · 렙틴·인슐린 = 둘 다 감소',diff:[['2021','TB: decreases; decreases'],['2016','그렐린']]},
+{id:'tnf',ch:'23',t:'비만 지방조직 염증',core:'지방세포 → <b>MCP-1<\/b> → 대식세포 유인 → <b>TNFα<\/b> → 인슐린 저항성',diff:[['2022','TNF-α'],['2016','그림 빈칸 (a)(b)']]},
+{id:'t2d',ch:'23',t:'2형 당뇨 치료',core:'DPP-4 억제제 = GLP-1 <b>분해 억제<\/b> · TZD = PPARγ · 메트포르민·운동 = AMPK · PRDM16',diff:[['2022','DPP-4가 GLP-1 분해(X)'],['2016','TAG 증가(X)']]},
+{id:'ria',ch:'23',t:'RIA',core:'비표지·표지 <b>호르몬<\/b>이 항체를 두고 경쟁',diff:[['2021','TB 23-1'],['2017Q','TB 23-1']]},
+{id:'lirko',ch:'23',t:'간 인슐린 수용체 KO (연습문제)',core:'포도당 high, G6Pase high',diff:[['2019','서술'],['2017Q','서술']]},
+{id:'aaa',ch:'25',t:'AAA+ ATPase',core:'AAA+ = DnaA·DnaC·Hda·클램프 로더·ORC(·RuvB) · 아닌 것 = <b>DnaG<\/b>(2017은 <b>DnaB<\/b>)',diff:[['2025','DnaG'],['2023','DnaG'],['2017Q','DnaB']]},
+{id:'lig',ch:'25',t:'DNA 연결효소 보조인자',core:'대장균 <b>NAD⁺<\/b>, 진핵 <b>ATP<\/b> · AMP-Lys → AMP-5\'-P · 3\'-OH 공격 · NADP⁺ X',diff:[['2025','ATP·NAD⁺ 모두'],['2022','NADP⁺'],['2017Q','NADP⁺']]},
+{id:'fullname',ch:'25',t:'Full name',core:'Tus · ARS(Autonomously Replicating Sequence) · RSS · Umu(Unmutable) · TLS',diff:[['2022','같은 유형'],['2019','같은 유형'],['2017Q','같은 유형']]},
+{id:'proeu',ch:'25',t:'원핵–진핵 대응',core:'MutS–MSH · MutL–MLH1·PMS1 · β–PCNA · 클램프 로더–RFC · DnaA–ORC · DnaB–MCM · DnaC–CDC6·CDT1',diff:[['2023','MutH–MSH(X)'],['2022','같은 유형'],['2017Q','로더–PCNA(X) / DnaC–helicase(X)']]},
+{id:'init',ch:'25',t:'대장균 복제 개시',core:'oriC: R 9 bp×5(DnaA), DUE 13 bp×3, IHF·FIS · DnaB <b>5\'→3\'<\/b> · DnaG 프라이머 · DnaH는 없음',diff:[['2023','같은 유형'],['2022','DnaB 3\'→5\'(X)'],['2016','DnaH']]},
+{id:'ner',ch:'25',t:'NER',core:'5\' 절개 <b>UvrC<\/b>, 3\' 절개 UvrB · 대장균 12~13 mer / 사람 <b>29 mer<\/b> · 사람 틈 = Pol ε',diff:[['2025','단답: excinuclease·Pol ε'],['2019','UvrC'],['2017Q','UvrC']]},
+{id:'chi',ch:'25',t:'Chi 인식',core:'<b>RecC<\/b> · RecB = 3\'→5\' 헬리케이스+뉴클레이스 · RecD = 5\'→3\'',diff:[['2023','RecC'],['2022','RecC'],['2016','RecC (두 반 모두)']]},
+{id:'meiosis',ch:'25',t:'감수분열 재조합',core:'DSB → 3\' 말단 침입 → <b>홀리데이 2개<\/b> → 교차',diff:[['2022','single Holliday(X)'],['2017Q','single Holliday(X)'],['2016','single Holliday(X)']]},
+{id:'recomb',ch:'25',t:'재조합 종합',core:'Cre = <b>Tyr형<\/b> · IgG = <b>분자 내<\/b> 전이에스터화 · 반대 방향 = 역위, 같은 방향 = 결실',diff:[['2025','Ser형(X) / intermolecular(X)'],['2023','마주 보는 자리 → 결실(X) / intramolecule(O)']]},
+{id:'methyl',ch:'25',t:'DNA 메틸화',core:'Dam = <b>GATC<\/b>, SAM 공여 · MutH = 반메틸화 인식 · SeqA · MutS는 무관',diff:[['2019','MutS'],['2017Q','MutS']]},
+{id:'mmrexo',ch:'25',t:'불일치 수선 엑소',core:'3\'→5\' = Exo I·X / 5\'→3\' = Exo VII·RecJ',diff:[['2023','Exo I'],['2016','그림 빈칸']]},
+{id:'sosnot',ch:'25',t:'SOS 유전자',core:'표 25-6: uvrA·uvrB·umuC·umuD·sulA·recN·dinB·uvrD·recA… · uvrC·Pol η는 아님',diff:[['2023','uvrC'],['2016','Pol η']]},
+{id:'ruvc',ch:'25',t:'홀리데이 절단',core:'<b>RuvC<\/b> · RuvA 결합 · RuvB 모터',diff:[['2019','RuvC'],['2017Q','RuvC']]},
+{id:'chiasma',ch:'25',t:'Chiasma',core:'비자매 염색분체 교차점',diff:[['2022','단답'],['2016','단답(두 반)']]},
+];
+
+TYPES.push(
+{id:'pap',ch:'26',t:'주형이 필요 없는 중합효소',core:'<b>Polyadenylate polymerase<\/b> · 텔로머레이스는 자기 RNA 주형 사용(주형 필요)',diff:[['2025','모두 고르기 + 텔로머레이스 함정'],['2023','PAP'],['2022','PAP(TB 영문)'],['2021','PAP'],['2019','PAP'],['2017Q','단답 PAP']]},
+{id:'mirna',ch:'26',t:'miRNA 생성',core:'pri-miRNA = <b>Pol II<\/b> → Drosha(핵) → Exportin 5·Ran → Dicer(세포질) → RISC · 부분 상보 = 번역 억제',diff:[['2023','Pol I(X)'],['2022','Pol I(X) — 복기 답 2'],['2017Q','Pol I(X) / "transcription을 막는다"(X)'],['2016','Pol I(X)']]},
+{id:'ubiq',ch:'27',t:'유비퀴틴·프로테아좀',core:'E1 = ATP → <b>AMP<\/b>+PPi, 티오에스터 · Ub C말단 <b>Gly<\/b> → 표적 Lys(isopeptide) · 19S 인식 · 20S <b>β<\/b> = 분해',diff:[['2023','E1 ATP→ADP(X) / α protease(X)'],['2022','α catalytic(X)'],['2019','α catalytic(X)'],['2017','ATP→ADP(X) / Gly가 표적에 먼저(X) / 20S가 인식(X)'],['2016','α protease(X) / Lys 카복실기(X)']]},
+{id:'tonegawa',ch:'28',t:'Tonegawa 인핸서',core:'Ig H 유전자 인트론의 인핸서 · <b>위치·방향 무관<\/b> · 역반복은 인핸서 특징 아님',diff:[['2023','같은 유형'],['2022','같은 보기'],['2019','같은 보기'],['2017','단답 enhancer'],['2015','단답']]},
+{id:'aars',ch:'27',t:'아미노아실-tRNA 합성효소',core:'한 효소가 tRNA·aa 모두 인식 · aminoacyl-<b>AMP<\/b> · class I = <b>2\'-OH<\/b>(Val·Ile·Leu·Met…), class II = 3\'-OH(Ala·Gly·Lys…) · IleRS 교정(Val 구별) · G3·U70 = 정체성',diff:[['2023','class I 2\'-OH(O) / Ala class I(X)'],['2022','class II Ala(O) / ADP(X)'],['2019','Ala class II(O) / G-U proofreading(X)'],['2017','adenylation / IleRS vs HisRS 서술'],['2016','특이 tRNA·aa 인식(O)'],['2015','class I = Val, 아닌 것 Lys / 단답 IleRS']]},
+{id:'term',ch:'27',t:'번역 종결 인자',core:'RF · RRF · EF-G · IF-3 / <b>PABP는 아님<\/b>',diff:[['2022','"단백질 합성에 직접 관여 X" 버전'],['2017','PABP'],['2016','PABP'],['2015','PABP(문장 반대로 복기)']]},
+{id:'tfiih',ch:'26',t:'TFIIH',core:'헬리케이스·ATP 가수분해·열린 복합체·<b>CTD 인산화<\/b>·NER · Pol II를 <b>데려오지 않음<\/b> · 종결 X',diff:[['2022','Pol II recruit(X)'],['2021','같은 유형'],['2017Q','Pol II recruit(X)'],['2016','전사 종결(X)']]},
+{id:'aconitase',ch:'28',t:'Aconitase(IRP1)',core:'철 부족 → IRE 결합 · ferritin <b>5\'<\/b> IRE(번역 억제) / TfR <b>3\'<\/b> IRE(안정화) · <b>번역<\/b> 조절자',diff:[['2023','transcription repressor(X)'],['2022','같은 보기'],['2019','같은 보기'],['2016','ferritin 3\' IRE(X)']]},
+{id:'trp',ch:'28',t:'Trp 오페론·감쇄',core:'TrpR + Trp → 작동자 · 리더에 Trp 코돈 <b>2개<\/b> · <b>3:4 = 종결자<\/b>, 2:3 = 반종결자 · 서열 3 돌연변이·1-2 간격↑ → 감쇄↓',diff:[['2025','attenuator가 2·3·4에(X)'],['2023','2-3 짝 = 종결(X) / 호메오도메인(X)'],['2022','서술: Trp → His 코돈'],['2017','서열 3 돌연변이'],['2016','1-2 간격 / 서열 3 / 유일 기전(X)'],['2015','1-2 간격 / 서열 3']]},
+{id:'recreg',ch:'28',t:'재조합에 의한 조절',core:'항체 다양성·숙주 범위(Mu)·항원 변이·교배형 전환·상변이(Hin) / <b>maternal inactivation은 아님<\/b>',diff:[['2022','보기 1개 미복기'],['2017','maternal inactivation'],['2016','같음'],['2015','maternal gene inactivation']]},
+{id:'glyco',ch:'27',t:'N-당화·튜니카마이신',core:'<b>Asn<\/b>-X-Ser/Thr · 돌리콜 인산 위 핵심 올리고당 · 튜니카마이신 = <b>첫 단계<\/b>(UDP-GlcNAc → 돌리콜-P) · 번역 중 진행',diff:[['2025','번역 완료 후(X)'],['2023','튜니카마이신 단계'],['2016','튜니카마이신 영향 X(X) / His(X)'],['2015','His(X)']]},
+{id:'rela',ch:'28',t:'엄격 반응(RelA)',core:'빈 tRNA → A 자리 → RelA 결합 → ATP+GTP → pppGpp + <b>AMP<\/b> → ppGpp → rRNA 전사↓',diff:[['2025','그림 단답'],['2022','순서'],['2019','순서'],['2017','순서']]},
+{id:'promoter',ch:'26',t:'프로모터 종류',core:'Pol I = UPE + core(간격 바꾸면 전사↓) · Pol III classical(tRNA·5S) = <b>내부<\/b>, nonclassical = Pol II 닮음 · BRE = Pol II 요소, <b>TFIIB<\/b> 결합',diff:[['2023','tRNA·5S nonclassical(X)'],['2022','BRE–TFIIF(X)'],['2019','BRE가 요소 아님(X)']]},
+{id:'bpair',ch:'26',t:'염기쌍 없이 작동하는 RNA',core:'<b>RNase P<\/b>(구조 인식) vs snoRNA·sRNA·snRNA·miRNA(짝짓기)',diff:[['2023','RNase P'],['2022','RNase P + 주관식 빈칸'],['2019','RNase P']]},
+{id:'creb',ch:'28',t:'CREB',core:'cAMP → PKA → Ser133 인산화 → <b>CBP/p300<\/b> 공동활성자 · CREB ≠ p300',diff:[['2022','p300(X)'],['2019','옳은 것'],['2017','cAMP']]},
+{id:'mediator',ch:'28',t:'Mediator',core:'CTD·TFIID·TFIIH·활성자/억제자와 결합, <b>DNA에는 직접 결합 X<\/b>',diff:[['2023','DNA와 직접 결합 X = mediator'],['2017','TATA box'],['2015','TATA box']]},
+{id:'chromatin',ch:'28',t:'염색질 조절 인자',core:'활성: SAGA·SWI/SNF·ISWI·SWR1·TAF250(HAT) / 억제: HDAC·H3K9 메틸화·탈아세틸화 · TFIIH는 염색질 인자 아님',diff:[['2025','억제하는 것'],['2023','TFIIH'],['2017','HAT B(?)'],['2015','deacetylation']]},
+{id:'gal4',ch:'28',t:'Gal4',core:'Zn₂Cys₆, UAS_G · Gal80이 억제 · 갈락토스 → <b>Gal3–Gal80<\/b> · 이량체 · HTH 아님',diff:[['2025','Cys 4개(X) / Gal4–Gal3(X)'],['2019','zinc finger·dimer'],['2017','zinc finger 일반'],['2016','HTH(X)']]},
+{id:'nls',ch:'27',t:'NLS·핵 수입',core:'Lys·Arg 풍부 · importin <b>α<\/b>만 NLS 결합 · <b>제거되지 않음<\/b> · CAS(α 수출)·NTF2(Ran-GDP 수입)',diff:[['2023','핵에서 제거(X)'],['2022','직접 결합 X 고르기']]},
+{id:'cas',ch:'27',t:'핵 수입 그림 빈칸',core:'(1) <b>CAS<\/b> (2) <b>NTF2<\/b>',diff:[['2025','단답'],['2017','단답']]},
+{id:'m6p',ch:'27',t:'만노스 6-인산',core:'<b>GlcNAc phosphotransferase<\/b>(UDP-GlcNAc 공여) → <b>phosphodiesterase<\/b>',diff:[['2025','인산 공여체'],['2017','효소 빈칸'],['2016','효소 빈칸']]},
+{id:'asite',ch:'27',t:'A 자리',core:'EF-Tu·tRNA, RF, puromycin, EF-G-<b>GTP<\/b> 결합 · EF-G-GDP X · tetracycline이 A 자리 차단',diff:[['2025','EF-G-GDP'],['2023','EF-G-GDP'],['2019','tetracycline']]},
+{id:'grp2',ch:'26',t:'제II군 인트론·retrohoming',core:'가지점 A 2\'-OH → 올가미 · 스플라이싱체와 기전 같음 · <b>역전사효소(+엔도뉴클레이스)<\/b> 암호화 · retrohoming은 제<b>II<\/b>군',diff:[['2025','ribonuclease로 DNA 대체(X)'],['2023','같은 보기'],['2017Q','group I intron'],['2016','class 1 intron']]},
+{id:'amanitin',ch:'26',t:'α-amanitin',core:'Pol <b>II<\/b> 억제, Pol <b>III<\/b> 고농도 억제, Pol <b>I<\/b> 무관',diff:[['2025','객관식'],['2023','객관식(답 amanitin)'],['2016','빈칸 3개']]},
+{id:'cap',ch:'26',t:'5\' 캡',core:'phosphohydrolase → guanylyltransferase → guanine-7-methyltransferase → 2\'-O-methyltransferase · <b>5\'-5\' 삼인산<\/b>',diff:[['2025','phosphorylase'],['2016','이인산(X) / 3\' 말단(X)']]},
+{id:'gtf',ch:'26',t:'기본 전사인자',core:'TFIID = TBP + TAF · 순서 D → B → F(+Pol II) → E → H',diff:[['2023','TBP = TFIID'],['2017Q','순서 단답']]},
+{id:'ctd',ch:'28',t:'CTD 결합 단백질',core:'캡핑효소·snRNP·PAP·mediator·TFIIH · <b>TBP는 아님<\/b>',diff:[['2023','보기 버전'],['2019','TBP']]},
+{id:'ribprot',ch:'28',t:'리보솜 단백질 번역 조절',core:'rRNA > mRNA 친화도 · 남는 단백질이 자기 mRNA <b>번역<\/b> 억제 · 직접 증가 X',diff:[['2025','친화도(O)'],['2023','전사 억제(X) / 2GTP(X)'],['2017','직접 증가(X)']]},
+{id:'ribosw',ch:'28',t:'리보스위치',core:'cis · 5\'-UTR 주로 · 진핵 인트론에도 · 종결자/RBS로 조절(RNA pol 결합 차단 X)',diff:[['2017','같은 보기'],['2016','같은 보기'],['2015','변형 보기']]},
+{id:'transl',ch:'28',t:'번역 억제',core:'HRI → eIF2<b>α<\/b> · maskin–eIF4E(eIF4G 차단) · CPEB 인산화 → eIF4E–<b>eIF4G<\/b>',diff:[['2025','eIF2β(X) / eIF4A(X)'],['2017','옳은 것'],['2016','미복기 보기']]},
+{id:'toggle',ch:'28',t:'토글 스위치(연습문제)',core:'IPTG: off → on / 열: on → off',diff:[['2021','열'],['2019','IPTG·열'],['2016','IPTG·열']]},
+{id:'ntp',ch:'27',t:'아미노산 1개당 NTP',core:'<b>4개<\/b>(활성화 2 + EF-Tu 1 + EF-G 1)',diff:[['2017','4'],['2016','4 / 4.4'],['2015','4']]},
+{id:'elong',ch:'27',t:'신장·교정',core:'aa-tRNA → <b>A<\/b> 자리 · EF-G 자리 이동 · 펩티딜 전달효소 = <b>리보자임<\/b> · EF-Tu GTP 가수분해 = 교정',diff:[['2017','GTP hydrolysis'],['2016','리보자임'],['2015','리보자임']]},
+{id:'code',ch:'27',t:'축퇴',core:'한 아미노산 ↔ 여러 코돈',diff:[['2017','정의'],['2015','같음']]},
+{id:'eif',ch:'27',t:'진핵 개시인자',core:'eIF1A·eIF3 ≈ IF1·IF3 · eIF4E 캡 · eIF4G 연결 · eIF5 = GAP · eIF5B = IF2 닮은 GTPase',diff:[['2016','복기 답 4(교재와 다름)'],['2015','eIF5 scanning(X)']]},
+{id:'regulon',ch:'28',t:'레귤론',core:'공통 조절자를 가진 오페론 네트워크',diff:[['2017','정의'],['2015','정의']]},
+{id:'sec',ch:'27',t:'세균 Sec 수출',core:'SecB → SecA → 밀어 넣기 → ATP 가수분해',diff:[['2025','그림 단답'],['2015','순서']]}
+);
+
+/* ===================== 23장 · 호르몬 조절과 대사 통합 ===================== */
+P({id:'23a',ys:['2021','2017Q'],ch:'23',t:'ria',k:'s',tbq:'23-1',sl:2});
+P({id:'23b',ys:['2023'],ch:'23',t:'',k:'s',sl:3,q:'수용체의 위치가 나머지와 <b>다른<\/b> 호르몬은? (두 반 복기 모두 출제)',
+o:[['1','인슐린',0,'세포막 수용체(수용체 티로신 키네이스).'],['2','에피네프린',0,'세포막 GPCR(β·α 아드레날린 수용체).'],['3','프로스타글란딘',0,'세포막 GPCR.'],['4','NO',1,'세포막을 그대로 통과해 <b>세포질<\/b>의 수용성 구아닐릴 고리화효소에 결합 → cGMP.'],['5','글루카곤',0,'세포막 GPCR.']]});
+P({id:'23c',ys:['2021'],ch:'23',t:'',k:'s',tbq:'23-8',sl:3});
+P({id:'23d',ys:['2016'],ch:'23',t:'insulin',k:'s',sl:4,q:'인슐린에 대한 설명으로 <b>틀린<\/b> 것은?',
+o:[['1','혈당이 높아지면 이황화(S–S) 결합 3개가 생성된다.',1,'S–S 결합은 프로인슐린이 접힐 때 이미 만들어져 있어요. 혈당은 분비(엑소사이토시스)를 촉발할 뿐.'],['2','C 펩타이드로 인슐린 분비량을 측정한다.',0,'C 펩타이드는 인슐린과 1:1로 분비되고 간에서 덜 제거돼 분비량 지표로 써요.'],['3','프리프로인슐린은 β세포의 리보솜에서 합성된다.',0,'맞아요(ER 결합 리보솜).'],['4','신호서열은 N말단에 있다.',0,'신호서열 23개 잔기가 N말단.'],['5','Banting과 MacLeod가 처음 정제했다.',0,'슬라이드 기준 맞는 보기로 봐요(1923 노벨상).']],
+memo:'복기에 정답 표시는 없어요. 슬라이드 38 기준으로 1번을 정답으로 봤어요.'});
+P({id:'23e',ys:['2017Q'],ch:'23',t:'insulin',k:'s',sl:4,q:'호르몬에 대한 설명으로 <b>틀린<\/b> 것은?',
+o:[['1','Banting과 MacLeod가 인슐린을 처음 분리했다.',0,'맞는 보기.'],['2','수용성 펩타이드 호르몬은 세포막 수용체에 결합한다.',0,'수용성 → 막 통과 못 함 → 막 수용체.'],['3','에피네프린은 Tyr에서 만들어진다.',0,'Tyr → DOPA → 도파민 → 노르에피네프린 → 에피네프린.'],['4','RIA는 항체에 방사성 동위원소를 붙여 측정한다.',1,'방사성 표지를 붙이는 건 <b>호르몬<\/b>. 표지 호르몬과 시료 호르몬이 항체를 두고 경쟁해요(TB 23-1).'],['5','같은 수용체라도 세포마다 downstream 반응이 다를 수 있다.',0,'에피네프린이 간·근육·지방에서 다른 효과를 내는 이유.']],
+memo:'복기에 정답 표시 없음 — RIA 원리(TB 23-1) 기준으로 4번.'});
+P({id:'23f',ys:['2016'],ch:'23',t:'',k:'s',sl:6,q:'호르몬과 전구체의 연결이 <b>틀린<\/b> 것은? (두 반 복기 모두 출제)',
+o:[['1','7-디하이드로콜레스테롤 – 비타민 D',0,'피부에서 UV로 비타민 D₃ → 간·신장에서 칼시트리올.'],['2','비타민 A – 레티노산',0,'맞는 짝.'],['3','Lys – 에피네프린',1,'에피네프린은 <b>Tyr<\/b>에서. 표 23-1 "합성 경로" 칸.'],['4','Arg – NO',0,'NOS가 Arg + O₂ → NO + 시트룰린.'],['5','Tyr – 티록신',0,'티로글로불린의 Tyr 아이오딘화.']]});
+P({id:'23g',ys:['2016'],ch:'23',t:'eico',k:'s',sl:7,q:'에이코사노이드 호르몬의 예는?',
+o:[['1','레티노산',0,'레티노이드(비타민 A 유래).'],['2','테스토스테론',0,'스테로이드.'],['3','티록신',0,'Tyr 유래 갑상선 호르몬.'],['4','트롬복산',1,'아라키돈산(C20) 유래 = 프로스타글란딘·트롬복산·류코트리엔.'],['5','에피네프린',0,'카테콜아민.']],memo:'TB 23-6과 같은 문제(한글 복기).'});
+P({id:'23h',ys:['2017Q'],ch:'23',t:'eico',k:'m',sl:7,q:'에이코사노이드에 대한 설명으로 옳은 것을 모두 고르시오.',
+o:[['1','아라키돈산 생성에 phospholipase D가 필요하다.',0,'막 인지질에서 아라키돈산을 떼는 효소는 <b>PLA₂<\/b>.'],['2','근육 수축, 염증 등에 관여한다.',1,'평활근 수축·혈소판 응집·염증·통증·발열.'],['3','미리 합성되어 저장된다.',0,'저장하지 않고 필요할 때 바로 합성.'],['4','세포막 수용체에 작용한다.',1,'GPCR.'],['5','아라키돈산은 막 인지질에서 유리된다.',1,'PLA₂가 sn-2 위치를 가수분해.']]});
+P({id:'23i',ys:['2023'],ch:'23',t:'hormix',k:'m',sl:9,q:'호르몬에 대한 설명으로 옳은 것을 모두 고르시오.',
+o:[['1','C 펩타이드로 인슐린 양을 측정한다.',1,'인슐린 생산 지표.'],['2','프로스타글란딘은 PLA₂에 의해 막 인지질에서 만들어진다.',1,'PLA₂ → 아라키돈산 → COX.'],['3','티로글로불린에서 T₄가 만들어진다.',1,'Tyr 아이오딘화 → T₄ → (말초) T₃.'],['4','비타민 D의 활성형은 칼시트리올(1,25-다이하이드록시콜레칼시페롤)이다.',1,'칼시페롤(D₃)은 전구체.'],['5','옥시토신과 바소프레신은 뇌하수체 후엽에서 분비된다.',1,'시상하부에서 만들어 후엽 축삭 말단에서 분비.']],memo:'복기상 모든 보기가 맞는 진술이에요.'});
+P({id:'23j',ys:['2022'],ch:'23',t:'hormix',k:'m',sl:9,q:'호르몬에 대한 설명으로 옳은 것을 모두 고르시오. (복기된 보기만)',
+o:[['1','혈당이 오르면 인슐린에 S–S 결합 3개가 생성된다.',0,'S–S는 접힘 단계에서 형성. 혈당과 무관.'],['2','7-디하이드로콜레스테롤에서 칼시트리올이 만들어진다.',1,'피부(UV) → 간(25-OH) → 신장(1-OH).'],['3','NO는 O₂와 Arg로부터 만들어진다.',1,'NOS 반응.']]});
+P({id:'23k',ys:['2019'],ch:'23',t:'hormix',k:'m',sl:9,q:'호르몬에 대한 설명으로 옳은 것을 모두 고르시오.',
+o:[['1','프리프로인슐린은 N말단에 신호서열이 있다.',1,'23개 잔기.'],['2','칼시페롤이 비타민 D의 활성형이다.',0,'활성형은 <b>칼시트리올<\/b>.'],['3','T₄는 T₃로 전환된다.',1,'탈아이오딘화효소.'],['4','비타민 E가 과다한 여드름 크림은 기형을 유발한다.',0,'기형 유발은 <b>레티노이드(비타민 A)<\/b>.'],['5','NO는 cAMP를 만든다.',0,'NO → 구아닐릴 고리화효소 → <b>cGMP<\/b>.']]});
+P({id:'23l',ys:['2025'],n:'27',ch:'23',t:'',k:'w',sl:13,img:'q27',q:'(1)과 (2)에 들어갈 name을 Full name으로 적으시오. (그림 23-7 호르몬 위계)',
+a:'(1) <b>Thyrotropin<\/b> (thyroid-stimulating hormone, TSH)<br>(2) <b>Epinephrine<\/b>',
+b:'<p>(1)은 뇌하수체 전엽 → 갑상선(Thyroid)으로 가는 자극호르몬, (2)는 부신 수질(Adrenal medulla)에서 나와 간·근육·심장으로 가는 호르몬이에요. 그림 속 라벨을 영어 full name 그대로 물어봤어요 → 그림 23-7의 모든 라벨(Corticotropin ACTH, Follicle-stimulating hormone, Luteinizing hormone, Somatotropin, Prolactin, Oxytocin, Vasopressin)을 영어로 쓸 수 있게.<\/p>'});
+P({id:'23m',ys:['2023'],ch:'23',t:'ant',k:'m',sl:14,q:'뇌하수체 전엽 호르몬인 것을 모두 고르시오.',
+o:[['1','corticotropin',1,'ACTH.'],['2','thyrotropin',1,'TSH.'],['3','somatotropin',1,'GH.'],['4','somatostatin',0,'시상하부·췌장 δ세포 호르몬(성장호르몬 억제). 이름이 비슷한 함정.'],['5','prolactin',1,'전엽.']]});
+P({id:'23n',ys:['2017Q'],ch:'23',t:'ant',k:'m',sl:14,q:'뇌하수체 전엽과 관련된 호르몬을 모두 고르시오.',
+o:[['1','FSH',1,'전엽 자극호르몬.'],['2','thyroxine',0,'갑상선 호르몬(TSH의 표적이 만드는 것).'],['3','testosterone',0,'정소(LH의 표적).'],['4','somatostatin',0,'시상하부·δ세포.'],['5','aldosterone',0,'부신 피질(레닌-안지오텐신 조절).']]});
+P({id:'23o',ys:['2022'],ch:'23',t:'hypo',k:'m',sl:14,q:'시상하부 호르몬에 대한 설명으로 옳은 것을 모두 고르시오.',
+o:[['1','뇌하수체 전엽을 자극해 프로락틴을 분비시키고 프로락틴은 유선에 작용한다.',1,'위계 그대로.'],['2','releasing factor라고도 부른다.',1,'방출인자(releasing factors).'],['3','corticotropin이 adrenal medulla를 활성화해 코르티솔을 분비시킨다.',0,'코르티솔은 부신 <b>피질(cortex)<\/b>. 수질(medulla)은 에피네프린.'],['4','혈관(문맥)을 통해 시상하부에서 전엽으로 전달된다.',1,'하수체 문맥계.'],['5','전엽의 긴 펩타이드 호르몬을 tropin이라고 한다.',1,'corticotropin, thyrotropin, somatotropin…']]});
+P({id:'23p',ys:['2025'],n:'1',ch:'23',t:'liver',k:'m',sl:20,q:'다음 중 간에서 일어나는 metabolism에 대해 옳은 것은? (모두 고르시오)',
+o:[['1','GLUT2 transport에서 간세포 내 glucose와 혈중 glucose의 양은 비슷해진다.',1,'GLUT2는 빠른 수동 확산 → [포도당]혈액 ≈ [포도당]간세포.'],['2','glycogen은 주요 E 저장원이다.',null,'몸 전체의 최대 에너지 저장고는 지방조직 TAG라서 함정일 가능성이 커요. 간 안에서는 글리코겐이 포도당 저장고라 해석이 갈려요 → 채점에서 뺐어요.'],['3','간 hexokinase IV는 G6P에 의해 억제된다.',0,'글루코키네이스(HK IV)는 G6P에 억제되지 <b>않아요<\/b>(Km 높음, F6P-조절 단백질로 조절).'],['4','glucogenic aa의 deamination이 일어난다.',1,'당생성 아미노산 → 탈아미노화 → 탄소 골격은 포도당신생으로.'],['5','간에서 만든 ketone body의 3종은 brain을 포함한 다른 조직의 에너지원으로 사용된다.',0,'아세톤은 대사되지 않고 날숨으로. 연료는 아세토아세트산·β-하이드록시뷰티르산 2종.']]});
+P({id:'23q',ys:['2023'],ch:'23',t:'liver',k:'m',sl:20,q:'간의 대사에 대해 옳은 것을 모두 고르시오.',
+o:[['1','간의 hexokinase(IV)는 G6P에 의해 억제되지 않는다.',1,'글루코키네이스 특징.'],['2','간의 주 에너지원은 지방산이다.',1,'간 자신은 지방산 β산화로 ATP를 얻어요.'],['3','TAG는 LDL에 실려 지방세포로 간다.',0,'간이 내보내는 TAG는 <b>VLDL<\/b>.'],['4','포도당-알라닌 회로로 혈당 저하를 막는다.',1,'근육 알라닌 → 간 포도당신생.']]});
+P({id:'23r',ys:['2017Q','2016'],ch:'23',t:'liver',k:'m',sl:20,q:'간의 대사에 대해 옳은 것을 모두 고르시오.',
+o:[['1','간세포에는 GLUT4가 있다.',0,'간 = <b>GLUT2<\/b>. GLUT4는 근육·지방(인슐린 의존).'],['2','흡수된 지방산은 문맥을 통해 간으로 간다.',0,'TAG는 킬로미크론으로 <b>림프<\/b>를 거쳐요.'],['3','과잉 아미노산은 단백질로 저장된다.',0,'아미노산은 저장형이 없어요 → 분해.'],['4','글루코키네이스는 헥소키네이스보다 Km이 높다.',1,'혈당이 높을 때만 작동.'],['5','G6P는 대사의 환승역(transfer station)이다.',1,'글리코겐·해당·오탄당·포도당 방출 갈림길.']]});
+P({id:'23s',ys:['2016'],ch:'23',t:'ketone',k:'s',sl:24,q:'케톤체에 대한 설명으로 <b>틀린<\/b> 것은?',
+o:[['1','아세토아세트산은 아세톤으로 전환된다.',0,'자발적 탈카복실화.'],['2','아세톤은 대사되지 않는다.',0,'날숨으로 배출.'],['3','혈뇌장벽(BBB)을 통과한다.',0,'장기 공복 시 뇌 연료.'],['4','NADH가 부족할 때 생성된다.',1,'OAA가 모자라고 NADH/NAD⁺가 <b>높을<\/b> 때 생성.'],['5','기아 시 심장의 주 에너지원이다.',0,'심장·골격근이 잘 써요.']]});
+P({id:'23t',ys:['2023'],ch:'23',t:'ketone',k:'s',sl:24,q:'공복 시 혈중 농도가 가장 크게(빠르게) 증가하는 것은?',
+o:[['1','β-하이드록시뷰티르산',1,'그림 23-31에서 가장 크게 상승.'],['2','아세토아세트산',0,'오르지만 β-HB보다 작아요.'],['3','아세톤',0,'미량.'],['4','포도당',0,'공복 시 오히려 약간 감소 후 유지.'],['5','유리지방산',0,'오르지만 상승 폭은 β-HB보다 훨씬 작아요.']]});
+P({id:'23u',ys:['2016'],ch:'23',t:'',k:'m',sl:26,q:'갈색지방(BAT)과 백색지방(WAT)에 대해 옳은 것을 모두 고르시오.',
+o:[['1','WAT는 TAG 형태로 에너지를 저장한다.',1,'큰 지방방울 1개.'],['2','BAT는 지방산을 분해해 에너지(열)를 낸다.',1,'미토콘드리아 많음.'],['3','BAT에는 thermogenin이 있다.',1,'UCP1 → 짝풀림 → 열.'],['4','WAT는 adipocyte로 이루어져 있다.',1,'지방세포.'],['5','WAT는 호르몬에 반응한다.',1,'에피네프린 → 페릴리핀·HSL 인산화.']],memo:'복기에 틀린 보기 표시가 없어 슬라이드 기준으로 모두 맞는 진술로 봤어요.'});
+P({id:'23v',ys:['2025'],n:'3',ch:'23',t:'muscle',k:'m',sl:30,q:'근육에서 일어나는 metabolism에 대한 설명으로 옳은 것은? (모두 고르시오)',
+o:[['1','fast twitch muscle은 미토콘드리아 수가 많아 폭발적인 힘을 낼 수 있다.',0,'속근 = 미토콘드리아 <b>적음<\/b>, 혐기성 해당.'],['2','폭발적인 힘을 내야 할 때 에너지원으로 혈중 glucose와 ketone body를 사용한다.',0,'폭발적 활동 = <b>근육 글리코겐<\/b> → 젖산. 혈중 포도당·케톤체는 휴식·가벼운 운동.'],['3','미토콘드리아에서 합성된 phosphocreatine은 transporter를 사용하여 cytosol로 이동한다.',0,'슬라이드는 <b>확산<\/b>(수송체 언급 없음).'],['4','휴식기의 근육에서 phosphocreatine의 농도가 ATP 농도보다 약 10배 높다.',0,'<b>3~5배<\/b>.'],['5','creatine과 phosphocreatine은 kidney에서 creatinine으로 배설된다.',1,'저절로 고리화 → 크레아티닌 → 신장 배설.']]});
+P({id:'23w',ys:['2023'],ch:'23',t:'muscle',k:'m',sl:30,q:'근육 대사에 대해 옳은 것을 모두 고르시오.',
+o:[['1','속근은 미토콘드리아가 적어 폭발적인 힘을 낸다.',1,'혐기성 해당 위주.'],['2','폭발적 힘의 에너지원은 혈중 포도당·케톤체다.',0,'근육 글리코겐.'],['3','휴식기 PCr 농도는 ATP보다 훨씬 높다.',1,'3~5배.'],['4','크레아틴 키네이스는 세포질과 미토콘드리아 모두에 있다.',1,'mCK·cCK.'],['5','크레아티닌으로 신장에서 제거된다.',1,'맞아요.']]});
+P({id:'23x',ys:['2017Q'],ch:'23',t:'muscle',k:'m',sl:30,q:'근육 대사에 대해 옳은 것을 모두 고르시오.',
+o:[['1','쉴 때는 지방산을 주로 쓴다.',1,'휴식 근육 = 지방산·케톤체.'],['2','PCr 농도는 항상 ATP보다 높다.',null,'휴식기엔 높지만 격렬한 운동 중엔 PCr이 크게 떨어져요. "항상"이 함정일 수 있어 채점에서 뺐어요.'],['3','운동 시 Pᵢ가 증가한다.',1,'³¹P-MRS 그림.'],['4','활동 중인 근육은 근육 글리코겐을 쓴다.',1,'맞아요.']]});
+P({id:'23y',ys:['2016'],ch:'23',t:'',k:'w',sl:32,q:'[주관식] 휴식(rest)·운동(exercise)·회복(recovery) 단계의 ATP와 phosphocreatine 농도 변화를 그래프로 그리시오. (두 반 복기 모두 출제)',
+a:'<b>ATP<\/b>: 세 단계 내내 거의 일정.<br><b>PCr<\/b>: 운동 중 크게 감소 → 회복기에 다시 상승.<br>(<b>Pᵢ<\/b>는 운동 중 증가 → 회복기 감소)',b:'<p>슬라이드 32의 ³¹P-MRS 그림 그대로예요. PCr이 ATP를 재생하는 완충 저장고라서 ATP는 버티고 PCr이 대신 줄어들어요.<\/p>'});
+P({id:'23z',ys:['2019','2017Q'],ch:'23',t:'lirko',k:'w',sl:37,q:'[주관식, 레닌저 23장 연습문제] 간에서만 인슐린 수용체가 없는 생쥐(LIRKO)는 공복·식후 모두 고혈당, 혈중 인슐린 증가를 보인다. (A) 혈중 포도당, (B) 간 glucose 6-phosphatase 수준은 정상과 비교해 어떻게 되는가?',
+a:'(A) <b>high glucose<\/b> (B) <b>high glucose 6-phosphatase<\/b>',b:'<p>간이 인슐린 신호를 못 받으면 포도당신생·G6Pase 발현을 끄지 못해 포도당을 계속 내보내요 → 고혈당 → 췌장이 인슐린을 더 분비.<\/p>'});
+P({id:'23A',ys:['2023'],ch:'23',t:'katp',k:'m',sl:39,q:'췌장 β세포에 대한 설명으로 <b>틀린<\/b> 것을 모두 고르시오.',
+o:[['1','간과 마찬가지로 GLUT2를 쓴다.',0,'맞는 진술.'],['2','Kir6.2에 GTP, SUR에 GDP가 결합한다.',1,'Kir6.2 = <b>ATP<\/b>(닫힘)·PIP₂, SUR1 = <b>ADP<\/b>·diazoxide(열림).'],['3','diazoxide는 인슐린 민감성을 높인다.',1,'diazoxide = K⁺ 통로 <b>열림<\/b> → 분비 억제 → 저혈당 치료.'],['4','Ca²⁺ 증가가 프로인슐린 → 성숙 인슐린 전환을 돕는다.',0,'슬라이드 38: Ca²⁺가 C 펩타이드를 자르는 프로테이스 활성.'],['5','1세대 설포닐유레아는 tolbutamide다.',0,'맞아요.']]});
+P({id:'23B',ys:['2021'],ch:'23',t:'katp',k:'s',sl:39,q:'인슐린 분비가 올라가는 과정이 <b>아닌<\/b> 것은? (복기된 보기 4개)',
+o:[['1','포도당 → G6P',null,'글루코키네이스 → 해당 → ATP↑의 출발점.'],['2','K⁺ 통로 닫힘',null,'ATP가 Kir6.2에 결합 → 닫힘 → 탈분극.'],['3','ATP 증가',null,'분비 신호.'],['4','Ca²⁺ 증가',null,'전압 의존 Ca²⁺ 통로 열림 → 엑소사이토시스.']],memo:'복기에 보기 4개만 남아 있고 정답이 표시돼 있지 않아요(나머지 1개가 정답이었을 가능성). 순서 자체를 외우는 문제예요: 포도당 → GLUT2 → 글루코키네이스 → ATP↑ → K_ATP 닫힘 → 탈분극 → Ca²⁺ 유입 → 분비.'});
+P({id:'23C',ys:['2019','2017Q','2016'],ch:'23',t:'katp',k:'s',sl:39,q:'설포닐유레아와 K_ATP 통로에 대한 설명으로 <b>틀린<\/b> 것은?',
+o:[['1','SUR1에 결합한다.',0,'맞아요.'],['2','tolbutamide는 1세대다.',0,'맞아요.'],['3','glyburide는 2세대다.',0,'맞아요. (2017엔 "diazoxide는 2세대"로 바꿔 틀린 보기로 냄)'],['4','ATP와 경쟁하지 않는다.',0,'결합 자리가 달라요(SUR1 vs Kir6.2).'],['5','1형·2형 당뇨 모두 치료한다.',1,'β세포가 남아 있어야 효과 → <b>2형<\/b>만.']]});
+P({id:'23D',ys:['2022'],ch:'23',t:'',k:'w',sl:39,q:'[서술, 레닌저 23장 연습문제] Aguilar-Bryan 등(1995)은 방사성 아이오딘으로 표지한 glyburide(SUR에 대한 Kd &lt; 10 nM)를 이용해 SUR을 순수 분리·클로닝했다. 클로닝한 유전자가 정말 SUR 유전자임을 어떻게 확인할 수 있는가?',
+a:'glyburide가 SUR1에 <b>고친화도로 결합<\/b>하는 성질을 이용 → 표지된 140~170 kDa 단백질을 추적·정제 → 부분 아미노산 서열 → 유전자 클로닝 → 그 유전자를 세포에 <b>발현<\/b>시켜 glyburide 결합과 K_ATP 통로 기능이 생기는지 확인.'});
+P({id:'23E',ys:['2019','2017Q'],ch:'23',t:'glucagon',k:'m',sl:41,q:'글루카곤에 의해 활성화되지 <b>않는<\/b> 효소를 모두 고르시오. (두 해 복기 보기를 합침)',
+o:[['1','PKA',0,'글루카곤 → cAMP → PKA 활성.'],['2','HSL',0,'지방조직에서 활성(지방분해).'],['3','PEP carboxykinase',0,'포도당신생 ↑(전사).'],['4','pyruvate kinase',1,'간 PK는 PKA 인산화로 <b>억제<\/b>.'],['5','acetyl-CoA carboxylase',1,'<b>억제<\/b> → 지방산 합성↓.'],['6','PFK-1',1,'F2,6BP↓ → <b>억제<\/b>.'],['7','glycogen phosphorylase',0,'활성 → 글리코겐 분해.']]});
+P({id:'23F',ys:['2016'],ch:'23',t:'glucagon',k:'s',sl:41,q:'글루카곤 작용의 결과가 <b>아닌<\/b> 것은?',
+o:[['1','F2,6BP 감소',0,'FBPase-2 활성.'],['2','피루브산 키네이스 억제',0,'맞아요.'],['3','perilipin 탈인산화',1,'PKA는 페릴리핀을 <b>인산화<\/b> → HSL 접근.'],['4','글리코겐 포스포릴레이스 촉진',0,'맞아요.'],['5','ACC 억제',0,'맞아요.']]});
+P({id:'23G',ys:['2021'],ch:'23',t:'',k:'s',tbq:'23-23',sl:46});
+P({id:'23H',ys:['2023'],ch:'23',t:'leptin',k:'s',sl:52,q:'렙틴에 대한 설명으로 옳은 것은?',
+o:[['1','렙틴 수용체는 시상하부에 있다.',1,'활꼴핵(arcuate nucleus).'],['2','DB가 렙틴 유전자이고, db/db 생쥐는 당뇨를 보인다.',0,'렙틴 = <b>OB<\/b>, DB = 수용체.'],['3','렙틴 수용체는 핵 안에 있다.',0,'막 수용체(JAK-STAT).'],['4','당뇨 환자는 렙틴이 크게 감소한다.',0,'비만·2형 당뇨는 오히려 렙틴이 높고 저항성.'],['5','렙틴과 인슐린 수용체가 IRS-1을 활성화한다.',0,'공통 기질은 <b>IRS-2<\/b>(그림 23-37).']]});
+P({id:'23I',ys:['2017Q','2016'],ch:'23',t:'leptin',k:'s',sl:52,q:'렙틴에 대한 설명으로 옳은 것은?',
+o:[['1','렙틴 수용체는 뇌하수체에 있다.',0,'시상하부.'],['2','db 유전자가 렙틴을 암호화한다.',0,'ob 유전자.'],['3','NPY를 통해 식욕을 조절한다.',1,'NPY(식욕↑) 분비 억제, α-MSH(식욕↓) 분비 촉진.'],['4','db/db 생쥐에 렙틴을 주입하면 체중이 감소한다.',0,'수용체가 없어 효과 없음. 정상화되는 건 <b>ob/ob<\/b>.'],['5','비만인 사람에게 렙틴을 주입하면 체중이 감소한다.',0,'렙틴 저항성 → 효과 없음.']]});
+P({id:'23J',ys:['2017Q'],ch:'23',t:'',k:'w',sl:59,q:'[주관식] 그림 23-37(렙틴·인슐린 수용체 교차 신호)의 빈칸 (A), (B)를 쓰시오.',a:'(A) <b>JAK<\/b> (B) <b>PI3K<\/b>'});
+P({id:'23K',ys:['2021'],ch:'23',t:'',k:'s',tbq:'23-27',sl:60});
+P({id:'23L',ys:['2023'],ch:'23',t:'ampk',k:'m',sl:61,q:'AMPK의 영향을 받는 것을 모두 고르시오.',
+o:[['1','HSL',1,'AMPK가 인산화·억제.'],['2','HMG-CoA reductase',1,'억제 → 콜레스테롤 합성↓.'],['3','ACC',1,'억제 → 말로닐-CoA↓.'],['4','CAT I',null,'직접 표적은 아니고, 말로닐-CoA가 줄어 억제가 풀리는 <b>간접<\/b> 효과 → 채점에서 뺐어요.'],['5','mTORC1',1,'억제 → 단백질 합성↓.']]});
+P({id:'23M',ys:['2016'],ch:'23',t:'ampk',k:'s',sl:61,q:'AMPK 활성화의 결과가 <b>아닌<\/b> 것은?',
+o:[['1','HMGR 억제로 콜레스테롤 합성 감소',0,'맞아요.'],['2','eEF2 억제로 단백질 합성 감소',0,'맞아요(에너지 절약).'],['3','GLUT1·GLUT4 촉진',0,'포도당 흡수↑.'],['4','지방분해 증가',1,'지방조직 HSL을 <b>억제<\/b>.'],['5','말로닐-CoA 감소',0,'ACC 억제.']]});
+P({id:'23N',ys:['2025'],n:'5',ch:'23',t:'mtor',k:'m',sl:65,q:'mTORC1에 대해 <b>틀린<\/b> 것을 모두 고르시오.',
+o:[['1','tyrosine kinase로 세포 성장을 촉진한다.',1,'mTORC1 = <b>Ser/Thr<\/b> 키네이스. 4년 연속 이 보기가 정답!'],['2','nutrient와 growth factor signaling으로 활성화된다.',0,'아미노산·인슐린/성장인자.'],['3','pentose phosphate pathway를 활성화시킨다.',0,'NADPH·리보스 공급(그림 23-40).'],['4','PGC-1α 활성화로 미토콘드리아 생성이 촉진된다.',0,'맞아요.'],['5','HIF-1α 활성화로 혈관 신생이 촉진된다.',0,'맞아요.']]});
+P({id:'23O',ys:['2019','2016'],ch:'23',t:'mtor',k:'s',sl:65,q:'mTORC1에 대한 설명으로 <b>틀린<\/b> 것은?',
+o:[['1','downstream에서 티로신을 인산화한다.',1,'Ser/Thr 키네이스.'],['2','HIF1을 활성화한다.',0,'혈관신생·해당.'],['3','PPAR을 통해 지방 생성(adipogenesis)을 촉진한다.',0,'SREBP·PPARγ.'],['4','오탄당 인산 경로를 촉진한다.',0,'맞아요.'],['5','세포 성장을 촉진한다.',0,'맞아요.']]});
+P({id:'23P',ys:['2025'],n:'4',ch:'23',t:'ppar',k:'m',sl:67,q:'PPAR에 대한 설명으로 옳은 것은? (모두 고르시오)',
+o:[['1','핵 속의 RXR(Retinoid X Receptor)과 결합하여 탄수화물, 지방 대사에 관한 조절인자들을 발현시킨다.',1,'PPAR–RXR 이형이량체 → PPRE.'],['2','PPARα는 활성 시 지방산 산화 및 ketone body 형성을 촉진하는 starvation response를 일으킨다.',1,'간·근육.'],['3','PPARα는 Fibrate에 의해 억제되어 심혈관계 질환의 치료 인자로 작용할 수 있다.',0,'피브레이트는 PPARα <b>작용제<\/b>.'],['4','PPARδ를 억제하는 약물은 비만치료제로 사용될 수 있다.',0,'PPARδ <b>활성<\/b> → 지방산 산화·열 발생 → 비만 치료 표적.'],['5','PPARγ는 thiazolidinedione에 의해 억제되어 지질 합성 및 저장 작용을 한다.',0,'TZD는 PPARγ <b>작용제<\/b>.']]});
+P({id:'23Q',ys:['2016'],ch:'23',t:'ppar',k:'w',sl:67,q:'[단답] 그림 23-42의 빈칸 (a)~(c)에 들어갈 PPAR 아형을 쓰시오.',
+a:'(a) <b>PPARα<\/b> — 간·근육, 지방산 산화, 기아 반응<br>(b) <b>PPARγ<\/b> — 지방조직, 지방 합성·저장, 아디포카인, 인슐린 감수성<br>(c) <b>PPARδ<\/b> — 근육·지방, 지방산 산화, 열 발생'});
+P({id:'23R',ys:['2016'],ch:'23',t:'appetite',k:'s',sl:69,q:'식욕을 촉진하는 호르몬은?',
+o:[['1','그렐린',1,'위에서 분비, 식사 직전 상승.'],['2','인슐린',0,'식욕 억제.'],['3','아디포넥틴',0,'인슐린 감수성↑.'],['4','1과 2',0,'인슐린은 억제.'],['5','1과 3',0,'아디포넥틴은 식욕 촉진 호르몬이 아님.']]});
+P({id:'23S',ys:['2021'],ch:'23',t:'appetite',k:'s',tbq:'23-26',sl:69});
+P({id:'23T',ys:['2016'],ch:'23',t:'tnf',k:'w',sl:73,q:'[단답] 그림 23-44의 빈칸 (a), (b)를 쓰시오. (비만 지방조직의 염증)',a:'(a) <b>MCP-1<\/b> — 비대해진 지방세포가 분비, 대식세포를 불러들임<br>(b) <b>TNFα<\/b> — 대식세포가 분비, 인슐린 저항성 유발'});
+P({id:'23U',ys:['2022'],ch:'23',t:'tnf',k:'s',sl:73,q:'비대해진 지방조직에서 대식세포가 주로 분비하는 사이토카인은?',
+o:[['1','IFN-α',0,''],['2','IL-2',0,''],['3','TNF-α',1,'그림 23-44 (b).'],['4','TGF-β',0,''],['5','MCP-1',0,'지방세포가 분비해 대식세포를 부르는 쪽.']]});
+P({id:'23V',ys:['2022'],ch:'23',t:'t2d',k:'m',sl:75,q:'2형 당뇨에 대한 설명으로 옳은 것을 모두 고르시오.',
+o:[['1','tolbutamide는 1세대 설포닐유레아다.',1,'맞아요.'],['2','DPP-4 억제제는 GLP-1을 분해해 인슐린 분비를 높인다.',0,'GLP-1의 분해를 <b>막아<\/b> 인슐린 분비 유지.'],['3','thiazolidinedione은 PPARγ 작용제다.',1,'로시글리타존·피오글리타존.'],['4','PRDM16은 WAT → BAT 분화를 유도해 치료 표적이 된다.',1,'베이지 지방화.']]});
+P({id:'23W',ys:['2016'],ch:'23',t:'t2d',k:'s',sl:75,q:'당뇨 치료법이 <b>아닌<\/b> 것은?',
+o:[['1','TAG 증가',1,'치료는 체중 감량 → TAG <b>감소<\/b>.'],['2','로시글리타존으로 PPARγ 활성',0,''],['3','운동으로 AMPK 활성',0,''],['4','메트포르민으로 AMPK 활성',0,''],['5','DPP-4 억제제',0,'인크레틴 유지.']]});
+P({id:'23X',ys:['2025'],n:'26',ch:'23',t:'',k:'w',sl:5,img:'q26',q:'(1)과 (2)에 들어갈 name을 Full name으로 적으시오. (POMC)',
+a:'(1) <b>α-melanocyte-stimulating hormone<\/b> (α-MSH)<br>(2) <b>β-melanocyte-stimulating hormone<\/b> (β-MSH)',
+b:'<p>POMC → ACTH가 잘려 CLIP과 (1) α-MSH, β-리포트로핀 → γ-리포트로핀(→ (2) β-MSH)과 β-엔도르핀(→ Met-엔케팔린). 그림 23-5 라벨을 full name으로 물어봤어요.<\/p>'});
+
+/* ===================== 25장 · DNA 대사 ===================== */
+P({id:'25a',ys:['2017Q'],ch:'25',t:'',k:'w',sl:14,q:'[주관식, 레닌저 연습문제] 새로 분리한 DNA 중합효소를 dNTP 없이 [³²P]로 표지된 DNA와 함께 두면 [³²P]dNMP가 유리되고, dNTP를 넣으면 이 유리가 억제된다. 이 효소의 특징은 무엇인가? dNTP 대신 피로인산을 넣으면 어떻게 되는가?',
+a:'이 효소는 <b>3\'→5\' 엑소뉴클레이스(교정) 활성<\/b>이 있다. dNTP가 있으면 중합이 우세해 분해가 가려진다.<br>피로인산을 넣으면 중합의 <b>역반응(피로인산 분해, pyrophosphorolysis)<\/b>이 일어나 <b>dNTP<\/b>가 생성된다.'});
+P({id:'25b',ys:['2025'],n:'28',ch:'25',t:'',k:'w',sl:15,img:'q28',q:'다음과 같은 특성을 가지는 E. coli DNA polymerase는?',
+a:'<b>DNA polymerase II<\/b>',b:'<p>표 25-1 숫자 그대로: Pol I(1 소단위, 103,000, 5\'→3\' exo 있음, 속도 16~20, 진행성 3~200) / <b>Pol II(7, 88,000, 3\'→5\' 있음, 5\'→3\' 없음, 40, 1,500)<\/b> / Pol III(≥17, 1,065,400, 250~1,000, ≥500,000). Pol I·III 칸도 전부 외우기.<\/p>'});
+P({id:'25c',ys:['2017Q'],ch:'25',t:'',k:'m',sl:15,q:'원핵생물 DNA 중합효소에 대해 <b>틀린<\/b> 것을 모두 고르시오.',
+o:[['1','교정 기능이 있다.',0,'세 효소 모두 3\'→5\' exo.'],['2','Pol III 한 분자에 β 소단위가 4개 있다.',0,'β 이량체 × 2(코어 2개).'],['3','Pol I이 없으면 세균이 죽는다.',1,'Pol I 돌연변이 균주도 <b>생존<\/b>(케언스 실험의 계기).'],['4','진행성은 Pol II가 Pol I보다 크다.',0,'1,500 > 3~200.'],['5','클레노 절편은 교정 기능이 없다.',1,'클레노 = 중합 + <b>3\'→5\' 교정 있음<\/b>, 5\'→3\' exo만 없음.']]});
+P({id:'25d',ys:['2021','2016'],ch:'25',t:'',k:'s',tbq:'25-5',sl:15});
+P({id:'25e',ys:['2023'],ch:'25',t:'',k:'s',sl:15,q:'E. coli DNA 중합효소에 관한 설명으로 <b>아닌<\/b> 것은?',
+o:[['1','β 슬라이딩 클램프가 진행성을 결정한다.',0,'맞아요.'],['2','α 소단위 2개가 DUE에 결합한다.',1,'DUE·R 부위에 붙는 건 <b>DnaA<\/b>. α는 중합 소단위.'],['3','Pol III가 주 복제효소다.',0,'맞아요.'],['4','Pol II·IV·V는 수선에 관여한다.',0,'맞아요.'],['5','Pol III는 DnaB와 결합해 함께 이동한다.',0,'τ 소단위로 연결.']]});
+P({id:'25f',ys:['2023'],ch:'25',t:'',k:'s',sl:16,q:'DNA Pol I의 기능이 <b>아닌<\/b> 것은?',
+o:[['1','primer 제거',0,'5\'→3\' exo.'],['2','mismatch repair',1,'불일치 수선의 틈은 <b>Pol III<\/b>가 메워요.'],['3','nick translation',0,'맞아요.'],['4','base excision repair',0,'틈 채우기.'],['5','nucleotide excision repair',0,'세균 NER 틈 채우기.']]});
+P({id:'25g',ys:['2016'],ch:'25',t:'',k:'s',sl:16,q:'Klenow fragment를 설명하는 것은?',
+o:[['1','helicase II이다.',0,''],['2','small fragment라고도 한다.',0,'<b>large<\/b> fragment.'],['3','교정 기능이 없다.',0,'3\'→5\' 교정 있음.'],['4','중합 활성이 없다.',0,'중합 있음.'],['5','DNA Pol I의 proteolytic fragment이다.',1,'단백질분해효소로 Pol I을 잘라 얻은 큰 절편.']]});
+P({id:'25h',ys:['2016'],ch:'25',t:'init',k:'s',sl:20,q:'대장균 DNA 복제 개시와 관련 <b>없는<\/b> 것은?',
+o:[['1','DnaA',0,'oriC R 부위 결합 → DUE 풀기.'],['2','DnaB',0,'헬리케이스.'],['3','DnaH',1,'존재하지 않는 단백질.'],['4','DnaG',0,'프라이메이스.'],['5','Dam methylase',0,'GATC 메틸화 → 개시 조절.']]});
+P({id:'25i',ys:['2022'],ch:'25',t:'init',k:'m',sl:20,q:'대장균 복제 개시(oriC)에 대해 옳은 것을 모두 고르시오.',
+o:[['1','A=T가 풍부한 부위(DUE)가 있다.',1,'13 bp × 3.'],['2','DnaA가 R 부위에 결합한다.',1,'9 bp × 5.'],['3','IHF·FIS 결합 부위가 있다.',1,'oriC 지도에 표시.'],['4','DnaB는 단일가닥을 3\'→5\' 방향으로 이동하며 푼다.',0,'DnaB는 <b>5\'→3\'<\/b>.'],['5','DnaG가 RNA 프라이머를 합성한다.',1,'맞아요.']],memo:'2022 복기는 oriC 그림(위치) 문제였어요. R(9 bp×5) · DUE(13 bp×3) · I 부위 · IHF·FIS 배치를 그림으로 확인.'});
+P({id:'25j',ys:['2025','2023'],n:'6',ch:'25',t:'aaa',k:'s',sl:22,q:'다음 중 AAA+ ATPase가 <b>아닌<\/b> 것은?',
+o:[['1','DnaA',0,'AAA+.'],['2','DnaC',0,'AAA+ (헬리케이스 로더).'],['3','DnaG',1,'프라이메이스 — ATPase 아님.'],['4','Hda',0,'DnaA와 닮은 AAA+ (DnaA-ATP 가수분해 유도).'],['5','Polymerase III β clamp loader',0,'γ 복합체 = AAA+. (β 클램프 자체는 ATPase 아님)']],memo:'2023 복기엔 "β clamp"로 적힌 보기도 있었어요 — 클램프 자체는 AAA+가 아니에요.'});
+P({id:'25k',ys:['2017Q'],ch:'25',t:'aaa',k:'s',sl:22,q:'AAA+ ATPase가 <b>아닌<\/b> 것은?',
+o:[['1','DnaA',0,''],['2','Hda',0,''],['3','clamp loader',0,''],['4','ORC',0,'진핵 개시 복합체, AAA+.'],['5','DnaB',1,'DnaB는 헬리케이스(RecA형 ATPase 고리), AAA+ 아님.']]});
+P({id:'25l',ys:['2019','2017Q'],ch:'25',t:'methyl',k:'m',sl:23,q:'DNA 메틸화와 관계 <b>없는<\/b> 것을 모두 고르시오.',
+o:[['1','MutS',1,'불일치만 인식. 메틸화를 보는 건 <b>MutH<\/b>.'],['2','MutH',0,'반메틸화 GATC 인식·절단.'],['3','SeqA',0,'반메틸화 oriC 격리.'],['4','\'ATGC\' 서열',1,'Dam 메틸화 서열은 <b>GATC<\/b>.'],['5','S-adenosylmethionine',0,'Dam의 메틸기 공여체.']]});
+P({id:'25m',ys:['2025'],n:'7',ch:'25',t:'lig',k:'m',sl:29,q:'DNA Ligase 반응에서 nick의 5\'-phosphate를 활성화시키는 데 필요한 물질은? (모두 고르시오)',
+o:[['1','ATP',1,'진핵·일부 바이러스 연결효소.'],['2','GTP',0,''],['3','NAD⁺',1,'<b>대장균<\/b> 연결효소(AMP 공급원).'],['4','NADH',0,''],['5','NADPH',0,'']]});
+P({id:'25n',ys:['2022','2017Q'],ch:'25',t:'lig',k:'s',sl:29,q:'DNA 연결효소 반응에 쓰이지 <b>않는<\/b> factor는?',
+o:[['1','NADP⁺',1,'쓰이지 않아요.'],['2','NAD⁺',0,'대장균.'],['3','AMP',0,'Lys → 5\'-인산으로 옮겨지는 활성화기.'],['4','ATP',0,'진핵.'],['5','free 3\'-OH',0,'5\'-인산(AMP 결합)을 공격하는 친핵체.']]});
+P({id:'25o',ys:['2022','2019','2017Q'],ch:'25',t:'fullname',k:'s',sl:30,q:'Full name이 바르지 <b>않은<\/b> 것은?',
+o:[['1','Tus – terminus utilization substance',0,'Ter 서열에 결합해 복제 분기점을 멈추는 단백질. (복기마다 sequence/substance로 섞여 있으니 T·U·S 글자로 기억)'],['2','ARS – activated replication site',1,'<b>A<\/b>utonomously <b>R<\/b>eplicating <b>S<\/b>equence.'],['3','RSS – recombination signal sequence',0,'V(D)J 재조합, RAG1/2가 결합.'],['4','Umu – unmutable',0,'UmuC·D(→ Pol V). 돌연변이가 생기지 않게 되는(unmutable) 표현형에서 이름.'],['5','TLS – translesion synthesis',0,'손상 통과 합성.']],memo:'해마다 바뀌는 건 "틀리게 적은 하나"예요. 다섯 개 full name을 전부 외우면 어떤 버전이 나와도 풀려요.'});
+P({id:'25p',ys:['2016'],ch:'25',t:'',k:'s',sl:31,q:'진핵생물 DNA 복제에 대한 설명으로 <b>틀린<\/b> 것은?',
+o:[['1','PCNA는 Pol δ와 관련 있다.',0,'β 클램프 상동체.'],['2','MCM은 헬리케이스다.',0,'MCM2-7.'],['3','Pol α는 3\'→5\' 교정 활성이 없다.',0,'프라이메이스와 복합체, 교정 없음.'],['4','복제 속도는 진핵이 원핵보다 빠르다.',1,'대장균이 더 빠름. 진핵은 기점을 여러 개 써서 보완.'],['5','ORC가 헬리케이스를 DNA에 적재한다.',0,'ORC + CDC6·CDT1 → MCM 적재.']]});
+P({id:'25q',ys:['2023','2022'],ch:'25',t:'proeu',k:'s',sl:32,q:'원핵–진핵 단백질 대응이 <b>틀린<\/b> 것은?',
+o:[['1','MutH – MSH2·MSH6',1,'MSH는 <b>MutS<\/b> 상동체(MutH 상동체는 진핵에 없음).'],['2','MutL – MLH1·PMS1',0,'맞는 짝.'],['3','β 소단위 – PCNA',0,'슬라이딩 클램프.'],['4','DnaA – ORC',0,'개시 인식.'],['5','DnaB – MCM2-7',0,'헬리케이스.']],memo:'2022 복기엔 1번이 "MutS–MSH"로 적힌 버전도 있어요. 그 경우엔 짝이 맞으니 다른 보기를 다시 확인!'});
+P({id:'25r',ys:['2017Q'],ch:'25',t:'proeu',k:'m',sl:32,q:'원핵–진핵 대응이 <b>틀린<\/b> 것을 모두 고르시오.',
+o:[['1','Pol III – Pol δ',0,'복제 주 효소끼리.'],['2','Pol I – Pol ε',null,'프라이머 제거·틈 채우기 역할로 보면 딱 맞는 짝은 아니에요. 복기에 정답 표시가 없어 채점에서 뺐어요.'],['3','clamp loader – PCNA',1,'PCNA = β 클램프 상동, 로더는 <b>RFC<\/b>.'],['4','MutL – PMS1',0,'맞아요.'],['5','DnaC – helicase',1,'DnaC는 헬리케이스 <b>로더<\/b>(진핵 CDC6·CDT1).']]});
+P({id:'25s',ys:['2017Q'],ch:'25',t:'',k:'s',tbq:'26-25',sl:34});
+P({id:'25t',ys:['2021'],ch:'25',t:'',k:'s',tbq:'25-15',sl:37});
+P({id:'25u',ys:['2023'],ch:'25',t:'mmrexo',k:'m',sl:40,q:'불일치 수선에서 3\'→5\' 엑소뉴클레이스 활성을 가진 효소를 모두 고르시오.',
+o:[['1','Exonuclease I',1,'3\'→5\'.'],['2','Exonuclease II',0,''],['3','Exonuclease III',0,''],['4','Exonuclease V',0,'RecBCD.'],['5','Exonuclease VII',0,'5\'→3\'(또는 양방향)으로 분류 — 슬라이드 기준 5\'→3\' 쪽.']],memo:'정리: 3\'→5\' = Exo I · Exo X / 5\'→3\' = Exo VII · RecJ.'});
+P({id:'25v',ys:['2016'],ch:'25',t:'mmrexo',k:'w',sl:40,q:'[단답] 그림 25-23(불일치 수선)의 빈칸에 들어갈 엑소뉴클레이스 이름을 쓰시오.',a:'(a) 불일치가 MutH 절단점의 <b>3\'쪽<\/b>에 있을 때 → 5\'→3\' 분해: <b>Exo VII 또는 RecJ<\/b><br>(b) 불일치가 <b>5\'쪽<\/b>에 있을 때 → 3\'→5\' 분해: <b>Exo I 또는 Exo X<\/b>'});
+P({id:'25w',ys:['2016'],ch:'25',t:'',k:'s',tbq:'25-18',sl:42});
+P({id:'25x',ys:['2025'],n:'9',ch:'25',t:'',k:'s',sl:45,q:'다음 중 Bacterial UV light에 의한 pyrimidine dimer repair에 사용되지 <b>않는<\/b> 것은?',
+o:[['1','UvrA',0,'NER 손상 인식.'],['2','UvrD',0,'NER 헬리케이스 II.'],['3','DNA Polymerase',0,'Pol I 틈 채우기.'],['4','Photolyase',0,'직접 수선.'],['5','NADH',1,'광분해효소 보조인자는 <b>FADH⁻ + MTHFpolyGlu<\/b>(또는 FMN).']]});
+P({id:'25y',ys:['2019','2017Q'],ch:'25',t:'ner',k:'s',sl:45,q:'뉴클레오타이드 절제 수선(NER)에서 5\'쪽 절개를 만드는 것은?',
+o:[['1','UvrA',0,'손상 인식.'],['2','UvrB',0,'<b>3\'<\/b>쪽 절개.'],['3','UvrC',1,'<b>5\'<\/b>쪽 절개.'],['4','RecA',0,''],['5','RecB',0,'']]});
+P({id:'25z',ys:['2025'],n:'29',ch:'25',t:'ner',k:'w',sl:45,img:'q29',q:'다음 빈칸에 들어갈 효소를 순서대로 쓰시오. (Human DNA lesion 수선)',
+a:'(1) <b>excinuclease<\/b> (2) <b>DNA polymerase ε<\/b>',b:'<p>사람 NER: excinuclease가 손상 양쪽을 잘라 <b>29 mer<\/b>(27~29 nt)를 떼고, DNA helicase가 제거 → <b>Pol ε<\/b>가 틈을 메우고 → DNA ligase가 봉합. 대장균은 12~13 mer, 틈은 Pol I.<\/p>'});
+P({id:'25A',ys:['2016'],ch:'25',t:'',k:'w',sl:45,q:'[서술, 레닌저 25장 연습문제 14] XP-G 환자의 섬유모세포는 UV 조사 후 단일가닥 DNA의 평균 분자량이 줄지 않는다. 그 이유는 무엇이며, NER의 어느 단계에 결함이 있는가?',
+a:'정상 세포는 엑시뉴클레이스가 손상 양쪽을 <b>절개<\/b>해 단일가닥이 짧아진다(평균 분자량 감소). XP-G는 <b>절개(incision) 단계<\/b>가 일어나지 않아 분자량이 줄지 않는다(XPG = 3\'쪽 절개 효소).'});
+P({id:'25B',ys:['2021'],ch:'25',t:'',k:'w',sl:46,q:'[서술, 레닌저 25장 연습문제 16] 그림 25-27b처럼 구아닌의 메틸화(O⁶-메틸구아닌)가 G≡C → A=T 전이를 만드는 경로를 이용해, 구아닌 부가물(G–R)이 돌연변이를 만드는 과정을 설명하시오.',
+a:'변형된 G가 C 대신 <b>T와 짝<\/b>을 이룸 → 1차 복제: 변형G–T → 2차 복제: 그 T를 주형으로 <b>A–T<\/b>가 생김 → G≡C가 A=T로 고정(전이).'});
+P({id:'25C',ys:['2021'],ch:'25',t:'',k:'s',tbq:'25-20',sl:47,memo:'2021년에 같은 문제가 두 번 나왔어요.'});
+P({id:'25D',ys:['2025'],n:'8',ch:'25',t:'',k:'s',sl:48,q:'다음 중 AlkB에 의한 direct repair에 대한 설명으로 옳지 <b>않은<\/b> 것은?',
+o:[['1','1-methyladenine과 3-methylcytosine을 demethylation시키는 효소이다.',0,'맞아요.'],['2','Fe²⁺가 필요한 반응이다.',0,'α-KG–Fe²⁺ 의존 하이드록실레이스.'],['3','α-ketoglutarate가 반응에 사용되어 succinate를 생성한다.',0,'맞아요(+CO₂).'],['4','반응에서 제거되는 methyl기는 aldehyde에 전달된다.',1,'메틸기는 다른 분자로 전달되지 않고 –CH₂OH로 산화된 뒤 <b>폼알데하이드(H₂C=O)<\/b>로 떨어져 나가요.'],['5','전체 단계는 2 step으로 일어난다.',0,'수산화 → 폼알데하이드 이탈.']]});
+P({id:'25E',ys:['2025'],n:'23',ch:'25',t:'',k:'s',sl:50,q:'다음 중 SOS 반응에 참여하는 유전자와 단백질에 대한 설명으로 옳은 것은? (답 1개)',
+o:[['1','UvrA, B, UmuC, D는 오페론으로 존재하며, 하나의 프로모터와 전사인자에 의한 조절을 받는다.',0,'각자 따로 있는 유전자들 — LexA가 함께 조절하는 <b>레귤론<\/b>(28장).'],['2','DNA 손상이 발생하지 않으면 RecA는 전혀 발현되지 않는다.',0,'RecA는 평소에도 있어요(재조합).'],['3','DNA 손상이 발생하면 RecA의 전사가 증가한다.',1,'recA도 LexA 억제 대상 → 손상 시 발현↑.'],['4','DNA 손상이 발생하면 LexA의 전사가 감소한다.',0,'LexA 단백질이 <b>자가 절단<\/b>될 뿐, lexA 전사는 오히려 증가(자기 유전자도 억제하므로).'],['5','인간에서 RecA의 역할을 하는 것은 BRCA이다.',0,'사람 RecA 상동체 = <b>Rad51<\/b>(BRCA2가 적재를 도움).']]});
+P({id:'25F',ys:['2023'],ch:'25',t:'sosnot',k:'s',sl:52,q:'대장균 SOS 관련 유전자가 <b>아닌<\/b> 것은?',
+o:[['1','umuC',0,''],['2','umuD',0,''],['3','uvrA',0,''],['4','uvrC',1,'표 25-6엔 <b>uvrA·uvrB<\/b>만.'],['5','recA',0,'']]});
+P({id:'25G',ys:['2016'],ch:'25',t:'sosnot',k:'s',sl:52,q:'대장균 SOS 관련 유전자(단백질)가 <b>아닌<\/b> 것은?',
+o:[['1','UvrD',0,'표의 "수선 역할 미상" 칸.'],['2','UmuC',0,''],['3','DNA pol η',1,'포유류 TLS 중합효소.'],['4','dinB',0,'Pol IV.'],['5','RecA',0,'']]});
+P({id:'25H',ys:['2025'],n:'10',ch:'25',t:'recomb',k:'m',sl:58,q:'다음 중 recombinase에 대해 옳지 <b>않은<\/b> 것을 모두 고르시오.',
+o:[['1','Homologous recombinase 기술을 이용해서 knock out mouse를 만들었다.',0,'유전자 표적화(gene targeting) — 맞아요.'],['2','E. coli RecBCD 중 B는 nuclease, helicase activity를 가진다.',0,'RecB = 3\'→5\' 헬리케이스 + 뉴클레이스.'],['3','Cre는 serine type recombinase이다.',1,'Cre = <b>Tyr형<\/b>.'],['4','complex transposon은 replicative transposition을 통해 deletion이 일어난다.',null,'슬라이드 근거로 맞다고 단정할 수 없어요(복제적 전위 → 코인티그레이트 → 부위 특이적 재조합으로 해소). 채점에서 뺐어요.'],['5','IgG는 intermolecular esterification에 의해 합성된다.',1,'<b>분자 내(intramolecular)<\/b> 전이에스터화.']]});
+P({id:'25I',ys:['2023'],ch:'25',t:'recomb',k:'m',sl:58,q:'재조합에 대해 옳지 <b>않은<\/b> 것을 모두 고르시오. (복기된 보기만)',
+o:[['1','감수분열에서 이중가닥 절단(DSB)으로 시작한다.',0,'맞아요.'],['2','부위 특이적 재조합에서 같은 염색체 위 마주 보는(반대 방향) 자리 사이에서는 결실이 일어난다.',1,'반대 방향 = <b>역위<\/b>. 같은 방향이면 결실.'],['3','IgG는 intramolecule esterification으로 만들어진다.',0,'맞아요 — 2025엔 intermolecular로 바꿔 틀린 보기로 냈어요!']]});
+P({id:'25J',ys:['2023','2022','2016'],ch:'25',t:'chi',k:'s',sl:62,q:'Chi 서열을 인식(결합)하는 단백질은?',
+o:[['1','RecN',0,''],['2','RecD',0,'5\'→3\' 헬리케이스.'],['3','RecA',0,'가닥 침입.'],['4','RecB',0,'3\'→5\' 헬리케이스 + 뉴클레이스.'],['5','RecC',1,'chi 인식.']]});
+P({id:'25K',ys:['2021'],ch:'25',t:'',k:'s',tbq:'25-24',sl:62});
+P({id:'25L',ys:['2019','2017Q'],ch:'25',t:'ruvc',k:'s',sl:66,q:'In E. coli homologous recombination, which protein cleaves the Holliday intermediate?',
+o:[['A','RecB',0,''],['B','RecC',0,''],['C','RecD',0,''],['D','RuvA',0,'교차점 결합.'],['E','RuvC',1,'홀리데이 중간체 절단(resolvase). RuvB = 분지 이동 모터.']]});
+P({id:'25M',ys:['2022','2016'],ch:'25',t:'chiasma',k:'w',sl:68,q:'[단답] 감수분열에서 상동염색체의 비자매 염색분체 두 개를 잇는 지점(교차가 일어나는 곳)의 이름은?',a:'<b>Chiasma<\/b> (복수 chiasmata, 키아스마)'});
+P({id:'25N',ys:['2022','2017Q','2016'],ch:'25',t:'meiosis',k:'s',sl:70,q:'감수분열의 상동 재조합(이중가닥 절단 수선 모델)에 대해 <b>틀린<\/b> 것은?',
+o:[['1','double strand break로 시작한다.',0,''],['2','두 자리를 잘라(cleavage of two sites) 교차가 생긴다.',0,''],['3','상동염색체가 정렬된다.',0,''],['4','a single Holliday intermediate가 형성된다.',1,'홀리데이 중간체 <b>2개<\/b>(교차 2개). 3번 연속 출제!'],['5','3\' ending strand가 온전한 이중가닥에 침입한다.',0,'']]});
+P({id:'25O',ys:['2016'],ch:'25',t:'',k:'w',sl:72,q:'[주관식, 레닌저 문제] 유전자 A–b와 a–B 사이에 생긴 홀리데이 중간체를 (a) Ab, (b) ab 유전형 산물이 되게 하려면 X·Y 중 어느 쪽을 잘라야 하는가?',
+a:'원리: <b>교차한 가닥<\/b>을 자르면(산물 세트 1) 양옆 표지 조합이 <b>유지<\/b>(비재조합, 이형이중가닥 구간만 생김), <b>교차하지 않은 가닥<\/b>을 자르면(산물 세트 2) 양옆이 <b>재조합<\/b>.<br>→ 양옆을 유지하는 산물(Ab)은 교차 가닥 절단, 양옆이 바뀐 산물(ab)은 비교차 가닥 절단. 문제 그림의 X·Y 위치를 슬라이드 72의 두 대각선에 맞춰 보면 돼요.'});
+P({id:'25P',ys:['2016'],ch:'25',t:'',k:'s',sl:77,q:'부위 특이적 재조합효소에 대해 <b>틀린<\/b> 것은?',
+o:[['1','Cre는 Tyr 잔기를 이용한다.',0,'Tyr형.'],['2','재조합효소는 엔도뉴클레이스와 연결효소 작용을 한다.',0,'자르고 다시 이음.'],['3','홀리데이 중간체가 없어도 된다.',0,'Ser형은 홀리데이 없이.'],['4','Ser을 친핵체로 쓰는 재조합효소가 있다.',0,'resolvase/invertase.'],['5','같은 염색체에 자리가 있으면 insertion이 일어난다.',1,'같은 DNA = <b>역위 또는 결실<\/b>. 삽입은 다른(원형) DNA일 때.']]});
+P({id:'25Q',ys:['2017Q'],ch:'25',t:'',k:'w',sl:84,q:'[빈칸] In replicative transposition, the entire transposon is replicated to create a (     ) intermediate … The (     ) is often resolved later, with the aid of a separate site-specific recombination system.',a:'<b>cointegrate<\/b>',b:'<p>슬라이드 84의 빨간 문장을 그대로 빈칸으로 냈어요.<\/p>'});
+
+/* ===================== 26·27·28장 (2025 기말) ===================== */
+P({id:'26a',ys:['2025'],n:'12',ch:'26',t:'cap',k:'s',tbr:'26-12',q:'다음 중 mRNA의 5\'-capping 과정에 관여하지 <b>않는<\/b> 효소는?',
+o:[['1','phosphorylase',1,'캡 형성에 없는 효소.'],['2','phosphohydrolase',0,'1단계: 5\'-삼인산의 γ-인산 제거(pppN → ppN).'],['3','guanylyltransferase',0,'2단계: GTP의 GMP를 5\'-5\' 삼인산으로 연결(GpppN).'],['4','guanine-7-methyltransferase',0,'3단계: 구아닌 N-7 메틸화(m⁷GpppN).'],['5','2\'-O-methyltransferase',0,'4단계: 첫·둘째 뉴클레오타이드 리보스 2\'-OH 메틸화.']],
+b:'<p>캡 4단계 = phosphohydrolase → guanylyltransferase → guanine-7-methyltransferase → 2\'-O-methyltransferase. 메틸기 공여체는 모두 adoMet. RNA Pol II의 CTD에 붙어 전사와 동시에 진행돼요.<\/p>',sl:35});
+P({id:'26b',ys:['2025'],n:'13',ch:'26',t:'amanitin',k:'s',q:'다음 중 RNA Polymerase I, II, III에 서로 다른 활성(감수성)을 보이는 약은?',
+o:[['1','Rifampicin',0,'세균 RNA 중합효소 β 소단위 → 개시 억제. 진핵 Pol에는 작용 X.'],['2','Actinomycin D',0,'DNA에 끼어들어(intercalation) 원핵·진핵 전사를 <b>모두<\/b> 막음.'],['3','Acyclovir',0,'헤르페스 DNA 중합효소 사슬 종결(25장).'],['4','alpha-amanitin',1,'<b>Pol II 매우 민감<\/b>(10⁻⁸ M), Pol III는 고농도에서 억제, Pol I은 영향 없음.'],['5','Remdesivir',0,'RNA 의존 RNA 중합효소(바이러스) 억제.']],sl:32});
+P({id:'26c',ys:['2025'],n:'14',ch:'26',t:'grp2',k:'m',q:'다음 중 Group 1, 2 intron에 대한 설명으로 옳지 <b>않은<\/b> 것은? (모두 고르시오)',
+o:[['1','Group 1 intron은 GTP를 사용한다.',0,'외부 구아닌 뉴클레오사이드/뉴클레오타이드(GTP·GDP·GMP·G)의 3\'-OH가 친핵체.'],['2','Group 2 intron은 intron 내 A 잔기의 2\'-OH가 친핵체로 작용해 2\'-5\' phosphodiester bond를 형성한다. (임의복기)',0,'올가미(lariat) 형성.'],['3','(미복기)',null,'복기되지 않은 보기.'],['4','Group 2 intron은 spliceosomal intron과 구조가 매우 유사하다. (임의복기)',0,'기전이 같아서 핵 mRNA 인트론의 기원으로 봐요.'],['5','Group 2 intron은 encoding되어 있는 ribonuclease에 의해 RNA가 제거되고 DNA로 대체된다. (임의복기)',1,'일부 제II군 인트론이 암호화하는 건 <b>역전사효소<\/b>(인트론이 다른 자리로 이동, retrohoming). "리보뉴클레이스로 RNA를 DNA로 대체"는 틀려요.']],memo:'2·4·5번은 복기자가 "임의복기"라고 적은 보기예요.',sl:69});
+P({id:'26d',ys:['2025'],n:'15',ch:'26',t:'pap',k:'m',tbr:'26-28',q:'다음 중 template를 필요로 하지 <b>않는<\/b> 중합효소는? (모두 고르시오)',
+o:[['1','RNA Polymerase I',0,'DNA 주형.'],['2','Telomerase',0,'자기 안의 <b>RNA 주형<\/b>을 써요(주형 필요).'],['3','Reverse Transcriptase',0,'RNA(또는 DNA) 주형.'],['4','Polyadenylate Polymerase',1,'주형 없이 ATP로 A를 80~250개 붙여요. (TB 26-28과 같은 문제)'],['5','RNA replicase',0,'RNA 주형.']],sl:47});
+P({id:'26e',ys:['2025'],n:'30',ch:'26',t:'',k:'w',img:'q30',q:'(1)과 (2)에 들어갈 염기를 쓰시오. (오른쪽 두 개가 각각 (1)과 (2)) — 그림 26-16a, U1·U2 snRNA와 스플라이싱 부위',
+a:'(1) <b>A<\/b> — 가지점(branch point) 아데닌. U2와 짝을 이룰 때 짝 없이 튀어나와(bulge) 2\'-OH로 5\' 스플라이스 자리를 공격.<br>(2) <b>G<\/b> — 3\' 스플라이스 자리 인트론 끝의 <b>AG<\/b> 중 G.',
+b:'<p>그림 읽는 법: 5\' 엑손 끝 AG | <b>GU<\/b>AGGU… (인트론 5\' 끝 GU, U1이 짝) → 가지점 UACUA<b>A<\/b>C(U2가 짝, A 하나가 튀어나옴) → 인트론 3\' 끝 <b>AG<\/b> | 3\' 엑손. "GU…A…AG" 규칙. 복기본엔 (1) 자리에 A가 손글씨로 적혀 있어요.<\/p>',sl:41});
+P({id:'27a',ys:['2025'],n:'18',ch:'27',t:'asite',k:'s',q:'다음 중 리보솜의 A 자리에 결합할 수 <b>없는<\/b> 것은?',
+o:[['1','EF-Tu/tRNA',0,'아미노아실-tRNA를 A 자리로 운반.'],['2','EF-G-GDP',1,'A 자리에 들어가는 건 <b>EF-G-GTP<\/b>(도메인이 tRNA 모양을 흉내). GTP가 가수분해돼 GDP가 되면 떨어져 나가요.'],['3','releasing factor',0,'종결 코돈이 A 자리에 오면 RF가 결합.'],['4','Puromycin',0,'아미노아실-tRNA 3\' 말단 유사체 → A 자리에 결합해 조기 종결.'],['5','Streptomycin',null,'30S 소단위(16S rRNA 해독 부위)에 결합해 오독을 유발. "A 자리 결합"으로 볼지 해석이 갈려 채점에서 뺐어요.']],memo:'복기에 정답 표시 없음 — EF-G의 GTP/GDP 형태 차이를 노린 문제로 보고 2번을 정답으로 봤어요.'});
+P({id:'27b',ys:['2025'],n:'19',ch:'27',t:'glyco',k:'m',q:'다음 중 protein glycosylation에 관한 설명으로 옳지 <b>않은<\/b> 것은? (모두 고르시오)',
+o:[['1','Ribosome에서 protein synthesis가 완료된 후 glycosylation이 진행된다.',1,'N-연결 당화는 ER 내강에서 <b>번역 중(co-translational)<\/b>에 일어나요.'],['2','Oligosaccharide는 Cytosol 및 ER lumen에서 완성된 후 protein에 결합한다.',0,'핵심 올리고당은 돌리콜 인산 위에서 세포질 쪽 → 내강 쪽으로 뒤집혀 완성된 뒤 Asn에 통째로 전달.'],['3','Dolichol pyrophosphate는 cytosol에서 Dolichol phosphate로 전환된다.',null,'그림 27-34의 재활용 단계(돌리콜-PP → 돌리콜-P)가 어느 쪽에서 일어나는지 PPT 그림으로 확인 필요 — 채점에서 뺐어요.'],['4','Tunicamycin은 UDP-N-acetylglucosamine이 dolichol phosphate에 결합하는 것을 억제한다.',0,'첫 단계(GlcNAc-P 전달) 억제 — TB 27-26.'],['5','O-linked Glycosylation은 Golgi 혹은 cytosol에서 진행된다.',0,'Ser/Thr에 골지에서, O-GlcNAc는 세포질에서.']]});
+P({id:'27c',ys:['2025'],n:'20',ch:'27',t:'m6p',k:'s',q:'Lysosome으로 가는 hydrolase의 mannose-6-phosphate에 phosphate기를 주는 것은?',
+o:[['1','GTP',0,''],['2','ATP',0,''],['3','UDP-N-acetylglucosamine',1,'GlcNAc 인산전달효소가 UDP-GlcNAc의 <b>GlcNAc-1-P<\/b>를 만노스 6번 위치에 붙임 → GlcNAc가 떨어지면 만노스 6-인산이 남아요.'],['4','GTP-mannose',0,''],['5','mannose kinase',0,'']]});
+P({id:'27d',ys:['2025'],n:'32',ch:'27',t:'cas',k:'w',img:'q32',q:'(1)과 (2)에 들어갈 물질의 이름을 적으시오. (핵 단백질 수입, 그림 27-40)',
+a:'(1) <b>CAS<\/b> (cellular apoptosis susceptibility protein) — 핵 안에서 Ran-GTP와 함께 임포틴 α를 세포질로 내보냄<br>(2) <b>NTF2<\/b> (nuclear transport factor 2) — Ran-GDP를 핵 안으로 다시 들여옴',
+b:'<p>순서: ① NLS 단백질 + 임포틴 α·β → ② 핵공 통과 → ③ Ran-GTP가 β에 결합해 화물 방출 → ④ 임포틴 α는 CAS·Ran-GTP와 함께 → ⑤ 세포질로 → Ran-GAP로 GTP 가수분해 → ⑥ Ran-GDP는 NTF2와 핵 안으로 → ⑦ Ran GEF가 GDP → GTP 교환. 2017 기말 주관식에 같은 그림이 나왔고 정답이 <b>CAS / NTF2<\/b>로 확인돼요.<\/p>'});
+P({id:'27e',ys:['2025'],n:'33',ch:'27',t:'sec',k:'w',img:'q33',q:'(1)과 (2)에 들어갈 물질의 이름(full name)을 적으시오. (세균 단백질 수출, 그림 27-37)',
+a:'(1) <b>SecB<\/b> (샤페론, 새 폴리펩타이드가 접히지 않게 붙잡음)<br>(2) <b>SecA<\/b> (ATP를 쓰며 폴리펩타이드를 SecYEG 통로로 밀어 넣음)',
+b:'<p>순서: ① SecB 결합 → ② SecA에 넘김(SecYEG 위) → ③ ATP 결합한 SecA가 약 20개 잔기를 밀어 넣고 SecB 해리 → ④ ATP 가수분해로 SecA 분리 → ⑤ 반복 → ⑥ 주변세포질로. TB 27-28(2·1·4·3 순서)·2015 기말 11번(순서 맞추기)과 같은 그림이에요. Sec = secretion.<\/p>'});
+P({id:'28f',ys:['2025'],n:'34',ch:'28',t:'rela',k:'w',img:'q34',q:'(1)과 (2)에 들어갈 물질의 이름(full name)을 적으시오. (엄격 반응, 그림 28-22)',
+a:'(1) <b>uncharged tRNA<\/b> (아미노산이 붙지 않은 tRNA, A 자리에 결합)<br>(2) <b>stringent factor (RelA)<\/b> → GTP + ATP로 (p)ppGpp를 만들어 RNA 중합효소(rRNA 전사)를 억제',
+b:'<p>아미노산이 모자라면 빈 tRNA가 A 자리에 들어옴 → 리보솜에 붙은 엄격 인자(RelA) 활성 → pppGpp → ppGpp → rRNA·리보솜 단백질 합성↓. TB 28-20 · 2022/2019/2017 순서 맞추기(uncharged tRNA → RelA 결합 → AMP → ppGpp)와 같은 그림이에요.<\/p>'});
+P({id:'28a',ys:['2025'],n:'21',ch:'28',t:'gal4',k:'m',q:'다음 중 GAL4에 대한 설명으로 옳지 <b>않은<\/b> 것은? (모두 고르시오)',
+o:[['1','Yeast에 존재하는 UAS를 인식해서 결합한다.',0,'UAS_G(상류 활성 서열).'],['2','Zn 이온 2개와 Cys 4개를 포함하고 있다.',1,'Gal4 = <b>Zn₂Cys₆<\/b> 이핵 클러스터(Zn 2개, <b>Cys 6개<\/b>).'],['3','Galactose가 없으면 Gal80과 결합한다.',0,'Gal80이 활성 도메인을 가려 억제.'],['4','Galactose가 있으면 Gal80 대신 Gal3과 결합한다.',1,'갈락토스가 붙은 <b>Gal3가 Gal80<\/b>에 결합해 떼어냄. Gal4가 Gal3과 결합하는 게 아니에요.'],['5','Coactivator, RNA Polymerase, transcription factor 등을 리크루팅한다.',0,'산성 활성 도메인 → 매개체(Mediator) 등.']]});
+P({id:'28b',ys:['2025'],n:'22',ch:'28',t:'chromatin',k:'m',q:'다음 중 transcription을 억제하는 것은?',
+o:[['1','histone 1 variant',null,'링커 히스톤 H1은 염색질을 응축시키는 쪽이지만, 복기 문구("variant")가 애매해 채점에서 뺐어요.'],['2','SAGA',0,'히스톤 아세틸전달효소(HAT) 복합체 → 활성화.'],['3','TAF250',0,'TFIID의 TAF, HAT 활성 → 활성화.'],['4','histone deacetylation',1,'HDAC → 염색질 응축 → 억제.'],['5','histone 3 lys9 methylation',1,'H3K9 메틸화 → HP1 결합 → 이질염색질(억제).']],memo:'복기에 "모두 고르시오" 표시는 없지만, 억제 쪽 보기가 둘 이상이라 모두 고르기로 채점해요.'});
+P({id:'28c',ys:['2025'],n:'24',ch:'28',t:'trp',k:'s',q:'Tryptophan (trp operon)에 대한 설명으로 옳지 <b>않은<\/b> 것은? (답 1개)',
+o:[['1','Tryptophan의 bioavailability에 따라 operon의 발현이 결정된다.',0,'억제자 + 약화로 이중 조절.'],['2','trpR에 의해 발현되는 Trp repressor가 Tryptophan과 결합해야 operator에 결합할 수 있다.',0,'Trp = 공동억제자.'],['3','Leader sequence는 operator의 downstream에 있다.',0,'P·O → trpL(리더) → trpE…'],['4','Attenuator는 leader sequence의 2, 3, 4에 있다.',1,'약화자(종결자) = 서열 <b>3과 4<\/b>가 만든 헤어핀. 2:3은 반종결자.'],['5','Attenuator는 G-C rich sequence로 stem loop 구조를 형성한다.',0,'G≡C 헤어핀 + 뒤의 U 연속.']]});
+P({id:'28d',ys:['2025'],n:'25',ch:'28',t:'transl',k:'m',q:'Translation repression에 대한 설명으로 옳지 <b>않은<\/b> 것은? (모두 고르시오)',
+o:[['1','Prokaryote보다 eukaryote에서 번역 억제가 자주 일어난다.',0,'번역 수준 조절은 진핵에서 더 큰 비중.'],['2','Erythrocyte에서 Heme이 부족해지면 HRI가 활성화되어 eIF2 β를 인산화하여 번역을 억제한다.',1,'HRI는 eIF2의 <b>α<\/b> 소단위를 인산화.'],['3','리보솜 단백질의 번역 억제는 mRNA와 rRNA에 대한 친화도에 의해서 결정된다.',0,'rRNA에 더 강하게 결합 → rRNA가 남을 때만 mRNA에 붙어 억제(TB 28-39).'],['4','Xenopus oocyte가 비활성인 상태에서는 maskin이 CPEB와 eIF4E와 결합하고 있다.',0,'maskin이 eIF4E–eIF4G 결합을 막음.'],['5','Xenopus oocyte가 활성인 상태에서는 CPEB가 인산화되고 나서 eIF4E와 eIF4A가 상호작용할 수 있게 된다.',1,'CPEB 인산화 → 폴리(A) 연장 → maskin 해리 → eIF4E가 <b>eIF4G<\/b>와 결합.']]});
+P({id:'28e',ys:['2025'],n:'35',ch:'28',t:'',k:'w',img:'q35',q:'다음은 전형적인 steroid hormone receptor의 구조이다. (1)과 (2)에 들어갈 domain을 쓰시오.',
+a:'(1) <b>Transcription activation<\/b> domain (서열·길이 다양)<br>(2) <b>DNA binding<\/b> domain (66~68 잔기, 고도로 보존, 아연 손가락)',b:'<p>N말단부터: 전사 활성화 – DNA 결합 – (경첩) – 호르몬 결합(서열·길이 다양) – C말단. 괄호 속 설명까지 그림 라벨이에요.<\/p>'});
+
+/* ===================== 26·27·28장 역대 기출 (2015~2023) ===================== */
+/* ---------- 26장 RNA 대사 ---------- */
+P({id:'o26a',ys:['2021'],ch:'26',t:'',k:'s',tbq:'26-5',sl:8});
+P({id:'o26b',ys:['2019'],ch:'26',t:'',k:'s',q:'Which of the following is not correct about bacterial RNA polymerase?',
+o:[['1','6th subunit of polymerase binds to Pribnow box.',null,'완전효소 α₂ββ\'ωσ의 여섯 번째 = σ → −10(프리브노 상자) 인식. 맞는 진술로 봐요.'],['2','Alpha subunit of polymerase binds to UPE of promoter.',null,'α의 C말단 도메인(αCTD)이 UP element에 결합 — 맞아요.'],['3','2 beta subunits are the main catalytic subunits.',null,'촉매 소단위는 <b>β와 β\'<\/b>(서로 다른 두 소단위). "2 beta"로 적혀 있어 함정일 가능성이 커요.'],['4','RNA pol binding affinity affects transcription rate.',null,'프로모터 친화도 = 전사 빈도 — 맞아요.'],['5','RNA polymerase does not have 3\'→5\' exonuclease activity.',null,'별도의 교정 엑소 활성 부위가 없어요 — 맞는 진술.']],
+memo:'2019 복기에 정답이 없어 채점에서 뺐어요. 해설 기준으로는 3번이 가장 의심스러운 보기예요.',sl:8});
+P({id:'o26c',ys:['2023'],ch:'26',t:'promoter',k:'s',q:'다음 중 프로모터에 대한 설명으로 옳지 <b>않은<\/b> 것은? (단일 정답)',
+o:[['1','(Pol I) 프로모터는 core promoter region과 UP element로 구성된다.',0,'rRNA(Pol I) 프로모터 = UPE + core.'],['2','tRNA와 5S RNA는 nonclassical class III promoter의 특징이 있다.',1,'tRNA·5S rRNA = <b>classical<\/b> class III(유전자 <b>안쪽<\/b> 프로모터). nonclassical class III(U6 snRNA 등)는 Pol II 프로모터를 닮은 상류형.'],['3','tRNA와 5S RNA의 프로모터는 transcription start site의 downstream에 존재한다.',0,'내부(intragenic) 프로모터.'],['4','core promoter 구성 서열 사이 거리가 바뀌면 transcription이 감소한다.',0,'UPE–core 간격을 바꾸면 전사 감소.'],['5','core promoter 서열 중 TATA box나 initiator가 없는 promoter도 많다.',0,'Pol II 프로모터의 다양성.']],sl:26});
+P({id:'o26d',ys:['2022'],ch:'26',t:'promoter',k:'s',q:'프로모터에 대한 설명으로 옳지 <b>않은<\/b> 것은? (보기 일부 복기)',
+o:[['1','(Pol I 프로모터는) 보존 서열이 두 개(UPE·core)이다.',0,''],['2','nonclassical promoter III는 promoter II와 닮았다.',0,'상류형, TATA 포함.'],['3','promoter II의 BRE는 TFIIF와 상호작용한다.',1,'BRE(TFIIB recognition element)는 <b>TFIIB<\/b>와 결합.'],['4','UPE는 promoter II의 core element가 아니다.',0,'UPE는 Pol I(rRNA) 프로모터 요소.']],sl:23});
+P({id:'o26e',ys:['2019'],ch:'26',t:'promoter',k:'s',q:'다음 프로모터와 전사인자들에 대한 설명 중 옳지 <b>않은<\/b> 것은? (보기 4개 복기)',
+o:[['1','large rRNA를 코딩하는 gene의 promoter에는 conserved sequence인 UPE와 core가 있다.',0,''],['2','Changing the spacing between UPE and core decreases transcription.',0,''],['3','nonclassical promoter III는 promoter II와 유사하다.',0,''],['4','BRE는 promoter II의 subunit(요소)이 아니다.',1,'BRE는 Pol II 코어 프로모터 요소(TATA 상류, TFIIB 결합).']],sl:25});
+P({id:'o26f',ys:['2023'],ch:'26',t:'gtf',k:'s',q:'TATA binding protein(TBP)을 갖는 general transcription factor를 고르시오.',
+o:[['1','TFIIA',0,'TBP–DNA 안정화.'],['2','TFIIB',0,'BRE 결합, Pol II 위치.'],['3','TFIID',1,'TFIID = <b>TBP + TAF들<\/b>(TAF250 = HAT 활성).'],['4','TFIIF',0,'Pol II 동반.'],['5','TFIIH',0,'헬리케이스·CTD 키네이스.']],sl:28});
+P({id:'o26g',ys:['2017Q'],ch:'26',t:'gtf',k:'w',q:'[단답] General transcription factor가 preinitiation complex를 만들 때 결합하는 순서는?',a:'<b>TFIID → TFIIB → TFIIF(+Pol II) → TFIIE → TFIIH<\/b> (TFIIA는 TFIID와 함께)',sl:30});
+P({id:'o26h',ys:['2022','2017Q'],ch:'26',t:'tfiih',k:'s',q:'TFIIH의 기능으로 옳지 <b>않은<\/b> 것은?',
+o:[['1','ATP hydrolysis',0,'헬리케이스·키네이스 모두 ATP 사용.'],['2','open complex 형성',0,'DNA를 풀어 열린 복합체.'],['3','helicase 활성이 있다.',0,'XPB·XPD.'],['4','promoter에 DNA(RNA) pol II를 recruit한다.',1,'Pol II를 데려오는 건 <b>TFIIB·TFIIF<\/b>. TFIIH는 마지막에 결합.'],['5','(nucleotide) excision repair에 관여한다.',0,'NER에도 쓰여요(XP 유전자).']],memo:'2017 퀴즈엔 "RNA pol II를 인산화한다(O, CTD Ser5)" 보기가 있었어요.',sl:28});
+P({id:'o26i',ys:['2016'],ch:'26',t:'tfiih',k:'s',q:'TFIIH에 대한 설명으로 옳지 <b>않은<\/b> 것은?',
+o:[['a','Helicase 활성이 있다.',0,''],['b','ATP를 가수분해한다.',0,''],['c','RNA polymerase II를 인산화시킨다.',0,'CTD 인산화 → 개시 → 신장.'],['d','전사를 종결시킨다.',1,'종결 인자가 아니에요.'],['e','Nucleotide excision repair에 관여한다.',0,'']],sl:28});
+P({id:'o26j',ys:['2023','2016'],ch:'26',t:'amanitin',k:'w',q:'[단답] α-amanitin 처리 시 동물 RNA polymerase 중 (1) 억제되는 것, (2) 고농도에서 억제되는 것, (3) 억제되지 않는 것은? (2023은 이 내용을 객관식 "어떤 물질인가"로 냄)',
+a:'(1) <b>RNA polymerase II<\/b> (2) <b>RNA polymerase III<\/b> (3) <b>RNA polymerase I<\/b><br>(2023 객관식 답: α-amanitin)',sl:32});
+P({id:'o26k',ys:['2016'],ch:'26',t:'cap',k:'s',q:'5\'-capping에 대한 설명으로 옳은 것은? (복기된 보기만)',
+o:[['a','5\'-5\' diphosphate link로 연결된다.',0,'<b>삼인산(triphosphate)<\/b> 연결.'],['b','3\' 말단에 methyltransferase에 의해 7-methylguanosine이 붙는다.',0,'<b>5\' 말단<\/b>.'],['c','약 20개의 아미노산…(복기 불완전)',null,'']],memo:'2016 복기는 보기 일부만 남아 있어요. 캡 = m⁷G + 5\'-5\' <b>삼인산<\/b>.',sl:34});
+P({id:'o26l',ys:['2021'],ch:'26',t:'',k:'s',tbq:'26-8',sl:13});
+P({id:'o26m',ys:['2023','2022','2019'],ch:'26',t:'bpair',k:'s',q:'다음 RNA 중에서 다른 RNA와 직접 base pairing을 하지 <b>않는<\/b> 것은? (2019: 핵산과 base pairing하지 않는 것)',
+o:[['1','RNase P',1,'pre-tRNA를 <b>구조(3차원 모양)<\/b>로 인식해 5\' 끝을 잘라요(리보자임).'],['2','Box C/D snoRNA',0,'rRNA와 짝지어 2\'-O-메틸화 위치 지정.'],['3','DsrA',0,'rpoS mRNA 리더와 짝지어 번역 촉진(sRNA).'],['4','U2 snRNA',0,'가지점과 짝.'],['5','pri-miRNA',0,'자기 자신과 짝지어 헤어핀(dsRNA).']],memo:'3번 보기는 복기마다 "DrsA/???/pseudo…"로 흐릿해요. 2022 주관식 5번 빈칸 답도 RNase P였어요.',sl:58});
+P({id:'o26n',ys:['2023','2022','2017Q','2016'],ch:'26',t:'mirna',k:'s',q:'miRNA에 대한 설명으로 <b>틀린<\/b> 것은?',
+o:[['1','pre-miRNA가 miRNA가 되는 과정은 세포질(cytosol)에서 일어난다.',0,'Dicer(세포질).'],['2','RNA polymerase I이 전사에 관여한다.',1,'pri-miRNA는 <b>RNA polymerase II<\/b>가 전사.'],['3','Ran과 Exportin 5가 핵 밖 수송(nuclear translocation)에 관여한다.',0,'pre-miRNA 수출.'],['4','mRNA와 partial base pairing되면 mRNA의 번역이 억제된다.',0,'완전 상보 → 분해, 부분 상보 → 번역 억제. (2017엔 "transcription을 막는다"로 바꿔 냄 → 틀림)'],['5','RNA helicase의 작용에 의해 complement(passenger strand)가 제거된다.',0,'RISC 적재.']],memo:'2022 복기에 답 2번으로 표시돼 있어요.',sl:57});
+P({id:'o26o',ys:['2023'],ch:'26',t:'grp2',k:'s',q:'Group II intron에 대해 옳지 <b>않은<\/b> 것은? (2023 버전)',
+o:[['1','스플라이싱 과정 중에 2\'-5\' phosphodiester 결합이 형성된다.',0,'올가미.'],['2','스플라이싱 과정 중에 spliceosome/pre-mRNA와 3차원적 구조가 유사하다.',0,''],['3','retrovirus와 공통조상으로부터 진화되었다.',0,'제II군 인트론이 암호화하는 역전사효소 — 레트로 요소와 공통 기원.'],['4','encoding되어 있는 endonuclease에 의해 특정 DNA 자리가 절단되어 RNA 형태로 insertion된다.',0,'retrohoming: 역 스플라이싱으로 RNA가 DNA에 삽입.'],['5','encoding되어 있는 ribonuclease에 의해 RNA가 제거되고 DNA로 대체된다.',1,'인트론이 암호화하는 건 <b>역전사효소(+엔도뉴클레이스)<\/b>. RNA 제거는 숙주 효소.']],memo:'2025 14번 5번 보기와 같은 문장이에요.',sl:69});
+P({id:'o26p',ys:['2017Q','2016'],ch:'26',t:'grp2',k:'s',q:'Retrohoming과 관련된 것이 <b>아닌<\/b> 것은?',
+o:[['A','(eukaryotic) retrotransposon',0,'원리가 비슷한 진핵 레트로트랜스포존(2017 복기엔 "DNA transposon"으로 적힘).'],['B','reverse(retro) splicing',0,'인트론 RNA가 DNA에 역으로 끼어듦.'],['C','group I intron',1,'retrohoming은 <b>제II군<\/b> 인트론.'],['D','endonuclease',0,'역전사효소의 엔도뉴클레이스 활성이 반대 가닥을 자름.'],['E','ribonuclease',0,'RNA를 제거하고 DNA로 대체.']],sl:69});
+P({id:'o26q',ys:['2023'],ch:'26',t:'',k:'m',q:'Spliceosome에 의한 intron splicing에 대한 설명으로 옳지 <b>않은<\/b> 것은?',
+o:[['1','(인트론 5\' 끝에) GU를 가진다.',0,'GU…AG 규칙.'],['2','U2는 인트론 내 특정 서열(가지점)에 결합한다.',0,''],['3','U1이 나가면 그 자리에 U4-U6가 결합한다.',1,'U4/U6·U5가 합류한 뒤 U1과 <b>U4가 떨어지고<\/b>, <b>U6<\/b>가 5\' 스플라이스 자리에 짝지어요. U4는 함께 들어오지 않아요.'],['4','lariat structure를 형성한다.',0,''],['5','GTP 2분자를 가수분해한다.',1,'스플라이싱체 재배열에 쓰이는 건 <b>ATP<\/b>(헬리케이스).']],sl:42});
+P({id:'o26r',ys:['2017Q'],ch:'26',t:'',k:'w',q:'[단답] (6) 스플라이싱체 그림의 A·B (7) 칼시토닌 유전자 선택적 스플라이싱의 A·B (8) mRNA 인트론 하나를 스플라이싱하는 데 필요한 최소 transesterification 횟수',
+a:'(6) <b>U1, U2<\/b> (7) <b>calcitonin, CGRP<\/b>(calcitonin gene-related peptide) (8) <b>2회<\/b>(가지점 A의 2\'-OH 공격 → 엑손 3\'-OH 공격)',sl:41});
+P({id:'o26s',ys:['2016'],ch:'26',t:'',k:'s',q:'tRNA·rRNA의 전사 후 염기 변형으로 관찰되지 <b>않는<\/b> 것은?',
+o:[['a','4-thiouridine',0,''],['b','pseudouridine',0,''],['c','dihydrouridine',0,''],['d','ribouridine',1,'그냥 유리딘 — 변형 염기가 아니에요.'],['e','ribothymidine',0,'TψC 고리.']],sl:51});
+P({id:'o26t',ys:['2021'],ch:'26',t:'',k:'s',tbq:'26-26',sl:73});
+P({id:'o26u',ys:['2021'],ch:'26',t:'',k:'s',tbq:'26-18',sl:52});
+P({id:'o26v',ys:['2021'],ch:'26',t:'',k:'s',tbq:'26-19',sl:58});
+P({id:'o26w',ys:['2023','2022','2021','2019','2017Q'],ch:'26',t:'pap',k:'s',tbq:'26-28',memo:'5년 연속 출제. 2017 퀴즈는 단답(답 PAP), 2025는 "모두 고르시오"로 텔로머레이스를 끼워 냈어요.',sl:47});
+P({id:'o26x',ys:['2019'],ch:'26',t:'',k:'s',q:'Reverse transcriptase에 대한 설명으로 옳지 <b>않은<\/b> 것은? (보기 4개 복기)',
+o:[['1','RNA-dependent DNA synthesis, RNA degradation, DNA-dependent DNA synthesis 활성을 가진다.',0,'세 활성(RNase H 포함).'],['2','Indinavir는 reverse transcriptase를 저해한다.',1,'indinavir = HIV <b>프로테이스<\/b> 억제제.'],['3','Group II intron에 reverse transcriptase 활성이 있다.',0,'인트론이 RT를 암호화.'],['4','Copia element(초파리 레트로트랜스포존)는 RT를 가진다.',0,'']],memo:'같은 해에 "SELEX에 대해 틀린 것", "RT를 유전공학적으로 쓸 때 틀린 것"도 나왔어요(보기 미복기).',sl:65});
+P({id:'o26y',ys:['2019','2016'],ch:'26',t:'',k:'w',q:'[단답] lac 프로모터 DNA footprinting 결과에서 RNA polymerase가 보호하는 두 consensus 서열은? (2016은 위치까지)',a:'<b>−10 region(TATAAT)<\/b>과 <b>−35 region(TTGACA)<\/b> — 추가로 UP element(−40~−60)',sl:13});
+P({id:'o26z',ys:['2022'],ch:'26',t:'',k:'w',q:'[단답] Gene products of integrated retroviral genome — polyprotein A(gag)가 단백질분해로 잘려 만들어지는 세 단백질은?',a:'PPT 그림 26-33 기준 <b>integrase, protease, reverse transcriptase<\/b>(폴리단백질 A = gag + pol → 바이러스 구조 단백질 + 이 세 효소). 구조 단백질 쪽으로 물었다면 gag 산물 Matrix(MA)·Capsid(CA)·Nucleocapsid(NC). 복기상 문제 그림이 PPT 그림과 같았다면 앞의 세 효소가 답일 가능성이 높아요.',sl:62});
+
+/* ---------- 27장 단백질 대사 ---------- */
+P({id:'o27a',ys:['2017','2015'],ch:'27',t:'code',k:'s',q:'Why is the genetic code said to be "degenerate"?',
+o:[['A','코돈의 첫째·둘째·셋째 염기 순으로 중요하다.',0,'워블 설명이지 축퇴의 정의가 아님.'],['B','일부 코돈은 여러 tRNA와 염기쌍을 이룬다.',0,'워블.'],['C','하나의 아미노산을 여러 코돈이 지정한다.',1,'축퇴(degeneracy)의 정의.'],['D','세대가 지나며 수선이 안 되면 genetic code가 deterioration된다.',0,'단어 함정(degenerate ≠ 퇴화).']]});
+P({id:'o27b',ys:['2017'],ch:'27',t:'',k:'w',q:'[단답, 레닌저 연습문제] 코돈 5\'-GGU-3\'와 짝지을 수 있는 안티코돈을 모두 쓰시오. (5\'→3\' 방향 주의)',a:'<b>5\'-ACC-3\', 5\'-GCC-3\', 5\'-ICC-3\'<\/b> — 안티코돈 1번(5\') 자리의 워블: U는 A·G·I와 짝.'});
+P({id:'o27c',ys:['2017'],ch:'27',t:'aars',k:'s',q:'tRNA와 아미노산을 고에너지 결합으로 연결할 때 쓰이는 메커니즘은?',
+o:[['A','hydrolysis',0,''],['B','adenylation',1,'아미노산 + ATP → <b>아미노아실-AMP<\/b> + PPi → tRNA로 전달.'],['C','GTPase',0,''],['D','peptide 결합 형성',0,''],['E','phosphodiester bond 분해',0,'']]});
+P({id:'o27d',ys:['2023','2022','2019'],ch:'27',t:'',k:'s',q:'What is the molecule called "adaptor"?',
+o:[['1','DNA',0,''],['2','mRNA',0,''],['3','tRNA',1,'크릭의 어댑터 가설 — 코돈(핵산)과 아미노산을 이어 주는 분자.'],['4','rRNA',0,''],['5','protein',0,'']]});
+P({id:'o27e',ys:['2016','2015'],ch:'27',t:'aars',k:'s',q:'Aminoacyl-tRNA synthetase는 (    )',
+o:[['a','recognize specific tRNA and specific amino acid.',1,'한 효소가 짝 맞는 tRNA와 아미노산을 모두 인식.'],['b','function in conjunction with other enzymes.',0,'혼자 두 단계를 다 해요.'],['c','ribosome에 직접 결합한다.',0,''],['d','ATP에서 인산기 하나를 떼는 에너지로 tRNA를 충전한다.',0,'ATP → <b>AMP + PPi<\/b>(인산 무수결합 2개 상당).'],['e','GTP를 이용한다.',0,'ATP.']],memo:'2016 2차엔 "서로 다른 효소가 tRNA·아미노산을 따로 인식(X)", "transester 반응(△)" 보기도 있었어요. 2015 정답 ①.'});
+P({id:'o27f',ys:['2022'],ch:'27',t:'aars',k:'s',q:'In the "activation" of an amino acid for protein synthesis: (옳은 것)',
+o:[['1','leucine can be attached to tRNA^Phe by the aminoacyl-tRNA synthetase specific for leucine.',0,'짝이 맞는 tRNA만.'],['2','methionine is first formylated, then attached to a specific tRNA.',0,'Met-tRNA^fMet가 <b>먼저<\/b> 만들어진 뒤 포밀화.'],['3','class I은 아미노산을 3\'-OH에서 2\'-OH로 옮겨준다.',0,'class I은 <b>2\'-OH<\/b>에 붙인 뒤 전이에스터화로 3\'-OH로 옮겨져요(방향 반대).'],['4','class II는 Ala을 tRNA에 붙여준다.',1,'AlaRS = class II(3\'-OH).'],['5','two separate enzymes are required, one to form aminoacyl adenylate, the other to attach the amino acid to tRNA.',0,'한 효소.']]});
+P({id:'o27g',ys:['2023','2022','2019'],ch:'27',t:'aars',k:'m',q:'Aminoacyl-tRNA synthetase에 대해 옳은 것을 모두 고르시오. (세 해 보기 합침)',
+o:[['1','class I은 tRNA 3\' 말단 아데노신의 2\'-OH에 아미노아실기를 붙인다.',1,'class I = 2\'-OH, class II = 3\'-OH.'],['2','Ala은 class II다.',1,''],['3','aminoacyl-tRNA synthetase I이 aminoacyl-ADP를 결합시킨다.',0,'중간체는 aminoacyl-<b>AMP<\/b>.'],['4','tRNA^Ala의 G-U 쌍을 특이적으로 인식해 proofreading한다.',0,'G3·U70은 <b>정체성(identity) 인식<\/b>("제2의 유전 암호")이지 교정이 아니에요.'],['5','원핵생물에서 이 효소가 fMet-tRNA를 직접 합성한다.',0,'Met를 붙인 뒤 <b>트랜스포밀레이스<\/b>가 포밀화.']]});
+P({id:'o27h',ys:['2015'],ch:'27',t:'aars',k:'s',q:'tRNA synthetase class I에 해당하는 아미노산은?',o:[['1','Gly',0,'class II'],['2','Val',1,'class I: Arg·Cys·Gln·Glu·Ile·Leu·Met·Trp·Tyr·Val'],['3','Asn',0,'class II'],['4','Asp',0,'class II'],['5','Phe',0,'class II(2\'-OH에 붙이는 예외)']]});
+P({id:'o27i',ys:['2015'],ch:'27',t:'aars',k:'s',q:'tRNA synthetase class I에 해당하는 아미노산이 <b>아닌<\/b> 것은?',o:[['1','Met',0,''],['2','Leu',0,''],['3','Ile',0,''],['4','Lys',1,'LysRS는 대부분 class II.'],['5','Val',0,'']]});
+P({id:'o27j',ys:['2017','2015'],ch:'27',t:'aars',k:'w',q:'[서술, 레닌저 연습문제] Isoleucyl-tRNA synthetase는 교정(proofreading) 기능이 있지만 histidyl-tRNA synthetase는 없다. 그 이유는? (2015 단답 답: isoLeu-tRNA)',
+a:'Ile과 <b>Val<\/b>은 메틸렌기 하나 차이로 크기·모양이 비슷해 IleRS가 Val을 잘못 활성화할 확률이 높다 → 교정(편집) 부위가 필요. His의 이미다졸 곁사슬은 다른 아미노산과 뚜렷이 달라 잘못 고를 일이 거의 없어 교정이 필요 없다.'});
+P({id:'o27k',ys:['2021','2017'],ch:'27',t:'',k:'s',tbq:'27-21',memo:'2021은 "Cys-tRNA(Ala)를 만들려면 어디를 조작하나"로 바꿔 냄 → 리보솜은 안티코돈만 보므로 tRNA 충전(합성효소) 단계가 핵심.'});
+P({id:'o27l',ys:['2017','2016','2015'],ch:'27',t:'ntp',k:'s',tbq:'27-22',memo:'2016 2차는 보기가 1.0 / 2.1 / 3.2 / 4.4 / 5.8로 나왔어요 → 4.4. 2015 정답 ④.'});
+P({id:'o27m',ys:['2021'],ch:'27',t:'',k:'s',tbq:'27-6',memo:'2021은 "tRNA에 대해 틀린 것 — A G C U로만 이루어져 있다"로 나왔어요.'});
+P({id:'o27n',ys:['2015'],ch:'27',t:'',k:'s',q:'Ribosome에 대해 <b>틀린<\/b> 것은? (보기 3개 복기)',o:[['1','40S는 28S rRNA를 가지고 있다.',1,'진핵 40S = <b>18S<\/b>, 60S = 28S·5.8S·5S.'],['2','folding sequence가 보존되어 있다.',0,''],['3','protein은 secondary(보조적)다.',0,'촉매는 rRNA.']]});
+P({id:'o27o',ys:['2016','2015'],ch:'27',t:'elong',k:'s',q:'단백질 합성의 elongation phase에 대한 설명으로 옳은 것은?',
+o:[['a','펩타이드 결합 하나에 phosphoryl group이 5개 필요하다.',0,'4개.'],['b','EF-Tu가 translocation을 촉진한다.',0,'자리 이동 = <b>EF-G<\/b>.'],['c','dipeptidyl-tRNA가 hybrid 상태에서 P site에 존재한다.',0,'혼성 상태(A/P)에선 A 자리에 걸쳐 있다가 이동.'],['d','elongation 시 incoming tRNA가 P site로 온다.',0,'<b>A<\/b> 자리.'],['e','peptidyl transferase는 ribozyme이다.',1,'23S rRNA.']],memo:'2015 정답 ① "peptidyl transferase is ribozyme". 2015엔 "뒤쪽 아미노산의 carboxyl기가 공격(X, 아미노기)" 보기도.'});
+P({id:'o27p',ys:['2017'],ch:'27',t:'elong',k:'s',q:'E. coli elongation 과정에서 proofreading에 관여하는 reaction mechanism은? (보기 일부 복기)',
+o:[['a','GTP hydrolysis (EF-Tu)',1,'EF-Tu의 GTP 가수분해 전후 시간 지연 동안 잘못된 aa-tRNA가 떨어져 나가요.'],['b','ATP hydrolysis·adenylation',0,'아미노아실화 단계(합성효소) 교정.']],memo:'2015 주관식 30: "EF-Tu의 GTP→GDP 기능이 망가지면? → elongation(교정)"과 같은 맥락.'});
+P({id:'o27q',ys:['2017'],ch:'27',t:'',k:'s',q:'Protein synthesis에서 5\' cap의 역할은?',
+o:[['a','Poly(A) tail의 말단 아데노신에 결합해 loop 구조를 만든다.',0,'고리화는 eIF4E–eIF4G–<b>PABP<\/b> 단백질을 통해서.'],['b','합성 준비 때 mRNA의 folding을 막는다.',0,''],['c','Initiation factor와 결합해 mRNA를 안정화시킨다.',1,'캡 결합 단백질 eIF4E(CBP) → 개시 + 5\'→3\' 분해 방지.'],['d','Protein synthesis 전에 제거된다.',0,''],['e','아무 역할을 하지 않는다.',0,'']]});
+P({id:'o27r',ys:['2017'],ch:'27',t:'',k:'s',q:'Bacteria와 진핵생물 인자 연결로 옳지 <b>않은<\/b> 것은?',
+o:[['a','IF-1 : eIF1A',0,''],['b','IF-3 : eIF3',0,'기능상 유사(표 27-9).'],['c','RecA : Rad51',0,'25장.'],['d','EF-Tu : eEF1α',0,''],['e','EF-Ts : eEF2',1,'EF-Ts ↔ <b>eEF1βγ<\/b>, EF-G ↔ <b>eEF2<\/b>.']]});
+P({id:'o27s',ys:['2015'],ch:'27',t:'eif',k:'s',q:'다음 중 <b>틀린<\/b> 것은? (진핵 개시인자)',
+o:[['1','eIF1A, eIF3가 IF1, IF3와 같다.',0,''],['2','eIF5는 initiation에서 scanning하는 역할을 한다.',1,'스캐닝은 43S 복합체(eIF1·1A·3·4 계열). eIF5 = eIF2의 GTP 가수분해 촉진(GAP).'],['3','eIF5는 GTPase 기능이 있다(GAP).',0,''],['4','eIF4가 mRNA에 결합한다.',0,'eIF4E 캡 결합, eIF4A 헬리케이스.'],['5','eIF4G가 eIF3와 eIF4E에 결합해 mRNA를 리보솜과 연결시킨다.',0,'']],memo:'2015 정답 ②. 2016엔 "eIF5B는 개시 코돈을 인식한다"가 정답으로 복기돼 있는데 교재 내용(eIF5B = 소단위 결합 GTPase)과 달라 주의.'});
+P({id:'o27t',ys:['2022','2017','2016','2015'],ch:'27',t:'term',k:'s',q:'Termination of protein synthesis에 직접 관여하지 <b>않는<\/b> 것은?',
+o:[['a','RF (release factor)',0,''],['b','PABP',1,'poly(A) 결합 단백질 — 개시(고리화)·안정성.'],['c','RRF (ribosome recycling factor)',0,''],['d','EF-G',0,'RRF와 함께 리보솜 분리.'],['e','IF-3',0,'분리된 30S에 붙어 재결합 방지.']],memo:'4년 출제. 2015 복기엔 "termination에 directly needed?"에 답 ③(PABP)로 적혀 있어 문제 문장이 반대로 복기된 것으로 보여요.'});
+P({id:'o27u',ys:['2016','2015'],ch:'27',t:'',k:'s',q:'Translation을 저해하지 <b>않는<\/b> 것은?',o:[['1','cycloheximide',0,'진핵 80S 펩티딜 전달.'],['2','chloramphenicol',0,'세균 50S 펩티딜 전달.'],['3','penicillin',1,'세포벽 합성 억제.'],['4','streptomycin',0,'30S, 오독.'],['5','puromycin',0,'aa-tRNA 유사체.']]});
+P({id:'o27v',ys:['2023'],ch:'27',t:'asite',k:'s',q:'리보솜 A 자리에 결합하지 <b>못하는<\/b> 것은?',
+o:[['1','EF-G-GDP',1,'GTP 형태(EF-G-GTP)만 A 자리에 들어가요.'],['2','EF-Tu–tRNA',0,''],['3','streptomycin',null,'30S 해독 부위에 결합 — 해석 갈림.'],['4','puromycin',0,''],['5','방출인자',0,'']],memo:'2025 18번과 같은 문제예요.'});
+P({id:'o27w',ys:['2019'],ch:'27',t:'asite',k:'s',q:'박테리아 리보솜의 A site를 저해하는 물질은?',
+o:[['1','chloramphenicol',0,'50S 펩티딜 전달 억제.'],['2','ricin',0,'진핵 60S rRNA 탈퓨린화.'],['3','streptomycin',0,'30S 오독.'],['4','puromycin',null,'A 자리로 들어가 조기 종결 — "저해"로 볼지 갈려요.'],['5','tetracycline',1,'30S의 <b>A 자리를 막아<\/b> aa-tRNA 결합 차단.']]});
+P({id:'o27x',ys:['2023','2016','2015'],ch:'27',t:'glyco',k:'s',q:'ER에서 일어나는 (N-)glycosylation에 관한 설명으로 옳지 <b>않은<\/b> 것은? (해마다 보기 합침)',
+o:[['1','Tunicamycin의 영향을 받지 않는다.',1,'튜니카마이신이 <b>첫 단계<\/b>를 막아요(2016 정답).'],['2','His 잔기에 당이 붙는다.',1,'<b>Asn<\/b>(Asn-X-Ser/Thr). 2015·2016 생약반 정답.'],['3','core oligosaccharide가 dolichol phosphate 위에서 자란다.',0,''],['4','단백질의 Asn 잔기에 당을 붙인다.',0,''],['5','oligosaccharide는 단백질로 옮겨진 뒤에도 수정될 수 있다.',0,'ER·골지에서 다듬기.']],memo:'2016은 객관식 답 1개 시험이라 버전마다 1번 또는 2번 하나만 나왔어요. 여기선 두 함정을 같이 모았어요.'});
+P({id:'o27y',ys:['2023'],ch:'27',t:'glyco',k:'s',q:'Protein targeting을 위한 glycosylation 과정에서 tunicamycin이 저해하는 단계는?',
+o:[['1','2 UDP-N-아세틸글루코사민 → UMP + UDP (cytosol)',1,'돌리콜 인산에 GlcNAc-P를 붙이는 <b>첫 단계<\/b>.'],['2','5 GDP-Mannose → 5 GDP (cytosol)',0,''],['3','Oligosaccharide-dolichol의 cytosol → ER lumen 이동(flip)',0,''],['4','3 Dolichol-P-Mannose → 3 Dolichol-P (ER lumen)',0,''],['5','core oligosaccharide의 Asn 잔기로의 전달',0,'올리고당 전달효소.']]});
+P({id:'o27z',ys:['2023'],ch:'27',t:'',k:'m',q:'Protein targeting(ER)에 대한 옳지 <b>않은<\/b> 설명을 모두 고르시오.',
+o:[['1','signal sequence(절단 부위 근처)에는 Ala 같은 크기 작은 아미노산이 분포한다.',0,''],['2','signal sequence에 붙은 SRP의 GTP가 가수분해되면서 elongation이 중지된다.',1,'SRP가 <b>결합<\/b>하면 신장이 멈춰요. GTP 가수분해는 SRP가 떨어질 때.'],['3','SRP에 GTP가 붙으면 SRP가 ribosome으로부터 떨어진다.',1,'GTP가 <b>가수분해<\/b>돼야 SRP·수용체가 분리.'],['4','peptide translocation complex가 GTP를 가수분해하면서 peptide를 ER lumen으로 밀어 넣는다.',1,'진핵에선 리보솜의 <b>신장 자체<\/b>가 사슬을 밀어 넣어요.'],['5','signal sequence는 ER lumen에서 제거된다.',0,'신호 펩티데이스.']],memo:'보기 문구가 복기라 조금씩 다를 수 있어요.'});
+P({id:'o27A',ys:['2023'],ch:'27',t:'nls',k:'m',q:'NLS에 대한 설명으로 옳지 <b>않은<\/b> 것은? (모두 고르시오)',
+o:[['1','NLS에는 Lys, Arg 등 양전하 아미노산이 많다.',0,'예: PKKKRKV.'],['2','NLS는 importin α와 직접 결합한다.',0,''],['3','(미복기)',null,''],['4','Ran GEF에 의해 GDP → GTP가 된다.',0,'핵 안 Ran-GTP 유지.'],['5','NLS는 핵 내에서 제거된다.',1,'제거되지 않아요 → 세포분열 뒤 재수입.']]});
+P({id:'o27B',ys:['2022'],ch:'27',t:'nls',k:'m',q:'다음 단백질 중 NLS에 directly binding하지 <b>않는<\/b> 것을 모두 고르시오.',
+o:[['1','Importin α',0,'NLS 직접 결합.'],['2','Importin β',1,'importin α에 결합(핵공 통과 담당).'],['3','Ran-GTP',1,'importin β에 결합.'],['4','CAS',1,'importin α 수출.'],['5','NTF2',1,'Ran-GDP 수입.']]});
+P({id:'o27C',ys:['2017'],ch:'27',t:'cas',k:'w',q:'[단답] Ran-GTP가 나오는 핵 수입 그림의 빈칸 (A)·(B)',a:'(A) <b>CAS<\/b> (B) <b>NTF2<\/b>',memo:'2017 기말 주관식 정답 그대로. 2025 32번과 같은 그림이에요.'});
+P({id:'o27D',ys:['2022','2015'],ch:'27',t:'',k:'w',q:'[서술] 단백질 아미노 말단에 SRP가 인식하는 신호서열을 만들고, 내부에는 핵 위치 신호(NLS)를 만들었다(300잔기 단백질). 이 단백질은 어디에서 발견되겠는가?',
+a:'<b>ER(분비 경로: ER → 골지 → 세포 밖/막/리소좀)<\/b> — SRP가 번역 도중 리보솜을 ER로 데려가 사슬이 ER 내강으로 들어가므로, 내부 NLS는 세포질의 importin을 만날 기회가 없다.',memo:'2015 복기엔 "핵이라는 사람도, ER이라는 사람도"라고 적혀 있어요. 동시번역 표적화가 먼저라 ER이 정답이에요.'});
+P({id:'o27E',ys:['2017','2016'],ch:'27',t:'m6p',k:'w',q:'[단답] mannose 6-phosphate 형성 경로(그림)의 빈칸 효소 두 개',a:'<b>N-acetylglucosamine phosphotransferase<\/b> → <b>phosphodiesterase<\/b>(GlcNAc를 떼어 M6P 노출)',memo:'2017 기말 주관식 정답 그대로. 2025 20번(인산 공여체 = UDP-GlcNAc)과 같은 그림.'});
+P({id:'o27F',ys:['2016'],ch:'27',t:'',k:'w',q:'[서술, 레닌저 문제] 세균 분비 단백질 OmpA의 전구체 ProOmpA를 8 M urea로 변성 후 빠르게 urea를 제거하면 내막을 통과할 수 있지만, urea 없이 몇 시간 두면 전위가 불가능해진다. trigger factor가 있으면 전위 능력이 유지된다. trigger factor의 기능은?',
+a:'<b>샤페론<\/b> — ProOmpA가 완전히 접히지 않은(전위 가능한) 상태로 유지되게 붙잡아 준다(SecB처럼). 접혀 버리면 막을 통과할 수 없다.'});
+P({id:'o27G',ys:['2023','2022','2019'],ch:'27',t:'ubiq',k:'s',q:'프로테아좀–유비퀴틴 시스템에 대한 설명으로 옳지 <b>않은<\/b> 것은?',
+o:[['1','19S 조절 입자가 유비퀴틴 붙은 단백질을 20S core로 보낸다.',0,''],['2','20S의 α subunit이 catalytic(protease) subunit이다.',1,'단백질 분해 활성 = <b>β<\/b> 소단위. α는 입구.'],['3','E1은 유비퀴틴과 thioester 결합을 한다.',0,''],['4','E2는 유비퀴틴과 thioester 결합을 한다.',0,''],['5','E3가 유비퀴틴을 단백질(Lys)에 붙여 준다.',0,'isopeptide(amide) 결합.']],memo:'2023엔 "E1이 ATP → ADP로 가수분해(X, AMP + PPi)"도 함께 틀린 보기로 나왔어요.'});
+P({id:'o27H',ys:['2017'],ch:'27',t:'ubiq',k:'m',q:'Protein degradation에 대해 옳지 <b>않은<\/b> 것을 모두 고르시오.',
+o:[['a','ATP → ADP + Pi',1,'E1 활성화는 ATP → <b>AMP + PPi<\/b>.'],['b','Free carboxyl groups of Gly residues of ubiquitin first become attached to target protein.',1,'처음엔 <b>E1<\/b>의 Cys와 티오에스터.'],['c','E3 catalyzes the transfer of ubiquitin from E2.',0,''],['d','E. coli에서는 Lon을 사용한다.',0,'ATP 의존 프로테이스.'],['e','20S core subunit binds and degrades ubiquitinated protein.',1,'인식은 <b>19S<\/b>.']]});
+P({id:'o27I',ys:['2016'],ch:'27',t:'ubiq',k:'m',q:'유비퀴틴·프로테아좀에 관한 설명 중 <b>틀린<\/b> 것을 모두 고르시오. (두 반 복기 합침)',
+o:[['1','단백질의 Lys에 붙는다.',0,'ε-아미노기.'],['2','유비퀴틴 하나를 붙일 때 ATP가 쓰인다(처음 E1 단계).',0,''],['3','Free carboxyl groups of Lys residues of ubiquitin first become attached to E1 via thioester.',1,'유비퀴틴 C말단 <b>Gly<\/b>(76)의 카복실기.'],['4','20S core의 α subunit이 protease 활성을 가진다.',1,'β.'],['5','19S regulatory particle이 유비퀴틴 단백질을 인식한다.',0,'']]});
+P({id:'o27J',ys:['2015'],ch:'27',t:'sec',k:'s',q:'세균 단백질 수출 순서를 알맞게 배열한 것은? a. SecB 결합  b. SecA 결합  c. SecA의 ATP 가수분해  d. 약 20개 아미노산 밀어 넣기',
+o:[['1','a-b-c-d',0,''],['2','c-a-d-b',0,''],['3','a-b-d-c',1,'SecB → SecA → 밀어 넣기(ATP 결합) → ATP 가수분해로 SecA 분리 (TB 27-28과 같음).'],['4','b-a-d-c',null,'2015 복기 답으로 적힌 보기 — 교재 순서(SecB가 먼저)와 달라요.'],['5','b-a-c-d',0,'']],memo:'복기 답은 ④로 적혀 있지만 교재·TB 27-28 기준으론 ③이에요. 보기 라벨이 바뀌어 복기됐을 가능성.'});
+
+/* ---------- 28장 유전자 발현 조절 ---------- */
+P({id:'o28a',ys:['2017','2015'],ch:'28',t:'regulon',k:'s',tbq:'28-14'});
+P({id:'o28b',ys:['2015'],ch:'28',t:'',k:'s',tbq:'28-9',memo:'2015는 "Lac repressor의 모티프 — helix turn helix(답) / homeodomain / leucine zipper"로 나왔어요.'});
+P({id:'o28c',ys:['2023','2022','2019'],ch:'28',t:'aconitase',k:'s',q:'Aconitase(IRP1)에 대한 설명으로 옳지 <b>않은<\/b> 것은?',
+o:[['1','aconitase가 세포 내 철 농도를 인지한다.',0,'Fe-S 클러스터 유무.'],['2','aconitase는 IRE라는 stem-loop structure에 결합한다.',0,'철 부족 시 apo형 = IRP1.'],['3','aconitase는 transcription repressor로 작용한다.',1,'<b>번역<\/b> 억제자(ferritin) / mRNA 안정화(TfR).'],['4','세포질 철 농도가 낮을 때 transferrin receptor mRNA가 증가한다.',0,'3\' IRE 결합 → 분해 방지.'],['5','세포질 철 농도가 낮을 때 ferritin mRNA(번역)가 감소한다.',0,'5\' IRE 결합 → 번역 억제.']]});
+P({id:'o28d',ys:['2016'],ch:'28',t:'aconitase',k:'s',q:'Aconitase에 대한 설명으로 옳지 <b>않은<\/b> 것은? (보기 1개 복기)',o:[['a','Ferritin 발현 유전자(mRNA)의 3\' 말단 IRE에 binding한다.',null,'틀린 진술(이 문제의 정답). ferritin IRE는 <b>5\'<\/b>, transferrin receptor IRE는 3\'.']]});
+P({id:'o28e',ys:['2022','2019'],ch:'28',t:'creb',k:'m',q:'CREB에 대해 옳은 것을 모두 고르시오. (2022는 "옳지 않은 것: also known as p300")',
+o:[['1','β-adrenergic pathway를 통해 신호를 전달받는다.',1,'cAMP → PKA → CREB Ser133 인산화.'],['2','Unphosphorylated CREB doesn\'t act as a transcription factor(activator).',1,'인산화돼야 CBP와 결합.'],['3','Affected by architectural regulator.',null,'복기 문장이 애매해 채점 제외.'],['4','Directly activates basal transcription complex.',0,'<b>CBP/p300<\/b>(공동활성자)를 통해 간접.'],['5','CREB is also known as p300.',0,'p300은 CBP의 친척 <b>공동활성자<\/b>. 2022 정답.']]});
+P({id:'o28f',ys:['2017'],ch:'28',t:'creb',k:'s',q:'Glucagon 신호에서 CREB에 결합(작용)해 유전자 발현에 영향을 주는 물질은?',o:[['a','1,2-Diacylglycerol',0,''],['b','Pyrophosphate',0,''],['c','Calcium',0,''],['d','cyclic AMP',1,'cAMP → PKA → CREB 인산화.'],['e','IP₃',0,'']]});
+P({id:'o28g',ys:['2023','2022','2019','2017','2015'],ch:'28',t:'tonegawa',k:'s',q:'다음 중 Tonegawa 실험(면역글로불린 H 유전자 인핸서)과 관련 <b>없는<\/b> 것은? (2017·2015는 단답 "enhancer")',
+o:[['1','인핸서는 (Ig H 유전자의) 두 번째 인트론에 위치한다.',0,'J–C 사이 인트론에서 발견.'],['2','인핸서는 activator 여러 분자와 결합하기 위해 inverted repeat sequence를 가진다.',1,'역반복은 이량체 <b>세균 억제자<\/b> 작동자의 특징 — 인핸서 정의와 무관.'],['3','인핸서의 위치와 방향은 상관없다.',0,'position·orientation independent = 인핸서의 정의.'],['4','activator 존재 하에 coactivator는 전사를 활성화시킨다.',null,'일반적인 진핵 조절 내용 — 정답 표시가 없어 채점 제외.'],['5','activator가 없으면 coactivator는 전사 과정에 영향을 줄 수 없다.',null,'같은 이유로 채점 제외.']],memo:'복기에 정답이 없어요. 2019 복기는 "복수 정답 가능". 2023엔 "enhancer를 제거하면 전사 억제"도 보기로 나왔어요.'});
+P({id:'o28h',ys:['2023','2017','2015'],ch:'28',t:'mediator',k:'s',q:'Mediator와 상호작용하지 <b>않는<\/b> 것은? (2023: DNA와 직접 결합하지 않는 것)',
+o:[['1','TATA box',1,'DNA 서열 — 매개체는 DNA에 직접 붙지 않아요(2015 정답 ①).'],['2','TBP / TFIID',0,''],['3','TFIIH',0,''],['4','CTD of RNA pol II',0,''],['5','Repressor·activator',0,'']],memo:'2023 37번은 거꾸로 "DNA와 직접 결합하지 않는 것 — activator / repressor / architectural regulator / <b>mediator(정답)<\/b> / RNA polymerase"로 나왔어요.'});
+P({id:'o28i',ys:['2023','2019'],ch:'28',t:'ctd',k:'s',q:'RNA polymerase II의 CTD와 직접 interaction하지 <b>않는<\/b> 단백질은?',
+o:[['1','PAP (poly(A) polymerase)',0,'가공 인자들이 CTD에 실려 다님.'],['2','snRNP (스플라이싱 인자)',0,''],['3','TFIIH',0,'CTD 인산화.'],['4','Mediator',0,''],['5','TBP',1,'TBP는 TATA DNA에 결합.']],memo:'2023엔 Cap binding complex·PAP·TFIIH·Mediator·snRNP 보기 버전도 있어요(번호 미복기).'});
+P({id:'o28j',ys:['2023','2017','2015'],ch:'28',t:'chromatin',k:'s',q:'Chromatin 구조 변화(조절)에 기여하지 <b>않는<\/b> 것은?',
+o:[['1','SAGA (HAT A)',0,''],['2','SWI/SNF · ISWI · SWR1',0,'ATP 의존 재형성.'],['3','TAFII250 (TFIID)',0,'HAT 활성.'],['4','TFIIH',1,'헬리케이스·키네이스 — 염색질 변형 인자 아님(2023 버전 정답으로 봐요).'],['5','HAT B',null,'세포질에서 새 히스톤 아세틸화. 2017 버전(SAGA/HDAC inhibitor/SWI/HAT B/TAF250)은 정답 표시가 없어 HAT B로 추정.']],memo:'2015는 "euchromatin을 만드는 것이 아닌 것 — methylation / <b>deacetylation(정답)<\/b> / SWI/SNF / SWR1 / HAT A".'});
+P({id:'o28k',ys:['2016'],ch:'28',t:'chromatin',k:'s',q:'진핵세포의 전사 활성화와 관련 없는(억제 쪽) 것은?',o:[['a','SWI/SNF',0,''],['b','histone variant',0,'H2A.Z, H3.3 → 활성 염색질.'],['c','histone ubiquitination',0,'H2B 유비퀴틴화 → 활성.'],['d','HAT',0,''],['e','HDAC inactivation',null,'HDAC를 끄면 아세틸화 유지 → 오히려 활성 쪽. 복기 문장이 불확실해 채점 제외.']],memo:'2016 복기에 정답 표시가 없어요.'});
+P({id:'o28l',ys:['2019','2017','2016'],ch:'28',t:'gal4',k:'s',q:'Zinc finger(Gal4)에 관하여 옳지 <b>않은<\/b> 것은? (2017)',
+o:[['a','Zn이 Cys로 둘러싸여 있다(coordinate).',0,''],['b','Major groove에 결합한다.',0,''],['c','여러 개가 tandem으로 작용해 strong binding affinity를 낸다.',0,''],['d','주로 유전자 발현을 증가시킨다.',1,'DNA 결합 모티프일 뿐, 활성화·억제와는 무관.'],['e','Gal4p는 zinc finger domain을 갖는다.',0,'Zn₂Cys₆.']],memo:'2016엔 "Gal4는 helix-turn-helix domain을 가진다(X)", 2019엔 "zinc finger domain(O), dimer로 작용(O)" 보기가 있었어요.'});
+P({id:'o28m',ys:['2023'],ch:'28',t:'trp',k:'m',q:'Trp operon에 대해 옳은 설명을 모두 고르시오.',
+o:[['1','(Trp repressor는) 오퍼레이터 DNA에 특이적으로 binding한다.',1,''],['2','오퍼레이터가 리더 서열(trpL)의 upstream에 존재한다.',1,''],['3','리더 서열(리더 펩타이드)에 트립토판 코돈이 두 개 존재한다.',1,''],['4','(base pairing 관련 — 미복기)',null,''],['5','2와 3이 짝지으면 전사(번역)가 종결된다.',0,'2:3 = <b>반종결자<\/b> → 전사 계속. 종결자 = 3:4.']],memo:'2023 다른 반 복기: "억제자는 호메오도메인(X, HTH)" / "2-3 짝지음이 전사 감쇄(X)".'});
+P({id:'o28n',ys:['2017','2016','2015'],ch:'28',t:'trp',k:'s',q:'Trp operon 리더 서열의 <b>서열 3<\/b>에 염기 돌연변이(짝을 못 짓게)가 생기면 attenuation은 정상과 비교해 어떻게 되는가?',
+o:[['A','변화 없다',null,''],['B','트립토판이 있을 때만 감소한다',null,'Trp가 적을 땐 원래도 감쇄가 안 일어나므로 차이는 Trp가 많을 때만 드러나요.'],['C','항상 증가한다',null,''],['D','(항상) 감소한다',null,'3:4 종결자가 못 생겨 감쇄가 사라져요.'],['E','주어진 정보만으로 알 수 없다',null,'']],memo:'레닌저 28장 연습문제 기반이고 세 해 모두 정답 표시가 없어 채점에서 뺐어요. 핵심 논리: 서열 3이 망가지면 3:4 종결자 헤어핀이 안 생김 → 감쇄가 없어짐(감소) → 오페론 발현↑. 보기에 "Trp 존재 시에만 감소"가 있으면 그게 가장 정확해요.'});
+P({id:'o28o',ys:['2016','2015'],ch:'28',t:'trp',k:'s',q:'Trp operon 리더 펩타이드의 서열 1과 2 사이 간격이 길어지면 attenuation은?',
+o:[['1','변하지 않는다',null,''],['2','증가한다',null,''],['3','항상 감소한다',null,''],['4','트립토판 존재 시에만 감소한다',null,'Trp가 많아 리보솜이 서열 1 끝에 있어도 서열 2를 덮지 못함 → 2:3 반종결자 형성 → 감쇄↓.'],['5','알 수 없다',null,'']],memo:'2015 복기엔 "오페론의 발현이 증가"로 적혀 있어요(= 감쇄 감소). 정답 표시가 없어 채점에서 뺐어요.'});
+P({id:'o28p',ys:['2016'],ch:'28',t:'trp',k:'s',q:'Trp attenuation에 대해 옳은 설명은?',o:[['1','유일한 억제 기전이다.',0,'억제자(TrpR)도 있어요.'],['2','억제 단백질이 선도 서열에 결합한다.',0,'작동자에 결합.'],['3','리더의 Trp 코돈은 세포질의 낮은 [Trp](충전된 tRNA^Trp)를 반영한다.',1,'리보솜이 Trp 코돈에서 멈추는지로 감지.']]});
+P({id:'o28q',ys:['2022','2019','2017'],ch:'28',t:'rela',k:'s',q:'아미노산이 부족할 때 RelA(엄격 반응)가 작용하는 순서는? 가. RelA가 리보솜에 결합 나. ppGpp 생성 다. AMP 생성 라. uncharged tRNA가 A site에 들어옴',
+o:[['1','라 → 가 → 다 → 나',1,'빈 tRNA가 A 자리 → RelA 결합·활성 → ATP + GTP → pppGpp + <b>AMP<\/b> → ppGpp.'],['2','가 → 라 → 나 → 다',0,''],['3','라 → 가 → 나 → 다',0,'AMP는 pppGpp와 동시에 생기고 ppGpp는 그다음.'],['4','다 → 가 → 라 → 나',0,''],['5','가 → 다 → 라 → 나',0,'']],memo:'2019 복기 정답 순서 그대로. TB 28-20과 같은 문제.'});
+P({id:'o28r',ys:['2023'],ch:'28',t:'ribprot',k:'m',q:'Ribosomal protein 및 rRNA 합성 조절에 대해 옳지 <b>않은<\/b> 것을 모두 고르시오.',
+o:[['1','Ribosomal protein은 mRNA보다 rRNA에 대한 결합력이 더 크다.',0,''],['2','repressor로 작용하여 transcription을 억제한다.',1,'<b>번역<\/b> 억제.'],['3','(미복기)',null,''],['4','2 GTP → ppGpp + GMP',1,'ATP + GTP → pppGpp + <b>AMP<\/b>.'],['5','ppGpp가 RNA pol에 붙어서 rRNA 합성을 저해한다.',0,'']]});
+P({id:'o28s',ys:['2017'],ch:'28',t:'ribprot',k:'s',q:'Ribosomal protein operon(번역 조절)에 관한 설명으로 옳지 <b>않은<\/b> 것은?',
+o:[['a','Synthesis rate of ribosomal protein is kept in balance with availability of rRNA.',0,''],['b','Ribosomal protein operons often contain other genes required for protein synthesis.',0,''],['c','Ribosomal proteins have lower binding affinity for mRNA than for rRNA.',0,''],['d','Ribosomal protein can directly increase translation of its mRNA when rRNA is abundant.',1,'직접 <b>증가<\/b>시키지 않아요 — rRNA에 붙어 소모되면 억제가 <b>풀릴<\/b> 뿐.'],['e','Ribosomal protein binds to its mRNA and blocks its translation.',0,'']]});
+P({id:'o28t',ys:['2022','2017','2016','2015'],ch:'28',t:'recreg',k:'s',q:'Recombination(DNA 재배열)에 의해 일어나는 현상이 <b>아닌<\/b> 것은?',
+o:[['a','Gene diversity (항체)',0,'V(D)J.'],['b','Host range (파지 Mu)',0,'G 분절 역위.'],['c','Maternal (gene) inactivation',1,'각인·X 불활성화는 메틸화·염색질 — 재조합 아님.'],['d','Antigenic variation (트리파노소마 등)',0,''],['e','Mating-type switch (효모)',0,'']],memo:'2019·2017 주관식: "살모넬라 Hin 재조합효소가 더 활성화되면?" → 각 세포가 두 종류 편모 단백질을 모두 가지게 되어 두 항체 모두에 공격받기 쉬워져요(phase variation).'});
+P({id:'o28u',ys:['2017','2016','2015'],ch:'28',t:'ribosw',k:'m',q:'Riboswitch에 관한 설명으로 옳지 <b>않은<\/b> 것을 모두 고르시오.',
+o:[['a','Cis-regulation이다.',0,'자기 mRNA 안의 서열.'],['b','진핵생물의 intron에는 존재하지 않는다.',1,'진핵(곰팡이·식물) TPP 리보스위치는 <b>인트론<\/b>에 있어 선택적 스플라이싱 조절.'],['c','RNA polymerase의 결합을 막는다.',1,'RNA라서 프로모터에 작용 X — 전사 <b>종결<\/b>(종결자 형성)이나 <b>리보솜 결합 부위<\/b> 가림으로 조절.'],['d','하나의 ligand에만 affinity를 가진다.',0,'앱타머 = 특정 대사물.'],['e','5\'-UTR에서 주로 발견된다.',0,'']],memo:'2016·2017은 답 1개 시험이었는데 틀린 보기가 둘로 보여요. 2015엔 "blockage of the ribosome-binding site blocks translation(O)", "5\'-UTR과 3\'-UTR 둘 다(?)" 보기.'});
+P({id:'o28v',ys:['2017'],ch:'28',t:'transl',k:'m',q:'Translational repression에 관하여 옳은 것을 모두 고르시오.',
+o:[['A','진핵에서 특히 중요하다.',1,''],['B','인산화된 CREB은 전사를 활성화시킨다.',null,'맞는 문장이지만 번역 억제와 무관 — 채점 제외.'],['C','maskin은 eIF4E와 결합해 eIF4G와의 결합을 억제한다.',1,''],['D','번역 억제 과정은 비효율적이다.',0,'빠르게 반응할 수 있어 효율적.'],['E','Heme-starved reticulocyte는 HCR(HRI)을 활성화한다.',1,'→ eIF2α 인산화.']],memo:'2016은 "eIF2는~ / Maskin은~ / transferrin은~" 보기(미복기), 2015 주관식 27 "Maskin 그림 빈칸 → maskin", 26 "→ CBP".'});
+P({id:'o28w',ys:['2021','2019','2016'],ch:'28',t:'toggle',k:'w',q:'[서술, 레닌저 28장 연습문제 14] Gardner·Cantor·Collins의 유전자 토글 스위치(OPlac–repts–GFP / OPλ–lacI). (1) IPTG를 처리하면 어느 상태에서 어느 상태로? (2) 열(42 ℃)을 처리하면?',
+a:'(1) <b>GFP-off → GFP-on<\/b>: IPTG는 LacI가 있을 때만 효과 → OPlac 억제 해제 → repts·GFP 대량 발현 → repts가 lacI 발현을 끔.<br>(2) <b>GFP-on → GFP-off<\/b>: 열은 repts가 있을 때만 효과 → repts 불활성 → OPλ 해제 → LacI 대량 발현 → OPlac 억제 → repts·GFP 꺼짐.'});
+P({id:'o28x',ys:['2017'],ch:'28',t:'',k:'w',q:'[서술, 레닌저 연습문제] 포도당 없이 젖당만 있는 배지의 대장균에서 다음 변화가 lac 오페론 발현에 미치는 영향(증가/감소/불변): (a) 고농도 포도당 첨가 (b) Lac 억제자가 작동자에서 떨어지지 못하는 변이 (c) β-갈락토시데이스 완전 불활성 (d) 갈락토사이드 투과효소 완전 불활성 (e) CRP가 결합 자리에 붙지 못하는 변이',
+a:'(a) <b>감소<\/b> (b) <b>감소<\/b> (c) <b>감소<\/b> — 알로락토스(유도자)를 못 만듦 (d) <b>감소<\/b> — 젖당이 못 들어옴 (e) <b>감소<\/b> (TB 28-34와 같음)'});
+P({id:'o28y',ys:['2017'],ch:'28',t:'',k:'w',q:'[그리기] Lac operon의 PI, LacI, O, P, LacZ, LacY, LacA를 순서에 맞게 배열하시오.',a:'<b>P<sub>I<\/sub> – lacI – P – O – lacZ – lacY – lacA<\/b>'});
+P({id:'o28z',ys:['2016'],ch:'28',t:'',k:'w',q:'[단답] rpoS 유전자의 (번역) 조절에 관여하는 small RNA 두 개는? (2015 단답 24번 답: sRNA)',a:'<b>DsrA, RprA<\/b> (Hfq와 함께 rpoS mRNA 리더와 짝지어 번역 촉진). 반대로 <b>OxyS<\/b>는 억제.'});
+P({id:'o28A',ys:['2016'],ch:'28',t:'',k:'w',q:'[서술, 레닌저 문제] 5,000 bp 바이러스 유전체가 10가지 단백질(아미노산 잔기 합이 유전체 용량보다 큼)을 만든다. 어떻게 설명할 수 있는가?',a:'<b>겹치는 유전자(overlapping genes)<\/b> — 같은 DNA 구간을 서로 다른 해독 틀로 읽거나, 한 유전자 안에 다른 유전자가 들어 있음(φX174처럼). TB 27-32와 같은 논리.'});
+P({id:'o28B',ys:['2015'],ch:'28',t:'',k:'w',q:'[단답] (29) APOBEC의 full name (31) tRNA 3차원 구조 그림 빈칸 (32) Arg가 DNA 큰 홈에서 수소결합하는 구아닌의 위치',
+a:'(29) <b>ApoB mRNA editing catalytic peptide<\/b> (27장 RNA 편집) (31) <b>D arm, TψC arm<\/b> (32) 구아닌 <b>O⁶, N⁷<\/b>'});
+P({id:'o28C',ys:['2022'],ch:'28',t:'trp',k:'w',q:'[서술] Trp attenuation: 리더 서열(리더 펩타이드)의 Trp 코돈을 His 코돈으로 바꾸면 어떻게 되는가? (같은 해 9~10번: 서열 간 거리 변화 시 발현)',
+a:'감쇄가 <b>Trp가 아니라 His 농도<\/b>(충전된 tRNA^His)에 반응하게 된다 — His가 부족하면 리보솜이 His 코돈에서 멈춰 2:3 반종결자 → 전사 계속, His가 많으면 3:4 종결자 → 감쇄.'});
+
+
+const TBDATA={"23-1": {"q": "The radioimmunossay (RIA) is based on competition of unlabeled and radiolabeled:<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">방사면역측정법(RIA)은 비표지(unlabeled) ______와 방사성 표지(radiolabeled) ______ 사이의 경쟁에 기반한다:<\/span>", "o": [["A", "antibodies for binding to a hormone.<span class=\"ko\">호르몬에 결합하기 위한 항체들의 경쟁<\/span>", 0, ""], ["B", "antibodies for binding to a receptor.<span class=\"ko\">수용체에 결합하기 위한 항체들의 경쟁<\/span>", 0, ""], ["C", "hormone for binding to a receptor.<span class=\"ko\">수용체에 결합하기 위한 호르몬의 경쟁<\/span>", 0, ""], ["D", "hormone for binding to an antibody.<span class=\"ko\">항체에 결합하기 위한 호르몬의 경쟁<\/span>", 1, "RIA는 시료 속 (비표지) 호르몬과 일정량 넣어준 방사성 표지 호르몬이 한정된 양의 항체 결합 자리를 두고 경쟁하는 원리. 시료 호르몬이 많을수록 항체에 붙은 방사능이 줄어든다."], ["E", "receptor for binding to a hormone.<span class=\"ko\">호르몬에 결합하기 위한 수용체의 경쟁<\/span>", 0, ""]]}, "23-23": {"q": "Epinephrine triggers an increased rate of glycolysis in muscle by:<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">에피네프린이 근육에서 해당과정 속도를 증가시키는 방식은:<\/span>", "o": [["A", "activation of hexokinase.<span class=\"ko\">헥소키나아제의 활성화<\/span>", 0, ""], ["B", "activation of phosphofructokinase-1.<span class=\"ko\">포스포프럭토키나아제-1(PFK-1)의 활성화<\/span>", 1, "근육에서 에피네프린 → cAMP↑ → PFK-2 활성 → 프럭토스 2,6-비스인산↑ → PFK-1 활성화 → 해당과정↑. C는 반대(b→a로 전환되어야 활성)."], ["C", "conversion of glycogen phosphorylase a to glycogen phosphorylase b.<span class=\"ko\">글리코겐 포스포릴라아제 a를 글리코겐 포스포릴라아제 b로 전환<\/span>", 0, ""], ["D", "inhibition of the Cori Cycle<span class=\"ko\">코리 회로의 억제<\/span>", 0, ""], ["E", "the Pasteur effect.<span class=\"ko\">파스퇴르 효과(Pasteur effect)<\/span>", 0, ""]]}, "23-26": {"q": "The hormone leptin ______ appetite; insulin ______ appetite.<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">렙틴은 식욕을 ______; 인슐린은 식욕을 ______.<\/span>", "o": [["A", "increases; increases<span class=\"ko\">증가시킨다; 증가시킨다<\/span>", 0, ""], ["B", "increases; decreases<span class=\"ko\">증가시킨다; 감소시킨다<\/span>", 0, ""], ["C", "decreases; increases<span class=\"ko\">감소시킨다; 증가시킨다<\/span>", 0, ""], ["D", "decreases; decreases<span class=\"ko\">감소시킨다; 감소시킨다<\/span>", 1, "렙틴과 인슐린 모두 시상하부 궁상핵에 작용해 식욕 억제(POMC 뉴런↑, NPY 뉴런↓)."], ["E", "no effect; no effect<span class=\"ko\">효과 없음; 효과 없음<\/span>", 0, ""]]}, "23-27": {"q": "The peptide hormone adiponectin, produced in adipose tissue, circulates in the blood and:<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">지방조직에서 생성되는 펩타이드 호르몬 아디포넥틴(adiponectin)은 혈액을 순환하며:<\/span>", "o": [["A", "enhances fatty acid synthesis in liver cells.<span class=\"ko\">간세포에서 지방산 합성을 증진시킨다.<\/span>", 0, ""], ["B", "increases the rate of β-oxidation of fatty acids in muscle cells.<span class=\"ko\">근육세포에서 지방산의 β-산화 속도를 증가시킨다.<\/span>", 1, "원본 PDF에는 보기 기호가 F)~J)로 잘못 인쇄되어 있음 → 정답 B = 원본의 G). 아디포넥틴은 AMPK를 활성화 → 근육 지방산 흡수·β-산화↑, 인슐린 감수성↑, 간 포도당신생↓."], ["C", "inhibits glucose uptake and catabolism in muscle and liver cells.<span class=\"ko\">근육과 간세포에서 포도당 흡수와 이화작용을 억제한다.<\/span>", 0, ""], ["D", "reduces the transport of fatty acids into muscle cells.<span class=\"ko\">근육세포로의 지방산 수송을 감소시킨다.<\/span>", 0, ""], ["E", "stimulates gluconeogenesis in liver cells.<span class=\"ko\">간세포에서 포도당신생을 촉진한다.<\/span>", 0, ""]]}, "23-8": {"q": "Some hormones are derived from amino acids; for example, catecholamines are derived from ______ while NO is derived from ______.<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">일부 호르몬은 아미노산에서 유래한다. 예를 들어 카테콜아민은 ______에서 유래하고, NO(일산화질소)는 ______에서 유래한다.<\/span>", "o": [["A", "tyrosine; arginine<span class=\"ko\">티로신; 아르지닌<\/span>", 1, "카테콜아민 = 티로신 유래, NO = 아르지닌이 NO 합성효소(NOS)에 의해 시트룰린 + NO로 전환되며 생성."], ["B", "tryptophan; lysine<span class=\"ko\">트립토판; 라이신<\/span>", 0, ""], ["C", "tyrosine; histidine<span class=\"ko\">티로신; 히스티딘<\/span>", 0, ""], ["D", "tryptophan; arginine<span class=\"ko\">트립토판; 아르지닌<\/span>", 0, ""], ["E", "histidine; lysine<span class=\"ko\">히스티딘; 라이신<\/span>", 0, ""]]}, "25-15": {"q": "Which of these enzymes is not directly involved in methyl-directed mismatch repair in E. coli?<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">대장균의 메틸기 유도 불일치 수선(methyl-directed mismatch repair)에 직접 관여하지 않는 효소는?<\/span>", "o": [["A", "DNA glycosylase<span class=\"ko\">DNA 글리코실라아제(DNA glycosylase)<\/span>", 1, "불일치 수선: MutS·MutL·MutH → 헬리케이스 II(UvrD) → 엑소뉴클레아제(I, VII, RecJ, X) → Pol III → 리가아제. DNA 글리코실라아제는 염기 절제 수선(BER) 효소."], ["B", "DNA helicase II<span class=\"ko\">DNA 헬리케이스 II<\/span>", 0, ""], ["C", "DNA ligase<span class=\"ko\">DNA 리가아제<\/span>", 0, ""], ["D", "DNA polymerase III<span class=\"ko\">DNA 중합효소 III<\/span>", 0, ""], ["E", "Exonuclease I<span class=\"ko\">핵산말단가수분해효소 I(Exonuclease I)<\/span>", 0, ""]]}, "25-18": {"q": "In base-excision repair, the first enzyme to act is:<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">염기 절제 수선(base-excision repair)에서 처음 작용하는 효소는:<\/span>", "o": [["A", "AP endonuclease.<span class=\"ko\">AP 핵산내부가수분해효소(AP endonuclease)<\/span>", 0, ""], ["B", "Dam methylase.<span class=\"ko\">Dam 메틸화효소<\/span>", 0, ""], ["C", "DNA glycosylase.<span class=\"ko\">DNA 글리코실라아제<\/span>", 1, "BER 순서: DNA 글리코실라아제(손상 염기 제거 → AP 자리) → AP 엔도뉴클레아제 → (엑소뉴클레아제) → Pol I → 리가아제."], ["D", "DNA ligase.<span class=\"ko\">DNA 리가아제<\/span>", 0, ""], ["E", "DNA polymerase.<span class=\"ko\">DNA 중합효소<\/span>", 0, ""]]}, "25-20": {"q": "The repair of cyclobutane pyrimidine dimers by bacterial DNA photolyase involves the cofactor:<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">세균의 DNA 광분해효소(photolyase)에 의한 사이클로뷰테인 피리미딘 이량체 수선에는 다음 보조인자가 관여한다:<\/span>", "o": [["A", "coenzyme A.<span class=\"ko\">조효소 A(coenzyme A)<\/span>", 0, ""], ["B", "coenzyme Q.<span class=\"ko\">조효소 Q(coenzyme Q)<\/span>", 0, ""], ["C", "FADH–.<span class=\"ko\">FADH⁻<\/span>", 1, "광분해효소는 빛 에너지를 흡수하는 발색단(MTHF 또는 FMN)과 FADH⁻를 사용해 전자를 이량체에 전달, 고리를 직접 끊는다(직접 수선)."], ["D", "pyridoxal phosphate (PLP).<span class=\"ko\">피리독살 인산(PLP)<\/span>", 0, ""], ["E", "thiamine pyrophosphate (TPP).<span class=\"ko\">티아민 피로인산(TPP)<\/span>", 0, ""]]}, "25-24": {"q": "In homologous recombination in E. coli, the protein that moves along a double-stranded DNA, unwinding the strands ahead of it and degrading them, is:<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">대장균의 상동 재조합에서, 이중가닥 DNA를 따라 이동하며 앞쪽 가닥을 풀고 분해하는 단백질은:<\/span>", "o": [["A", "chi.<span class=\"ko\">chi<\/span>", 0, ""], ["B", "DNA ligase.<span class=\"ko\">DNA 리가아제<\/span>", 0, ""], ["C", "RecA protein.<span class=\"ko\">RecA 단백질<\/span>", 0, ""], ["D", "RecBCD enzyme.<span class=\"ko\">RecBCD 효소<\/span>", 1, "RecBCD: 이중가닥 절단 말단에서 진입 → 헬리케이스+뉴클레아제로 풀며 분해 → chi 서열에서 3' 단일가닥 말단 생성 후 RecA 로딩."], ["E", "RuvC protein (resolvase).<span class=\"ko\">RuvC 단백질(분해효소, resolvase)<\/span>", 0, ""]]}, "25-5": {"q": "E. coli DNA polymerase III:<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">대장균 DNA 중합효소 III은:<\/span>", "o": [["A", "can initiate replication without a primer.<span class=\"ko\">프라이머 없이 복제를 개시할 수 있다.<\/span>", 0, ""], ["B", "is efficient at nick translation.<span class=\"ko\">닉 이동(nick translation)에 효율적이다.<\/span>", 0, ""], ["C", "is the principal DNA polymerase in chromosomal DNA replication.<span class=\"ko\">염색체 DNA 복제의 주된 DNA 중합효소이다.<\/span>", 1, "Pol III = 복제의 주 효소(높은 진행성). B·D는 Pol I의 특징. E: 필요한 것은 자유 3'-OH."], ["D", "represents over 90% of the DNA polymerase activity in E. coli cells.<span class=\"ko\">대장균 세포 DNA 중합효소 활성의 90% 이상을 차지한다.<\/span>", 0, ""], ["E", "requires a free 5'-hydroxyl group as a primer.<span class=\"ko\">프라이머로서 자유 5'-하이드록실기를 필요로 한다.<\/span>", 0, ""]]}, "26-18": {"q": "Which of the following statements about the synthesis of rRNA and tRNA in E. coli is true?<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">대장균의 rRNA와 tRNA 합성에 관한 다음 설명 중 옳은 것은?<\/span>", "o": [["A", "Both rRNA and some tRNAs are part of the same primary transcript.<span class=\"ko\">rRNA와 일부 tRNA는 같은 1차 전사체의 일부이다.<\/span>", 1, "대장균 30S 전구-rRNA = 16S + tRNA(스페이서) + 23S + 5S (+3' 쪽 tRNA). rRNA 오페론은 7개 사본."], ["B", "Each rRNA sequence (16S, 23S, 5S) is transcribed into a separate primary transcript.<span class=\"ko\">각 rRNA 서열(16S, 23S, 5S)은 별도의 1차 전사체로 전사된다.<\/span>", 0, ""], ["C", "Primary tRNA transcripts undergo methylation, but rRNA sequences are not methylated.<span class=\"ko\">1차 tRNA 전사체는 메틸화되지만, rRNA 서열은 메틸화되지 않는다.<\/span>", 0, ""], ["D", "The tRNA sequences all lie at the 3’end of the rRNA transcripts<span class=\"ko\">tRNA 서열은 모두 rRNA 전사체의 3' 말단에 놓인다.<\/span>", 0, ""], ["E", "There is a single copy of the rRNA genes.<span class=\"ko\">rRNA 유전자는 단일 사본만 있다.<\/span>", 0, ""]]}, "26-19": {"q": "Which of the following is not usually essential for the catalytic activity of ribozymes?<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">리보자임(ribozyme)의 촉매 활성에 일반적으로 필수적이지 않은 것은?<\/span>", "o": [["A", "Correct base pairing<span class=\"ko\">올바른 염기쌍 형성<\/span>", 0, ""], ["B", "Correct base sequence<span class=\"ko\">올바른 염기 서열<\/span>", 0, ""], ["C", "Correct interaction with protein<span class=\"ko\">단백질과의 올바른 상호작용<\/span>", 1, "리보자임은 RNA 자체가 촉매 — 단백질 없이도 활성(제I군 인트론 등). 서열과 접힘 구조가 핵심."], ["D", "Correct secondary structure<span class=\"ko\">올바른 2차 구조<\/span>", 0, ""], ["E", "Correct three-dimensional structure<span class=\"ko\">올바른 3차원 구조<\/span>", 0, ""]]}, "26-25": {"q": "AZT (3'-azido-2',3'-dideoxythymidine), used to treat HIV infection, acts in HIV-infected cells by:<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">HIV 감염 치료에 사용되는 AZT(3'-아지도-2',3'-디데옥시티미딘)는 HIV에 감염된 세포에서 다음에 의해 작용한다:<\/span>", "o": [["A", "blocking ATP production.<span class=\"ko\">ATP 생산 차단<\/span>", 0, ""], ["B", "blocking deoxynucleotide synthesis.<span class=\"ko\">디옥시뉴클레오타이드 합성 차단<\/span>", 0, ""], ["C", "inhibiting reverse transcriptase.<span class=\"ko\">역전사효소 억제<\/span>", 1, "AZT는 3'-OH 대신 아지도기 → 인산화된 AZTTP가 역전사효소에 의해 삽입되면 사슬 종결. 역전사효소가 숙주 DNA 중합효소보다 AZTTP 친화도가 높음."], ["D", "inhibiting RNA polymerase II.<span class=\"ko\">RNA 중합효소 II 억제<\/span>", 0, ""], ["E", "inhibiting RNA processing.<span class=\"ko\">RNA 가공 억제<\/span>", 0, ""]]}, "26-26": {"q": "Which one of the following statements about the reverse transcriptases of retroviruses and the RNA replicases of other single-stranded RNA viruses, such as R17 and influenza virus, is correct?<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">레트로바이러스의 역전사효소와, R17이나 인플루엔자 바이러스 같은 다른 단일가닥 RNA 바이러스의 RNA 복제효소(replicase)에 관한 다음 설명 중 옳은 것은?<\/span>", "o": [["A", "Both enzymes can synthesize either RNA or DNA from an RNA template strand.<span class=\"ko\">두 효소 모두 RNA 주형 가닥으로부터 RNA 또는 DNA를 합성할 수 있다.<\/span>", 0, ""], ["B", "Both enzymes can utilize DNA in addition to RNA as a template strand.<span class=\"ko\">두 효소 모두 RNA 외에 DNA도 주형 가닥으로 사용할 수 있다.<\/span>", 0, ""], ["C", "Both enzymes carry the specificity for the RNA of their own virus.<span class=\"ko\">두 효소 모두 자기 바이러스의 RNA에 대한 특이성을 가진다.<\/span>", 0, ""], ["D", "Both enzymes have error rates similar to those of cellular RNA polymerases.<span class=\"ko\">두 효소 모두 세포의 RNA 중합효소와 비슷한 오류율을 가진다.<\/span>", 1, "둘 다 교정 활성이 없어 세포 RNA 중합효소처럼 오류율이 높다(~10⁻⁴). A·B·C·E는 각각 한쪽 효소에만 해당."], ["E", "Both enzymes require host-encoded subunits for their replication function.<span class=\"ko\">두 효소 모두 복제 기능을 위해 숙주가 암호화한 소단위를 필요로 한다.<\/span>", 0, ""]]}, "26-28": {"q": "Which of these polymerases does not require a template?<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">다음 중합효소 중 주형이 필요하지 않은 것은?<\/span>", "o": [["A", "RNA pol I<span class=\"ko\">RNA 중합효소 I<\/span>", 0, ""], ["B", "RNA pol II<span class=\"ko\">RNA 중합효소 II<\/span>", 0, ""], ["C", "Reverse Transcriptase<span class=\"ko\">역전사효소<\/span>", 0, ""], ["D", "Polyadenylate polymerase<span class=\"ko\">폴리아데닐산 중합효소(polyadenylate polymerase)<\/span>", 1, "폴리(A) 중합효소는 주형 없이 ATP로 mRNA 3' 말단에 A를 80~250개 붙인다."], ["E", "RNA replicase<span class=\"ko\">RNA 복제효소<\/span>", 0, ""]]}, "26-5": {"q": "The sigma factor of E. coli RNA polymerase:<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">대장균 RNA 중합효소의 시그마 인자는:<\/span>", "o": [["A", "associates with the promoter before binding core enzyme.<span class=\"ko\">핵심 효소와 결합하기 전에 프로모터와 결합한다.<\/span>", 0, ""], ["B", "combines with the core enzyme to confer specific binding to a promoter.<span class=\"ko\">핵심 효소와 결합하여 프로모터에 대한 특이적 결합을 부여한다.<\/span>", 1, "σ + 핵심 효소 = 완전효소 → 프로모터(−10, −35) 인식. 개시 직후 떨어져 나감."], ["C", "is inseparable from the core enzyme.<span class=\"ko\">핵심 효소와 분리될 수 없다.<\/span>", 0, ""], ["D", "is required for termination of an RNA chain.<span class=\"ko\">RNA 사슬의 종결에 필요하다.<\/span>", 0, ""], ["E", "will catalyze synthesis of RNA from both DNA template strands in the absence of the core enzyme.<span class=\"ko\">핵심 효소가 없을 때 두 DNA 주형 가닥 모두로부터 RNA 합성을 촉매한다.<\/span>", 0, ""]]}, "26-8": {"q": "“Footprinting” or DNase protection is a technique used to identify:<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">'풋프린팅(footprinting)' 또는 DNase 보호 기법은 다음을 확인하는 데 사용된다:<\/span>", "o": [["A", "a region of DNA that has been damaged by mutation.<span class=\"ko\">돌연변이에 의해 손상된 DNA 영역<\/span>", 0, ""], ["B", "E. coli cells that contain a desired, cloned piece of DNA.<span class=\"ko\">원하는 클로닝된 DNA 조각을 포함하는 대장균 세포<\/span>", 0, ""], ["C", "the position of a particular gene of a chromosome.<span class=\"ko\">염색체에서 특정 유전자의 위치<\/span>", 0, ""], ["D", "the position of internally double-stranded regions in a single-stranded DNA molecule.<span class=\"ko\">단일가닥 DNA 분자 내부의 이중가닥 영역 위치<\/span>", 0, ""], ["E", "the specific binding site of a repressor, polymerase, or other protein on the DNA.<span class=\"ko\">DNA 위에서 억제자, 중합효소 또는 기타 단백질의 특이적 결합 부위<\/span>", 1, "단백질이 결합한 부위는 DNase I 절단으로부터 보호되어 겔에서 띠가 사라진 '발자국'이 남는다(38번 서술형 그림 참고)."]]}, "27-21": {"q": "It is possible to convert the Cys that is a part of Cys-tRNACys to Ala by a catalytic reduction. If the resulting Ala-tRNACys were added to a mixture of (1) ribosomes, (2) all the other tRNAs and amino acids, (3) all of the cofactors and enzymes needed to make protein in vitro, and (4) mRNA for hemoglobin, where in the newly synthesized hemoglobin would the Ala from Ala-tRNACys be incorporated?<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">Cys-tRNA^Cys의 일부인 Cys를 촉매 환원으로 Ala로 전환할 수 있다. 그 결과 생긴 Ala-tRNA^Cys를 (1) 리보솜, (2) 다른 모든 tRNA와 아미노산, (3) 시험관 내 단백질 합성에 필요한 모든 보조인자와 효소, (4) 헤모글로빈 mRNA의 혼합물에 넣는다면, 새로 합성된 헤모글로빈의 어디에 Ala-tRNA^Cys의 Ala가 삽입되겠는가?<\/span>", "o": [["A", "Nowhere; this is the equivalent of a nonsense mutation<span class=\"ko\">어디에도 없음; 이는 넌센스 돌연변이와 같다<\/span>", 0, ""], ["B", "Wherever Ala normally occurs<span class=\"ko\">Ala가 정상적으로 나타나는 모든 곳<\/span>", 0, ""], ["C", "Wherever Cys normally occurs<span class=\"ko\">Cys가 정상적으로 나타나는 모든 곳<\/span>", 1, "채프빌·리프만 실험: 리보솜은 아미노산이 아니라 tRNA의 '안티코돈'만 본다 → Cys 코돈 자리에 Ala가 삽입. 즉 정확도는 합성효소 단계에서 결정됨."], ["D", "Wherever either Ala or Cys normally occurs<span class=\"ko\">Ala 또는 Cys가 정상적으로 나타나는 모든 곳<\/span>", 0, ""], ["E", "Wherever the dipeptide Ala-Cys normally occurs<span class=\"ko\">디펩타이드 Ala-Cys가 정상적으로 나타나는 모든 곳<\/span>", 0, ""]]}, "27-22": {"q": "Approximately how many NTPs must be converted to NDPs to incorporate one amino acid into a protein?<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">단백질에 아미노산 하나를 삽입하기 위해 약 몇 개의 NTP가 NDP로 전환되어야 하는가?<\/span>", "o": [["A", "0<span class=\"ko\">0<\/span>", 0, ""], ["B", "1<span class=\"ko\">1<\/span>", 0, ""], ["C", "2<span class=\"ko\">2<\/span>", 0, ""], ["D", "4<span class=\"ko\">4<\/span>", 1, "ATP → AMP + PPi(고에너지 결합 2개, 'NDP 2개 상당') + EF-Tu GTP 1 + EF-G GTP 1 = 4."], ["E", "8<span class=\"ko\">8<\/span>", 0, ""]]}, "27-6": {"q": "Which of the following statements about tRNA molecules is false?<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">tRNA 분자에 관한 다음 설명 중 틀린 것은?<\/span>", "o": [["A", "A, C, G, and U are the only bases present in the molecule.<span class=\"ko\">분자에 존재하는 염기는 A, C, G, U뿐이다.<\/span>", 1, "tRNA에는 이노신, 슈도유리딘, 디하이드로유리딘, 리보티미딘 등 변형 염기가 많다."], ["B", "Although composed of a single strand of RNA, each molecule contains several short, double-helical regions.<span class=\"ko\">단일 RNA 가닥으로 이루어져 있지만, 각 분자는 짧은 이중나선 영역을 여러 개 포함한다.<\/span>", 0, ""], ["C", "Any given tRNA will accept only one specific amino acid.<span class=\"ko\">주어진 tRNA는 특정한 한 가지 아미노산만 받아들인다.<\/span>", 0, ""], ["D", "The amino acid attachment is always to an A nucleotide at the 3' end of the molecule.<span class=\"ko\">아미노산은 항상 분자 3' 말단의 A 뉴클레오타이드에 부착된다.<\/span>", 0, ""], ["E", "There is at least one tRNA for each of the 20 amino acids.<span class=\"ko\">20가지 아미노산 각각에 대해 최소 하나의 tRNA가 있다.<\/span>", 0, ""]]}, "28-14": {"q": "A regulon is a(n):<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">레귤론(regulon)이란:<\/span>", "o": [["A", "group of related triplet codons.<span class=\"ko\">관련된 3염기 코돈들의 모임<\/span>", 0, ""], ["B", "network of operons with a common regulator.<span class=\"ko\">공통의 조절자를 가진 오페론들의 네트워크<\/span>", 1, "예: SOS 레귤론(LexA가 여러 오페론을 동시 조절), CRP 레귤론."], ["C", "operon that is subject to regulation.<span class=\"ko\">조절을 받는 오페론<\/span>", 0, ""], ["D", "protein that regulates gene expression.<span class=\"ko\">유전자 발현을 조절하는 단백질<\/span>", 0, ""], ["E", "ribosomal protein that regulates translation.<span class=\"ko\">번역을 조절하는 리보솜 단백질<\/span>", 0, ""]]}, "28-9": {"q": "The DNA binding motif for many prokaryotic regulatory proteins, such as the lac repressor, is:<span class=\"ko\" style=\"display:block;color:var(--muted);font-size:14px;margin-top:2px\">lac 억제자 같은 많은 원핵생물 조절 단백질의 DNA 결합 모티프는:<\/span>", "o": [["A", "helix-turn-helix.<span class=\"ko\">나선-회전-나선(helix-turn-helix)<\/span>", 1, "원핵 조절 단백질의 대표 DNA 결합 모티프 = 나선-회전-나선(인식 나선이 큰 홈에 삽입)."], ["B", "homeobox.<span class=\"ko\">호메오박스(homeobox)<\/span>", 0, ""], ["C", "homeodomain.<span class=\"ko\">호메오도메인(homeodomain)<\/span>", 0, ""], ["D", "leucine zipper.<span class=\"ko\">류신 지퍼(leucine zipper)<\/span>", 0, ""], ["E", "zinc finger.<span class=\"ko\">아연 손가락(zinc finger)<\/span>", 0, ""]]}};
+Q.forEach(q=>{ if(q.tbq&&TBDATA[q.tbq]){ const t=TBDATA[q.tbq]; if(!q.q) q.q=t.q; if(!q.o) q.o=t.o; } });
+
+const TBURL='https://claude.ai/artifact/1m5X5FAUGc7XFCFmbkPiUY';
+const YEARS=['2025','2023','2022','2021','2019','2017','2017Q','2016','2015'];
+const yl=y=>y==='2017Q'?'2017 퀴즈':y==='2017'?'2017 기말':y;
+const CHS={'23':'23장 호르몬 조절','25':'25장 DNA 대사','26':'26장 RNA 대사','27':'27장 단백질 대사','28':'28장 유전자 발현 조절'};
+const KIND={m:'모두 고르기',s:'하나 고르기',w:'단답·서술'};
+const TRANS={'23':'ch23-trans.html','25':'ch25-trans.html','26':'ch26-trans.html','27':'ch27-trans.html'};
+const MISSING25=['2','11','16','17','31'];
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const TY={}; TYPES.forEach(t=>{t.qs=[];TY[t.id]=t;});
+Q.forEach(q=>{ if(q.t&&TY[q.t]) TY[q.t].qs.push(q); });
+TYPES.forEach(t=>{t.yrs=[...new Set(t.diff.map(d=>d[0]))];});
+const graded=q=>q.k!=='w'&&q.o.some(o=>o[2]===1);
+const BYID={}; Q.forEach(q=>BYID[q.id]=q);
+
+/* ---------- 기록: 이 브라우저 + 가능하면 계정(본인만 보는 문서) ---------- */
+const KEY='fac-final-v1';
+let S={star:[],sel:{},res:{},txt:{},open:{}};
+try{const r=localStorage.getItem(KEY); if(r){const o=JSON.parse(r); for(const k in S) if(o[k]) S[k]=o[k];}}catch(e){}
+let ref=null, timer=null, synced=false;
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}
+  if(!ref) return; clearTimeout(timer);
+  timer=setTimeout(()=>{ ref.set({...S,at:Date.now()}).catch(()=>{}); },800);
+}
+(async()=>{
+  try{
+    if(!window.claude||!window.claude.use) return;
+    const [db,user]=await Promise.all([window.claude.use('db'),window.claude.use('user')]);
+    if(!db||!user) return; const id=await user.id(); if(!id) return;
+    ref=db.collection('data/users/'+id).doc('fac-final');
+    const snap=await ref.get();
+    if(snap.exists){
+      const r=snap.data()||{};
+      S.star=[...new Set([...(r.star||[]),...S.star])];
+      for(const k of ['sel','res','txt','open']) S[k]={...(r[k]||{}),...S[k]};
+    }
+    synced=true; save(); render(true);
+  }catch(e){}
+})();
+
+/* ---------- 상태 ---------- */
+let view='year', sub='2025';
+try{const v=JSON.parse(localStorage.getItem(KEY+'-ui')||'{}'); if(v.view){view=v.view; sub=v.sub||sub;}}catch(e){}
+function saveUI(){try{localStorage.setItem(KEY+'-ui',JSON.stringify({view,sub}));}catch(e){}}
+
+const STAR_ON='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2 6.3 20.3l1.2-6.4L2.8 9.5l6.4-.8z"/></svg>';
+const STAR_OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2 6.3 20.3l1.2-6.4L2.8 9.5l6.4-.8z"/></svg>';
+
+/* ---------- 카드 ---------- */
+function cardHTML(q,ctx){
+  const st=S.star.includes(q.id), res=S.res[q.id], sel=S.sel[q.id]||[];
+  const shown = res!==undefined;
+  let h=`<div class="qh"><div class="chips">`;
+  h+=q.ys.map(y=>`<span class="yr">${yl(y)}${y==='2025'&&q.n?' · '+q.n+'번':''}</span>`).join('');
+  h+=`<span class="ch">${q.ch}장</span><span class="kd">${KIND[q.k]}</span>`;
+  if(q.tbq) h+=`<span class="tb">TB ${q.tbq}</span>`;
+  if(q.t&&TY[q.t]) h+=`<button type="button" class="tchip" data-go="${q.t}">반복 · ${esc(TY[q.t].t)}</button>`;
+  h+=`</div><button type="button" class="starbtn" data-star aria-pressed="${st}" aria-label="별표${st?' 해제':''}">${st?STAR_ON:STAR_OFF}</button></div>`;
+  h+=`<p class="qt">${q.q}</p>`;
+  if(q.img) h+=`<div class="fig"><img src="img/fac/${q.img}.jpg" alt="${q.n?q.n+'번 ':''}문제 그림" loading="lazy"></div>`;
+  if(q.k==='w'){
+    h+=`<textarea id="t-${q.id}-${ctx}" aria-label="답안 쓰기" data-txt placeholder="직접 써 본 뒤 모범답안을 열어 보세요.">${esc(S.txt[q.id]||'')}</textarea>`;
+    h+=`<div class="acts"><button type="button" class="btn" data-model>${shown?'모범답안 접기':'모범답안 보기'}</button></div>`;
+    if(shown) h+=`<div class="box model"><span class="lab">모범답안</span>${q.a}</div>`+(q.b?`<div class="box basic"><span class="lab">해설</span>${q.b}</div>`:'');
+  } else {
+    const g=graded(q);
+    h+=`<div class="opts${shown?' done':''}">`+q.o.map((o,i)=>{
+      let cls='', mk='';
+      if(shown){
+        if(o[2]===null){cls='na';mk='채점 제외';}
+        else if(o[2]===1){cls='ok';mk=sel.includes(i)?'정답 ✓':'정답';}
+        else if(sel.includes(i)){cls='ng';mk='오답';}
+      } else if(sel.includes(i)) cls='sel';
+      const ex = shown&&o[3]?`<span class="ex">${o[3]}</span>`:'';
+      return `<button type="button" class="opt ${cls}" data-i="${i}" aria-pressed="${sel.includes(i)}"${shown?' tabindex="-1"':''}><span class="lb">${esc(o[0])}</span><span class="tx">${o[1]}${ex}</span>${mk?`<span class="mk">${mk}</span>`:''}</button>`;
+    }).join('')+`</div>`;
+    h+=`<div class="acts">`+(shown?`<button type="button" class="btn ghost" data-reset>다시 풀기</button>`:(g?`<button type="button" class="btn" data-grade>채점</button>`:`<button type="button" class="btn" data-grade>해설 보기</button>`))+`</div>`;
+    if(shown&&g) h+=`<div class="verdict ${res?'good':'bad'}">${res?'맞았어요':'틀렸어요 — 초록 보기가 정답'}</div>`;
+    if(shown&&q.b) h+=`<div class="box basic"><span class="lab">해설</span>${q.b}</div>`;
+  }
+  if(q.memo) h+=`<p class="memo">${q.memo}</p>`;
+  const L=[];
+  if(q.sl&&TRANS[q.ch]) L.push(`<a href="${TRANS[q.ch]}#s${q.sl}">${q.ch}장 번역본 슬라이드 ${q.sl}</a>`);
+  if(q.tbq||q.tbr) L.push(`<a href="${TBURL}" target="_blank" rel="noopener">테스트뱅크 사이트 ${q.tbq||q.tbr}</a>`);
+  if(L.length) h+=`<div class="links">${L.join('')}</div>`;
+  return `<article class="q${st?' starred':''}" data-id="${q.id}" data-ctx="${ctx}" id="q-${q.id}-${ctx}">${h}</article>`;
+}
+
+/* ---------- 목록 ---------- */
+const sortCh=(a,b)=>(a.ch-b.ch)||((a.sl||0)-(b.sl||0));
+function pool(){
+  if(view==='year'){
+    const L=Q.filter(q=>q.ys.includes(sub));
+    if(sub==='2025') L.sort((a,b)=>(+a.n||0)-(+b.n||0)); else L.sort(sortCh);
+    return L;
+  }
+  if(view==='ch') return Q.filter(q=>q.ch===sub).sort((a,b)=>((a.sl||99)-(b.sl||99))||(YEARS.indexOf(a.ys[0])-YEARS.indexOf(b.ys[0])));
+  if(view==='star') return Q.filter(q=>S.star.includes(q.id)).sort(sortCh);
+  if(view==='wrong') return Q.filter(q=>S.res[q.id]===0&&graded(q)).sort(sortCh);
+  return [];
+}
+function introHTML(){
+  if(view==='year'&&sub==='2025') return `<div class="intro"><h2>2025 2학기 기말 (2025.12.18)</h2><ul><li>총 35문항 · 범위 23·25·26·27·28장 · 객관식은 대부분 기출에서 출제</li><li>"모두 고르시오"는 개수 표시 없음(답이 하나일 수도) · 단답형은 <b>영어로</b>, PPT 그림 빈칸이 많았음</li><li>복기 안 된 번호: ${MISSING25.join('·')}번</li><li>복기본에 정답이 표시돼 있지 않아 정답·해설은 슬라이드·교재 기준으로 달았고, 해석이 갈리는 보기는 <b>채점 제외</b>로 표시했어요.</li></ul></div>`;
+  if(view==='year') return `<div class="intro"><h2>${yl(sub)} ${sub==='2017Q'?'':'기말'} 복기</h2><ul><li>예전 복기는 문항 번호가 남아 있지 않아 장·슬라이드 순서로 놓았어요.</li><li>같은 문제가 여러 해 나온 경우 한 카드에 연도를 모두 달았어요(풀이 기록도 하나로 이어져요).</li>${sub==='2016'?'<li>2016은 반별 복기(1·2차 기말, 퀴즈)를 합쳤어요.</li>':''}${sub==='2017'?'<li>2017 기말 범위는 27·28장.</li>':''}${sub==='2015'?'<li>2015 기말 2차(27·28장) — 복기본 정답 표시를 반영했어요.</li>':''}${sub==='2021'?'<li>2021은 테스트뱅크(영문)에서 그대로 나온 문제가 많아요.</li>':''}</ul></div>`;
+  if(view==='ch'&&['26','27','28'].includes(sub)) return `<div class="intro"><h2>${CHS[sub]}</h2><ul><li>2015~2025 기출을 모두 넣었어요. 26~28장은 아직 번역본 페이지가 없어 슬라이드 링크는 없어요.</li><li>이 장의 테스트뱅크 전 문항은 <a href="${TBURL}" target="_blank" rel="noopener">테스트뱅크 사이트</a>에서 풀 수 있어요.</li></ul></div>`;
+  if(view==='types') return `<div class="intro"><h2>반복 유형 ${TYPES.length}개</h2><ul><li>두 해 이상 나온 주제만 모았어요. 많이 나온 순서예요.</li><li>"해마다 바뀐 보기" 표에서 같은 문제를 보기만 바꿔 낸 패턴을 확인하고, 펼쳐서 바로 풀어요.</li></ul></div>`;
+  if(view==='star') return S.star.length?'':'';
+  return '';
+}
+function typesHTML(){
+  const T=[...TYPES].sort((a,b)=>(b.yrs.length-a.yrs.length)||(+a.ch-+b.ch));
+  return T.map(t=>`<section class="type" id="ty-${t.id}"><h3>${esc(t.t)}<span class="cnt">${t.yrs.length}번 출제</span><span class="ch" style="font-size:12px">${t.ch}장</span></h3>
+  <p class="core">${t.core}</p><div class="tblw"><table>${t.diff.map(d=>`<tr><td>${yl(d[0])}</td><td>${d[1]}</td></tr>`).join('')}</table></div>
+  <details${S.open[t.id]?' open':''} data-ty="${t.id}"><summary>이 유형 문제 ${t.qs.length}개 풀기</summary>${S.open[t.id]?t.qs.map(q=>cardHTML(q,'t')).join(''):''}</details></section>`).join('');
+}
+function render(keep){
+  const y=scrollY;
+  const V=[['year','연도별'],['ch','장별'],['types','반복 유형'],['star','★ 별표'],['wrong','틀린 문제']];
+  const cnt={star:S.star.length,wrong:Q.filter(q=>S.res[q.id]===0&&graded(q)).length,types:TYPES.length};
+  $('#views').innerHTML=V.map(([k,l])=>`<button type="button" class="tab" data-view="${k}" aria-pressed="${view===k}">${l}${cnt[k]!==undefined?`<span class="n">${cnt[k]}</span>`:''}</button>`).join('');
+  let subs='';
+  if(view==='year') subs=YEARS.map(Y=>`<button type="button" class="tab" data-sub="${Y}" aria-pressed="${sub===Y}">${yl(Y)}<span class="n">${Q.filter(q=>q.ys.includes(Y)).length}</span></button>`).join('');
+  if(view==='ch') subs=Object.keys(CHS).map(c=>`<button type="button" class="tab" data-sub="${c}" aria-pressed="${sub===c}">${CHS[c]}<span class="n">${Q.filter(q=>q.ch===c).length}</span></button>`).join('');
+  $('#subs').innerHTML=subs; $('#subs').hidden=!subs;
+  const L=pool();
+  let body=introHTML();
+  if(view==='types') body+=typesHTML();
+  else if(!L.length) body+=`<div class="empty">${view==='star'?'아직 별표한 문제가 없어요. 문제 오른쪽 위 ☆를 눌러 모아 두세요.':view==='wrong'?'틀린 문제가 없어요. 채점에서 틀린 문제가 여기에 모여요.':'문제가 없어요.'}</div>`;
+  else {
+    let cur='';
+    for(const q of L){
+      const g = view==='year'&&sub!=='2025'||view==='star'||view==='wrong' ? CHS[q.ch] : '';
+      if(g&&g!==cur){cur=g; body+=`<div class="grp"><b>${g}</b></div>`;}
+      body+=cardHTML(q,'l');
+    }
+  }
+  $('#list').innerHTML=body;
+  // 점수
+  const scope = view==='types'?Q:L;
+  const gs=scope.filter(graded), done=gs.filter(q=>S.res[q.id]!==undefined), right=done.filter(q=>S.res[q.id]===1);
+  $('#score').innerHTML=view==='types'?`<span>전체 채점 <b>${done.length}</b>/${gs.length} · 맞음 <b>${right.length}</b></span>`:`<span>이 목록 채점 <b>${done.length}</b>/${gs.length} · 맞음 <b>${right.length}</b></span>`+(done.length?`<button type="button" data-clear>이 목록 기록 지우기</button>`:'')+`<span>${synced?'기록: 계정에 저장(다른 기기에서도 이어짐)':'기록: 이 브라우저에 저장'}</span>`;
+  const nW=Q.filter(q=>q.k==='w').length, nM=Q.length-nW;
+  $('#stats').innerHTML=`<span>문제 ${Q.length}개</span><span>객관식 ${nM} · 단답·서술 ${nW}</span><span>반복 유형 ${TYPES.length}개</span><span>2015–2025</span>`;
+  if(keep) scrollTo(0,y);
+}
+function rerender(card){
+  const q=BYID[card.dataset.id], ctx=card.dataset.ctx;
+  const tmp=document.createElement('div'); tmp.innerHTML=cardHTML(q,ctx);
+  card.replaceWith(tmp.firstElementChild);
+  // 같은 문제가 다른 곳에 보이면 같이 갱신
+  $$(`article.q[data-id="${q.id}"]`).forEach(c=>{ if(c.dataset.ctx!==ctx){const t=document.createElement('div'); t.innerHTML=cardHTML(q,c.dataset.ctx); c.replaceWith(t.firstElementChild);} });
+}
+function updateCounts(){ const y=scrollY; const v=$('#views'); const keep=document.activeElement; render(true); scrollTo(0,y); }
+
+document.addEventListener('click',e=>{
+  const vb=e.target.closest('[data-view]');
+  if(vb){ view=vb.dataset.view; if(view==='year'&&!YEARS.includes(sub)) sub='2025'; if(view==='ch'&&!CHS[sub]) sub='23'; saveUI(); render(); scrollTo(0,$('.bar').offsetTop); return; }
+  const sb=e.target.closest('[data-sub]');
+  if(sb){ sub=sb.dataset.sub; saveUI(); render(); scrollTo(0,$('.bar').offsetTop); return; }
+  if(e.target.closest('[data-clear]')){ pool().forEach(q=>{delete S.res[q.id]; delete S.sel[q.id];}); save(); render(true); return; }
+  const go=e.target.closest('[data-go]');
+  if(go){ const id=go.dataset.go; view='types'; S.open[id]=1; save(); saveUI(); render(); const el=$('#ty-'+id); if(el){el.scrollIntoView(); el.classList.add('flash');} return; }
+  const card=e.target.closest('article.q'); if(!card) return;
+  const q=BYID[card.dataset.id];
+  if(e.target.closest('[data-star]')){ S.star=S.star.includes(q.id)?S.star.filter(x=>x!==q.id):[...S.star,q.id]; save(); if(view==='star'){render(true);} else {rerender(card); refreshTabs();} return; }
+  if(q.k==='w'){
+    if(e.target.closest('[data-model]')){ if(S.res[q.id]!==undefined) delete S.res[q.id]; else S.res[q.id]=1; save(); rerender(card); }
+    return;
+  }
+  const ob=e.target.closest('.opt');
+  if(ob&&S.res[q.id]===undefined){ const i=+ob.dataset.i; let s=(S.sel[q.id]||[]).slice();
+    if(q.k==='s') s=s.includes(i)?[]:[i]; else s=s.includes(i)?s.filter(x=>x!==i):[...s,i];
+    S.sel[q.id]=s; save(); rerender(card); const nc=$(`#q-${q.id}-${card.dataset.ctx} .opt[data-i="${i}"]`); if(nc) nc.focus(); return; }
+  if(e.target.closest('[data-grade]')){
+    const s=S.sel[q.id]||[]; const want=q.o.map((o,i)=>o[2]===1?i:-1).filter(i=>i>=0);
+    const sc=s.filter(i=>q.o[i][2]!==null);
+    S.res[q.id]= graded(q) ? ((want.length===sc.length&&want.every(i=>sc.includes(i)))?1:0) : 2;
+    save(); rerender(card); refreshTabs(); return; }
+  if(e.target.closest('[data-reset]')){ delete S.sel[q.id]; delete S.res[q.id]; save(); rerender(card); refreshTabs(); }
+});
+document.addEventListener('toggle',e=>{
+  const d=e.target; if(!d.matches||!d.matches('details[data-ty]')) return;
+  const id=d.dataset.ty; if(d.open){ S.open[id]=1; if(!d.querySelector('article')) d.insertAdjacentHTML('beforeend',TY[id].qs.map(q=>cardHTML(q,'t')).join('')); } else delete S.open[id];
+  save();
+},true);
+let tt; document.addEventListener('input',e=>{ const t=e.target.closest('[data-txt]'); if(!t) return; const id=t.closest('article').dataset.id; S.txt[id]=t.value; clearTimeout(tt); tt=setTimeout(save,500); });
+function refreshTabs(){
+  const cnt={star:S.star.length,wrong:Q.filter(q=>S.res[q.id]===0&&graded(q)).length};
+  $$('#views .tab').forEach(b=>{const k=b.dataset.view; if(cnt[k]!==undefined) b.querySelector('.n').textContent=cnt[k];});
+  const scope=view==='types'?Q:pool(); const gs=scope.filter(graded), done=gs.filter(q=>S.res[q.id]!==undefined), right=done.filter(q=>S.res[q.id]===1);
+  const sp=$('#score span b'); if(sp){ const bs=$$('#score b'); bs[0].textContent=done.length; if(bs[1]) bs[1].textContent=right.length; }
+}
+render();
+</script>
+
+<style id="tomato-css">
+/* 토마토 아이콘: 바탕은 흰색·베이지 그대로 두고, 손그림 방울토마토를 아이콘과 장식으로만 쓴다 */
+.snav,header.hub,header.hero.gut,.bar{border-bottom:1px solid var(--line)!important}
+.snav .subs a{border-color:var(--line)!important}
+.snav .subs a.on{background:var(--coral)!important;border-color:var(--coral)!important;color:#fff!important}
+.snav .home::before,.snav.gut a::before{content:"";display:inline-block;flex:none;width:20px;height:20px;background:url(img/tomato.png) center/contain no-repeat;vertical-align:-4px;margin-right:5px}
+.snav.gut a::before{margin-right:4px}.snav.gut a.core-link::before{display:none}
+.k{color:var(--coral-ink)!important}
+.say{color:var(--coral)!important}
+.meta span,.stats span{border-color:var(--line)!important;background:var(--card)}
+.num,.ch-num,.chh span,.toc b{background:url(img/tomato.png) center/contain no-repeat!important;border:0!important;border-radius:0!important;color:#fff!important;text-shadow:0 1px 2px rgba(90,15,0,.6),0 0 6px rgba(90,15,0,.35);padding-top:.28em}
+.num{width:78px;height:78px}
+.ch-num{width:60px;height:60px}
+.chh span{width:38px;height:38px;font-size:15px}
+.toc b{width:28px;height:28px;font-size:12px}
+.chh{border:1px solid var(--line)}
+.l1 .ko::before{content:""!important;display:inline-block;width:.85em;height:.85em;background:url(img/tomato.png) center/contain no-repeat;margin-right:.4em;vertical-align:-.08em}
+.vine{float:right;width:88px;height:auto;margin:-10px 0 6px 16px;pointer-events:none;user-select:none}
+header.hub .hub-row>div{flex:1}header.hub .vine{width:94px;margin-top:-30px}
+@media (max-width:540px){.vine{width:58px;margin-left:10px}header.hub .vine{width:66px;margin-top:-26px}}
+.cover{display:block!important}.cover>p{margin-top:10px!important}
+.tab[aria-pressed="true"],.yr,.btn{background:var(--coral)!important;border-color:var(--coral)!important;color:#fff!important}
+.memo{border-left-color:var(--coral)!important}
+.foot::after{content:"";display:inline-block;width:14px;height:14px;margin-left:6px;vertical-align:-2px;background:url(img/tomato.png) center/contain no-repeat}
+</style></body></html>

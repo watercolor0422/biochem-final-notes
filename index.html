@@ -1,0 +1,182 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="icon" href="img/tomato.png"><title>의약생화학 기말고사 노트</title><meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Pen+Script&display=swap" rel="stylesheet"><style>/* 레이아웃: 흰 머리띠와 베이지 바탕, 포인트는 토마토 빨강과 꼭지 초록, 본문은 한 줄 기둥 */
+:root{
+--bg:#FAF7F1;--card:#FFFFFF;--ink:#2B2622;--muted:#766E66;--line:#E8E0D3;--soft:#F4EEE4;--fig:#ffffff;
+--head:#FFFFFF;--head-fg:#2B2622;--head-dim:#766E66;
+--coral:#D8432C;--coral-ink:#A8301E;--butter:#FFD36B;--butter-soft:#FFF6DD;--teal:#2F6B3A;--blue:#2A5FAF;--red:#C0281C;
+--big-bg:#FFF6E6;--big-bd:#EBCB92;--tip-bg:#EEF3FB;--tip-bd:#A9C0E6;--warn-bg:#FCEDE8;--warn-bd:#EBA595;--fig-bg:#FAF7F1;
+--sans:'Nanum Gothic','NanumGothic','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+--pen:'Nanum Pen Script','Nanum Gothic',cursive;--serif:Georgia,'Times New Roman',serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--bg:#1A1816;--card:#24211E;--ink:#EEE8E0;--muted:#A9A095;--line:#3A3530;--soft:#2C2824;--fig:#f6f6f4;
+--head:#201D1A;--head-fg:#EEE8E0;--head-dim:#A9A095;
+--coral:#FF7A61;--coral-ink:#FF9C88;--butter:#F2C55E;--butter-soft:#2E2614;--teal:#84C38A;--blue:#8DB4F0;--red:#FF8A7A;
+--big-bg:#2C2416;--big-bd:#84683A;--tip-bg:#15233A;--tip-bd:#3D5F8C;--warn-bg:#33201C;--warn-bd:#8C4336;--fig-bg:#22201D;color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#1A1816;--card:#24211E;--ink:#EEE8E0;--muted:#A9A095;--line:#3A3530;--soft:#2C2824;--fig:#f6f6f4;
+--head:#201D1A;--head-fg:#EEE8E0;--head-dim:#A9A095;
+--coral:#FF7A61;--coral-ink:#FF9C88;--butter:#F2C55E;--butter-soft:#2E2614;--teal:#84C38A;--blue:#8DB4F0;--red:#FF8A7A;
+--big-bg:#2C2416;--big-bd:#84683A;--tip-bg:#15233A;--tip-bd:#3D5F8C;--warn-bg:#33201C;--warn-bd:#8C4336;--fig-bg:#22201D;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--head)}
+img{max-width:100%;height:auto}
+a{color:var(--blue)}
+a:focus-visible,select:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.red{color:var(--red);font-weight:800}.blue{color:var(--blue);font-weight:800}
+.credit{display:inline-block;margin-left:.6em;font-size:.36em;font-weight:400;letter-spacing:0;opacity:.45;white-space:nowrap;vertical-align:middle;font-family:var(--sans)}
+.foot{text-align:center;font-size:12px;opacity:.5;padding-block:26px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.snav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--head);color:var(--head-fg);font-size:13.5px;line-height:1.3;padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));border-bottom:1px solid rgba(255,255,255,.08)}
+.snav-in{max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.snav a{color:inherit;text-decoration:none}
+.snav .home{display:inline-flex;align-items:center;gap:6px;font-weight:800;white-space:nowrap}
+.snav .home .cap{width:30px;height:23px}
+.snav .subs{display:flex;flex-wrap:wrap;gap:4px;margin-left:auto}
+.snav .subs a{padding:3px 10px;border-radius:999px;color:var(--head-dim);border:1px solid rgba(255,255,255,.14);white-space:nowrap;font-weight:700}
+.snav .subs a.on{background:var(--butter);color:#2b2410;border-color:var(--butter)}
+.snav select{font:inherit;font-weight:700;max-width:100%;padding:3px 6px;border-radius:7px;border:0;background:var(--card);color:var(--ink)}
+.cap{display:inline-block;flex:none}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-5px) rotate(-3deg)}}
+.tbl{overflow-x:auto;margin:10px 0 16px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.55;min-width:420px}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--soft);font-weight:800;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.small{font-size:13px;color:var(--muted)}
+.pair{margin:5px 0;padding:3px 0}
+.pair .en{color:var(--muted);font-size:13.5px;line-height:1.5;font-family:var(--serif)}
+.pair .ko{font-size:15.5px;line-height:1.7}
+.l0{border-left:4px solid var(--coral);padding-left:10px;background:var(--soft);border-radius:0 8px 8px 0}.l0 .ko{font-weight:800}
+.l1{padding-left:4px}.l1 .ko::before{content:"● ";color:var(--coral)}
+.l2{padding-left:18px}.l2 .ko::before{content:"– ";color:var(--teal);font-weight:800}
+.l3{padding-left:32px}.l3 .ko::before{content:"◦ ";color:var(--teal);font-weight:800}
+@media (max-width:520px){.l2{padding-left:12px}.l3{padding-left:22px}}
+.lc,.ll,.lt{padding-left:4px}
+.lc .ko::before{content:"[그림 제목] ";color:var(--teal);font-weight:800;font-size:.85em}
+.ll .ko::before{content:"[그림 속 글씨] ";color:var(--coral-ink);font-weight:800;font-size:.85em}
+.lt .ko::before{content:"[표] ";color:var(--blue);font-weight:800;font-size:.85em}
+.box{border-radius:12px;padding:10px 14px;margin:10px 0;font-size:15px;line-height:1.75}
+.box>.lab{display:flex;align-items:center;gap:6px;font-weight:800;font-size:13px;letter-spacing:.03em;margin-bottom:3px}
+.box .lab .cap{width:26px;height:20px}
+.box ol{margin:4px 0;padding-left:1.3em}.box li{margin:3px 0}
+.big{background:var(--big-bg);border:1.5px solid var(--big-bd)}.big>.lab{color:var(--coral-ink)}
+.figbox{background:var(--fig-bg);border:1px solid var(--line)}.figbox>.lab{color:var(--teal)}
+.tip{background:var(--tip-bg);border:1.5px solid var(--tip-bd)}.tip>.lab{color:var(--blue)}
+.warn{background:var(--warn-bg);border:1.5px solid var(--warn-bd)}.warn>.lab{color:var(--red)}
+.top-btn{position:fixed;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));width:52px;height:46px;border-radius:14px;background:var(--card);border:1.5px solid var(--line);display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.15);text-decoration:none}
+.top-btn{font-size:22px;font-weight:800;color:var(--ink)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+header.hub{background:var(--head);color:var(--head-fg);padding-block:36px 34px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.in{max-width:960px;margin:0 auto}
+.hub-row{display:flex;align-items:center;gap:18px}
+.hub-row>*{min-width:0}
+.hub-row .cap{width:130px;height:100px}
+@media (prefers-reduced-motion:no-preference){.hub-row .cap{animation:bob 3.2s ease-in-out infinite}}
+.k{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--butter);font-weight:800}
+header.hub h1{font-size:clamp(1.8rem,6vw,2.7rem);line-height:1.2;margin:.2em 0 .3em;text-wrap:balance}
+.lede{max-width:60ch;opacity:.88;margin:0}
+.say{font-family:var(--pen);font-size:22px;color:var(--butter);margin:10px 0 0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.meta span{border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:2px 11px;font-size:13px}
+@media (max-width:540px){.hub-row{flex-direction:column;align-items:flex-start}.hub-row .cap{width:96px;height:74px}}
+main{max-width:960px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:30px}
+main>*{min-width:0}
+h2{font-size:1.3rem;margin:0 0 12px;text-wrap:balance}
+.feature{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:grid;grid-template-columns:auto 1fr;gap:12px 18px}
+.feature>*{min-width:0}
+.num{display:grid;place-items:center;width:72px;height:72px;border-radius:50%;background:var(--butter);color:#2b2410;font-size:34px;font-weight:800;border:3px solid #33302e}
+.ttl b{display:block;font-size:1.2rem;line-height:1.35}
+.ttl i{display:block;font-style:normal;color:var(--muted);font-size:13.5px}
+.badge{display:inline-block;background:var(--coral);color:#fff;font-size:11.5px;font-weight:800;padding:1px 8px;border-radius:6px;margin-left:6px;vertical-align:2px}
+.feature .rest{grid-column:1/-1;display:grid;gap:12px}
+.topics{display:flex;flex-wrap:wrap;gap:5px;margin:0;padding:0;list-style:none}
+.topics li{background:var(--soft);border-radius:7px;padding:1px 9px;font-size:13px}
+.facts{font-size:13.5px;color:var(--muted);margin:0}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{text-decoration:none;font-weight:800;font-size:14.5px;padding:9px 16px;border-radius:11px}
+.links a.p{background:var(--coral);color:#fff}
+.links a.s{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.next{display:flex;flex-wrap:wrap;gap:8px}
+.next span{border:1.5px dashed var(--line);border-radius:12px;padding:8px 12px;color:var(--muted);font-size:14px;background:var(--card)}
+.next b{color:var(--ink);margin-right:4px}
+.how{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.how ol{margin:0;padding-left:1.3em;display:grid;gap:6px}
+.how b{color:var(--coral-ink)}
+</style>
+<header class="hub"><div class="in"><div class="hub-row"><div>
+<img class="vine" src="img/vine.png" alt="" width="239" height="581"><div class="k">Medicinal Biochemistry · Final</div>
+<h1>의약생화학 기말고사 노트<span class="credit">민서정리 @ms_offixe_</span></h1>
+<p class="lede">레닌저 생화학 23·25·26·27·28장(24장은 범위 아님)의 요약본과 슬라이드 전체 번역본을 모으는 곳이에요. 요약본으로 큰 틀을 잡고, 번역본에서 슬라이드의 글자·표·그림 라벨을 하나씩 확인하는 순서로 보면 돼요.</p>
+</div></div>
+<div class="meta"><span>23·25·26·27장 완료</span><span>슬라이드 301장 · 원본 이미지 포함</span><span>그림 속 글씨까지 번역</span><span>나눔고딕</span></div></div></header>
+<main>
+<section><h2>장별 노트</h2>
+<article class="feature"><span class="num">23</span><div class="ttl"><b>포유류 대사의 호르몬 조절과 통합</b><i>Hormonal Regulation and Integration of Mammalian Metabolism</i></div>
+<div class="rest"><ul class="topics"><li>호르몬 8종</li><li>시상하부–뇌하수체</li><li>코르티솔 연쇄 증폭</li><li>간 G6P·케톤체</li><li>WAT·BAT·UCP1</li><li>근육·PCr·코리 회로</li><li>인슐린 분비·K_ATP</li><li>글루카곤·에피네프린·코르티솔</li><li>공복·당뇨</li><li>렙틴·아디포넥틴·AMPK</li><li>PPAR</li><li>2형 당뇨 치료</li></ul>
+<p class="facts">요약본 9개 단원 · 번역본 슬라이드 76장(본문·표·그림 라벨 전부 원문–해석) · 슬라이드마다 그림 해설·시험 포인트 · <b>역대 기출 30건 + 테스트뱅크 40문항 전부를 슬라이드에 표시(보라 상자·형광펜)</b></p>
+<div class="links"><a class="p" href="ch23-sum.html">요약본</a><a class="s" href="ch23-trans.html">전체 번역본</a></div></div></article>
+<article class="feature"><span class="num">25</span><div class="ttl"><b>DNA 대사</b><i>DNA Metabolism — 복제 · 수선 · 재조합</i></div>
+<div class="rest"><ul class="topics"><li>메셀슨-스탈·케언스·인만</li><li>중합 반응·Mg²⁺ 2개</li><li>교정·Pol I/II/III</li><li>Pol III 소단위·β 클램프</li><li>oriC·DnaA/B/C</li><li>Hda·Dam·SeqA</li><li>트롬본 모델·연결효소</li><li>Ter·Tus</li><li>ORC·MCM·Pol α/δ/ε</li><li>아사이클로버</li><li>에임스 시험</li><li>불일치 수선 MutHLS</li><li>BER·NER·직접 수선</li><li>SOS·TLS·Pol IV/V</li><li>XP·HNPCC·BRCA</li><li>RecBCD·RecA·Ruv</li><li>감수분열·DSB 수선 모델</li><li>Cre·트랜스포존</li><li>V–J·RAG</li></ul>
+<p class="facts">요약본 10개 단원 · 번역본 슬라이드 88장(본문·표·그림 라벨 전부 원문–해석) · 슬라이드마다 그림 해설·시험 포인트 · <b>역대 기출 35건 + 테스트뱅크 55문항 전부를 슬라이드에 표시(보라 상자·형광펜)</b></p>
+<div class="links"><a class="p" href="ch25-sum.html">요약본</a><a class="s" href="ch25-trans.html">전체 번역본</a></div></div></article>
+
+<article class="feature"><span class="num">26</span><div class="ttl"><b>RNA 대사</b><i>RNA Metabolism — 전사 · 가공 · RNA 주형 합성</i></div>
+<div class="rest"><ul class="topics"><li>2금속 기전·프라이머 X</li><li>α₂ββ′ωσ·σ 7종</li><li>−10·−35·UP 요소</li><li>풋프린팅</li><li>닫힌→열린 복합체·NusA</li><li>ρ 의존·비의존 종결</li><li>Pol I·II·III·프로모터 1·2·3군</li><li>CTD·TFIID~TFIIH</li><li>악티노마이신 D·리팜피신·α-아마니틴</li><li>5' 캡 효소</li><li>1·2군 인트론·올가미</li><li>스플라이스좀 U1~U6</li><li>폴리(A)·칼시토닌/CGRP</li><li>rRNA·tRNA 가공·snoRNA</li><li>miRNA·리보자임·PNPase</li><li>레트로바이러스·AZT·HIV 약</li><li>귀소·역귀소</li><li>텔로머레이스·SELEX</li></ul>
+<p class="facts">요약본 10개 단원 · 번역본 슬라이드 77장(본문·표·그림 라벨 전부 원문–해석) · 슬라이드마다 그림 해설·시험 포인트 · <b>역대 기출 34건 + 테스트뱅크 54문항 전부를 슬라이드에 표시(보라 상자·형광펜)</b></p>
+<div class="links"><a class="p" href="ch26-sum.html">요약본</a><a class="s" href="ch26-trans.html">전체 번역본</a></div></div></article>
+<article class="feature"><span class="num">27</span><div class="ttl"><b>단백질 대사<span class="badge">새로 추가</span></b><i>Protein Metabolism — 유전 암호 · 번역 · 표적화 · 분해</i></div>
+<div class="rest"><ul class="topics"><li>코돈 3염기·ORF</li><li>폴리(U)·코라나·삼중자 결합</li><li>흔들림·이노신</li><li>gag–pol 틀 이동</li><li>RNA 편집·ADAR·APOBEC·apoB-48</li><li>70S·80S rRNA</li><li>tRNA 구조</li><li>합성효소 class I·II·교정</li><li>제2의 암호 G3·U70</li><li>fMet·셀레노시스테인</li><li>IF·샤인–달가노</li><li>eIF·스캐닝·원형화</li><li>EF-Tu·EF-G·A 자리</li><li>RF·RRF</li><li>번역 후 변형</li><li>항생제</li><li>SRP·N-당화·튜니카마이신</li><li>M6P·NLS·CAS·NTF2</li><li>SecA·SecB</li><li>유비퀴틴·프로테아좀</li></ul>
+<p class="facts">요약본 10개 단원 · 번역본 슬라이드 60장(본문·표·그림 라벨 전부 원문–해석) · 슬라이드마다 그림 해설·시험 포인트 · <b>역대 기출 34건 + 테스트뱅크 56문항 전부를 슬라이드에 표시(보라 상자·형광펜)</b></p>
+<div class="links"><a class="p" href="ch27-sum.html">요약본</a><a class="s" href="ch27-trans.html">전체 번역본</a></div></div></article>
+
+</section>
+<section><h2>기출</h2>
+<article class="feature"><span class="num" style="font-size:22px">기출</span><div class="ttl"><b>기출문제공장</b><i>2015–2025 기말·퀴즈 복기 · 직접 풀고 채점</i></div>
+<div class="rest"><ul class="topics"><li>연도별 시험지</li><li>장별 모아 풀기</li><li>반복 유형 70개 · 해마다 바뀐 보기</li><li>보기마다 O/X 해설</li><li>단답 그림 문제(2025)</li><li>★ 별표 · 틀린 문제 모음</li><li>번역본 슬라이드·테스트뱅크로 바로 이동</li></ul>
+<p class="facts">2015~2025 기말·퀴즈 복기 200문제(23·25·26·27·28장 전부) · 반복 유형 70개 · 풀이 기록과 별표는 이 브라우저에 저장돼요</p>
+<div class="links"><a class="p" href="factory.html">기출 풀러 가기</a></div></div></article>
+<article class="feature"><span class="num" style="font-size:20px">핵심</span><div class="ttl"><b>기출 핵심 요약<span class="badge">새로 추가</span></b><i>두 해 이상 겹쳐 나온 유형 70개 · 이야기 → 슬라이드 그림 → 선지 → 서술</i></div>
+<div class="rest"><ul class="topics"><li>많이 나온 순서 1~70위</li><li>유형마다 이야기로 이해하기</li><li>슬라이드 그림 + 큰 틀·그림 해설</li><li>매번 나오는 핵심</li><li>연도별로 바뀐 선지</li><li>기출 선지 O/X 모아보기</li><li>서술·단답 모범답안·채점 포인트</li><li>다른 단원과 연결</li></ul>
+<p class="facts">2015~2025 기출 161문항 · 4개 연도 이상 나온 유형 18개 · 서술·단답 40개 · 슬라이드·시험지 그림 92장 · 28장은 슬라이드 번역본이 올라오면 그림을 붙일 예정</p>
+<div class="links"><a class="p" href="exam-core.html">핵심 요약 보기</a><a class="s" href="factory.html">공장에서 풀기</a></div></div></article>
+</section>
+<section><h2>다음 차례</h2><div class="next"><span><b>28</b>유전자 발현 조절</span></div></section>
+<section class="how"><h2>이렇게 보면 좋아요</h2><ol>
+<li>수업을 못 들었다면 <b>요약본</b>의 「처음 읽는다면」부터 읽어요. 장 전체 이야기, 단원 지도, 기초 용어가 있고, 단원마다 초록 점선 상자(큰 그림 · 흐름 한 줄 · 처음 나오는 말)를 먼저 본 뒤 「여기부터 자세히」 아래로 내려가면 돼요.</li>
+<li><b>요약본</b> 의 '한 장으로 보는 ○장' 표로 장 전체 흐름부터 잡아요(23장 = 상황별 대사, 25장 = 복제·수선·재조합 × 세균·진핵, 26장 = 전사·가공·RNA 주형 합성 × 세균·진핵, 27장 = 번역 5단계 + 표적화·분해 × 세균·진핵).</li>
+<li>단원을 읽고, 끝의 <b>슬라이드 원문·번역</b>을 펼쳐 해당 슬라이드를 바로 확인해요.</li>
+<li><b>전체 번역본</b>에서 큰 틀 → 전문 번역 → 그림 해설 → 시험 포인트 순으로 한 장씩. 상단 선택 상자로 슬라이드를 바로 이동할 수 있어요.</li>
+<li><b>기출 핵심 요약</b>에서 많이 나온 유형부터 이야기와 그림으로 정리하고, <b>기출문제공장</b>에서 연도별로 한 번 풀고, 「반복 유형」에서 해마다 바뀐 보기를 비교한 뒤 「틀린 문제」만 다시 풀어요.</li><li>시험 직전엔 요약본의 <b>기출 빈출 순위</b>와 <b>체크리스트</b>, 번역본의 <b>★ 슬라이드(보라 상자·형광펜 문장)</b>만 훑어요. </li><li><b>밑줄</b>: 요약본·번역본에서 글자를 드래그(폰은 길게 눌러 선택)하면 뜨는 버튼으로 밑줄(빨강·파랑), 밑줄을 누르면 지우기. 왼쪽 아래 「밑줄 N」에서 모아 보고 바로 이동할 수 있어요.</li></ol></section>
+</main>
+<div class="foot">면역반 민서정리 @water_.color_</div>
+
+<style id="tomato-css">
+/* 토마토 아이콘: 바탕은 흰색·베이지 그대로 두고, 손그림 방울토마토를 아이콘과 장식으로만 쓴다 */
+.snav,header.hub,header.hero.gut,.bar{border-bottom:1px solid var(--line)!important}
+.snav .subs a{border-color:var(--line)!important}
+.snav .subs a.on{background:var(--coral)!important;border-color:var(--coral)!important;color:#fff!important}
+.snav .home::before,.snav.gut a::before{content:"";display:inline-block;flex:none;width:20px;height:20px;background:url(img/tomato.png) center/contain no-repeat;vertical-align:-4px;margin-right:5px}
+.snav.gut a::before{margin-right:4px}
+.k{color:var(--coral-ink)!important}
+.say{color:var(--coral)!important}
+.meta span,.stats span{border-color:var(--line)!important;background:var(--card)}
+.num,.ch-num,.chh span,.toc b{background:url(img/tomato.png) center/contain no-repeat!important;border:0!important;border-radius:0!important;color:#fff!important;text-shadow:0 1px 2px rgba(90,15,0,.6),0 0 6px rgba(90,15,0,.35);padding-top:.28em}
+.num{width:78px;height:78px}
+.ch-num{width:60px;height:60px}
+.chh span{width:38px;height:38px;font-size:15px}
+.toc b{width:28px;height:28px;font-size:12px}
+.chh{border:1px solid var(--line)}
+.l1 .ko::before{content:""!important;display:inline-block;width:.85em;height:.85em;background:url(img/tomato.png) center/contain no-repeat;margin-right:.4em;vertical-align:-.08em}
+.vine{float:right;width:88px;height:auto;margin:-10px 0 6px 16px;pointer-events:none;user-select:none}
+header.hub .hub-row>div{flex:1}header.hub .vine{width:94px;margin-top:-30px}
+@media (max-width:540px){.vine{width:58px;margin-left:10px}header.hub .vine{width:66px;margin-top:-26px}}
+.cover{display:block!important}.cover>p{margin-top:10px!important}
+.tab[aria-pressed="true"],.yr,.btn{background:var(--coral)!important;border-color:var(--coral)!important;color:#fff!important}
+.memo{border-left-color:var(--coral)!important}
+.foot::after{content:"";display:inline-block;width:14px;height:14px;margin-left:6px;vertical-align:-2px;background:url(img/tomato.png) center/contain no-repeat}
+</style>
+</body></html>
